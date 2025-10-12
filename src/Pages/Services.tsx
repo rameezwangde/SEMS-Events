@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Heart, Building, PartyPopper, CheckCircle, ArrowRight, Zap, Star, Users } from 'lucide-react';
+import { Calendar, Megaphone, Shield, Camera, ArrowRight, Zap, Star, Users, CheckCircle } from 'lucide-react';
 
 // Simple image component with lazy loading
 const LazyImage = ({ src, alt, className, priority }: any) => (
@@ -15,58 +15,40 @@ const LazyImage = ({ src, alt, className, priority }: any) => (
 const Services = () => {
   const services = [
     {
-      icon: Building,
-      title: 'CORPORATE EVENTS',
-      description: 'Elevating business gatherings through strategic design and flawless execution that drives results.',
+      icon: Calendar,
+      title: 'EVENT MANAGEMENT',
+      description: 'From concept to execution, our event management services cover everything. We specialize in creating tailored experiences that align with your brand identity and goals. Our team handles logistics, vendor management, and on-site coordination, allowing you to focus on what matters.',
       features: ['CONFERENCE MANAGEMENT', 'BRAND ACTIVATIONS', 'PRODUCT LAUNCHES', 'EXECUTIVE RETREATS', 'NETWORKING EVENTS'],
       price: 'FROM AED 15,000',
       image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=600',
       highlight: 'PREMIUM'
     },
     {
-      icon: PartyPopper,
-      title: 'SOCIAL EVENTS',
-      description: 'Creating unforgettable moments for life\'s special occasions with creativity and sophistication.',
-      features: ['MILESTONE BIRTHDAYS', 'ANNIVERSARIES', 'GRADUATIONS', 'HOLIDAY PARTIES', 'FAMILY REUNIONS'],
+      icon: Megaphone,
+      title: 'DIGITAL MARKETING',
+      description: 'In the digital age, a strong online presence is crucial for success. Our digital marketing services are designed to enhance your brand visibility and engagement. Whether it\'s social media management, content creation, search engine optimization (SEO), or paid advertising, we employ a holistic approach to maximize your digital impact.',
+      features: ['SOCIAL MEDIA MANAGEMENT', 'CONTENT CREATION', 'SEO OPTIMIZATION', 'PAID ADVERTISING', 'BRAND VISIBILITY'],
       price: 'FROM AED 8,000',
       image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600',
+      highlight: 'DIGITAL'
+    },
+    {
+      icon: Shield,
+      title: 'BRANDING & DESIGN',
+      description: 'A cohesive and visually appealing brand is key to making a lasting impression. Our branding and design services encompass logo design, brand strategy, and graphic design, ensuring that your brand communicates its unique identity effectively.',
+      features: ['LOGO DESIGN', 'BRAND STRATEGY', 'GRAPHIC DESIGN', 'VISUAL IDENTITY', 'BRAND COMMUNICATION'],
+      price: 'FROM AED 12,000',
+      image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
       highlight: 'CREATIVE'
     },
     {
-      icon: Heart,
-      title: 'CULTURAL EVENTS',
-      description: 'Celebrating diversity and creativity through vibrant traditions and immersive cultural experiences.',
-      features: ['FESTIVAL MANAGEMENT', 'CULTURAL SHOWCASES', 'TRADITIONAL CELEBRATIONS', 'ART EXHIBITIONS', 'COMMUNITY EVENTS'],
-      price: 'FROM AED 12,000',
-      image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
-      highlight: 'VIBRANT'
-    },
-    {
-      icon: Zap,
-      title: 'SPORTS EVENTS',
-      description: 'Creating heart-pounding excitement and unforgettable experiences in the world of sports.',
-      features: ['TOURNAMENT MANAGEMENT', 'SPORTS CEREMONIES', 'FAN ENGAGEMENT', 'MEDIA COORDINATION', 'AWARD CEREMONIES'],
-      price: 'FROM AED 20,000',
-      image: 'https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=600',
-      highlight: 'THRILLING'
-    },
-    {
-      icon: Star,
-      title: 'ENTERTAINMENT EVENTS',
-      description: 'Setting the stage for unforgettable moments, laughter, and pure joy through entertainment.',
-      features: ['CONCERT MANAGEMENT', 'PERFORMANCE COORDINATION', 'CELEBRITY EVENTS', 'SHOW PRODUCTION', 'AUDIENCE ENGAGEMENT'],
-      price: 'FROM AED 25,000',
+      icon: Camera,
+      title: 'CONTENT CREATION',
+      description: 'Engaging content is at the heart of successful marketing. Our team of content creators excels in producing compelling written, visual, and multimedia content that resonates with your target audience, driving engagement and loyalty.',
+      features: ['WRITTEN CONTENT', 'VISUAL CONTENT', 'MULTIMEDIA PRODUCTION', 'AUDIENCE ENGAGEMENT', 'CONTENT STRATEGY'],
+      price: 'FROM AED 10,000',
       image: 'https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=600',
-      highlight: 'SPECTACULAR'
-    },
-    {
-      icon: Users,
-      title: 'OTHER SERVICES',
-      description: 'Comprehensive event solutions including digital marketing, branding, and content creation.',
-      features: ['DIGITAL MARKETING', 'BRANDING & DESIGN', 'CONTENT CREATION', 'SOCIAL MEDIA', 'EVENT PHOTOGRAPHY'],
-      price: 'FROM AED 5,000',
-      image: 'https://images.pexels.com/photos/3760137/pexels-photo-3760137.jpeg?auto=compress&cs=tinysrgb&w=600',
-      highlight: 'COMPREHENSIVE'
+      highlight: 'ENGAGING'
     }
   ];
 
@@ -256,7 +238,7 @@ const Services = () => {
                   transition: { duration: 0.3 }
                 }}
               >
-                EVENT
+                OUR
               </motion.span>
               <motion.span 
                 className="block text-outline glitch-text"
@@ -288,7 +270,7 @@ const Services = () => {
                   transition: { duration: 0.4 }
                 }}
               >
-                SOLUTIONS
+                SERVICES
               </motion.span>
             </motion.h1>
             
@@ -320,8 +302,8 @@ const Services = () => {
                 transition: { duration: 0.3 }
               }}
             >
-              From corporate gatherings to entertainment spectacles, we specialize in 15 different 
-              event categories with global reach and expertise to bring your vision to life.
+              From event management to digital marketing, we provide comprehensive solutions 
+              that elevate your brand and create unforgettable experiences.
             </motion.p>
           </motion.div>
         </div>
