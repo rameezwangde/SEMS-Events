@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.4;
+  overflow-x: hidden;
+  background: #000;
+  color: #fff;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 1px;
+}
+
+/* Unique Animations */
+@keyframes glitchText {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes slideInDiagonal {
+  from {
+    opacity: 0;
+    transform: translate(-100px, -100px) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes morphShape {
+  0% { border-radius: 0% 100% 0% 100%; }
+  25% { border-radius: 100% 0% 100% 0%; }
+  50% { border-radius: 50% 50% 50% 50%; }
+  75% { border-radius: 0% 100% 50% 50%; }
+  100% { border-radius: 0% 100% 0% 100%; }
+}
+
+@keyframes textReveal {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.glitch-text:hover {
+  animation: glitchText 0.3s ease-in-out;
+}
+
+.slide-diagonal {
+  animation: slideInDiagonal 1s ease-out forwards;
+}
+
+.morph-shape {
+  animation: morphShape 8s ease-in-out infinite;
+}
+
+.text-reveal {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: textReveal 2s ease-out forwards;
+}
+
+/* Unique Utilities */
+.text-outline {
+  -webkit-text-stroke: 2px #fff;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-outline-black {
+  -webkit-text-stroke: 2px #000;
+  -webkit-text-fill-color: transparent;
+}
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+}
+
+.clip-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.clip-hexagon {
+  clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+}
+
+.rotate-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.border-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  animation: borderSlide 2s linear infinite;
+}
+
+@keyframes borderSlide {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.grid-dots {
+  background-image: radial-gradient(circle, #333 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Hover Effects */
+.hover-invert:hover {
+  filter: invert(1);
+  transition: filter 0.3s ease;
+}
+
+.hover-scale-110:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.hover-skew:hover {
+  transform: skewX(-5deg);
+  transition: transform 0.3s ease;
+}
+
+/* Custom Buttons */
+.btn-minimal {
+  position: relative;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.btn-minimal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.btn-minimal:hover::before {
+  left: 0;
+}
+
+.btn-minimal:hover {
+  color: #000;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 2px solid transparent;
+  background-image: linear-gradient(#000, #000), linear-gradient(45deg, #fff, #000, #fff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  padding: 1rem 2rem;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-ghost:hover {
+  background-image: linear-gradient(#fff, #fff), linear-gradient(45deg, #fff, #000, #fff);
+  color: #000;
+}
+
+/* Diamond Clip Path */
+.clip-diamond {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* 3D Perspective for Animations */
+.perspective-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced Text Animation */
+.text-3d-enter {
+  transform: translateY(-100px) rotateX(-90deg) scale(0.5);
+  opacity: 0;
+}
+
+.text-3d-exit {
+  transform: translateY(0) rotateX(0deg) scale(1);
+  opacity: 1;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  .btn-minimal,
+  .btn-ghost {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .clip-hexagon,
+  .clip-triangle,
+  .clip-diamond {
+    transform: scale(0.9);
+  }
+  
+  /* Improve touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better mobile typography */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+  }
+  
+  /* Reduce motion on mobile for better performance */
+  .morph-shape {
+    animation: none;
+  }
+  
+  /* Improve mobile scrolling */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .btn-minimal,
+  .btn-ghost {
+    padding: 1rem 2rem;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "SEMS Events - Premium Event Management Dubai",
+  "short_name": "SEMS Events",
+  "description": "Dubai's premier event management company specializing in corporate, social, cultural, sports, and entertainment events with 15+ categories and global expertise.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "lifestyle", "entertainment"],
+  "lang": "en-AE",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}
