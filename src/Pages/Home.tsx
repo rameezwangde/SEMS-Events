@@ -132,8 +132,8 @@ const Home = () => {
               <div className="aspect-video relative">
                 {/* Event Image */}
                 <LazyImage
-                  src="https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                  alt="Andrea Jeremiah Live in Dubai"
+                  src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+                  alt="Andrea Jeremiah Live in Dubai - First Ever Live Concert in Dubai"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   priority={true}
                 />
@@ -169,7 +169,7 @@ const Home = () => {
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             >
               <LazyImage
-                src="https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=400"
+                src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
                 alt="Andrea Jeremiah Performance"
                 className="w-full h-full object-cover"
               />
