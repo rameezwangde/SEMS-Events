@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, Sparkles, MapPin, ChevronDown, Play } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, Sparkles, MapPin, ChevronDown, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import TicketBookingModal from '../components/TicketBookingModal';
 
 // Simple image component with lazy loading
@@ -20,6 +20,29 @@ const Home = () => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const carouselSlides = [
+    {
+      type: 'video',
+      src: 'https://cdn.platinumlist.net/upload/event/promo/57072_upload68afe89f5f61d_1756358815-31756358825.mp4',
+      fallback: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop',
+      alt: 'Andrea Jeremiah Live in Dubai - Video'
+    },
+    {
+      type: 'image',
+      src: 'https://cdn.platinumlist.net/upload/event/promo/56810_upload68a6d0347dbb9_1755762740-0-en1755762754.jpeg',
+      alt: 'Andrea Jeremiah Live in Dubai - Event Poster'
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
+  };
 
   const reviews = [
     {
@@ -117,60 +140,276 @@ const Home = () => {
             </motion.button>
           </motion.div>
           
-          {/* Event Image Section */}
+          {/* Event Carousel Section */}
           <motion.div
-            className="relative max-w-4xl mx-auto"
+            className="relative max-w-5xl mx-auto"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
           >
-            <div className="relative overflow-hidden clip-diagonal group">
-              <div className="aspect-video relative">
-                {/* Event Image */}
-                <LazyImage
-                  src="https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=1200&h=675&fit=crop"
-                  alt="Andrea Jeremiah Live in Dubai - First Ever Live Concert in Dubai"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  priority={true}
-                />
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl group max-w-4xl mx-auto">
+              <div className="relative w-full" style={{ aspectRatio: '900/346' }}>
+                {/* Carousel Content */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentSlide}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    {carouselSlides[currentSlide].type === 'video' ? (
+                      <video
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        muted
+                        loop
+                        playsInline
+                        autoPlay
+                        controls={false}
+                        style={{ position: 'relative', opacity: 1, left: 0 }}
+                        onError={(e) => {
+                          console.log('Video failed to load, showing fallback image');
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      >
+                        <source src={carouselSlides[currentSlide].src} type="video/mp4" />
+                        <LazyImage
+                          src={carouselSlides[currentSlide].fallback}
+                          alt={carouselSlides[currentSlide].alt}
+                          className="w-full h-full object-cover"
+                          priority={true}
+                        />
+                      </video>
+                    ) : (
+                      <LazyImage
+                        src={carouselSlides[currentSlide].src}
+                        alt={carouselSlides[currentSlide].alt}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        priority={true}
+                      />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
                 
-                {/* Event Info Overlay */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-black/80 backdrop-blur-sm p-4 rounded-lg">
-                    <p className="text-white font-mono text-sm tracking-wider mb-2">ANDREA JEREMIAH - FIRST EVER LIVE CONCERT IN DUBAI</p>
-                    <p className="text-white/80 font-mono text-xs">Saturday, 18 Oct 2025 · from 6:00 PM — Etisalat Academy, Exit 60 – E311, Dubai</p>
+                {/* Dark overlay for better text contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                
+                {/* Play Button Overlay - Only for video */}
+                {carouselSlides[currentSlide].type === 'video' && (
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                      <Play className="w-8 h-8 text-white ml-1" />
+                    </div>
+                  </div>
+                )}
+                
+                {/* Bunny Night Club Logo - Top Right */}
+                <div className="absolute top-6 right-6 text-right">
+                  <p className="text-white text-xs tracking-wider mb-1">PROUDLY PRESENTS</p>
+                  <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
+                        <div className="w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                      <span className="text-black font-bold text-sm">BUNNY NIGHT CLUB</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Main Event Title - Center Left */}
+                <div className="absolute left-6 bottom-32 space-y-2">
+                  <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                    ANDREA
+                    <br />
+                    JEREMIAH
+                  </h2>
+                  <p className="text-white text-lg font-medium">FIRST-EVER LIVE CONCERT IN DUBAI</p>
+                  <p className="text-white/90 text-sm">FT. THE JEREMIAH PROJECT</p>
+                </div>
+                
+                {/* Event Details - Bottom Left */}
+                <div className="absolute left-6 bottom-6 space-y-1">
+                  <p className="text-white text-2xl font-bold">OCTOBER 18, 2025</p>
+                  <p className="text-white text-lg">ETISALAT ACADEMY | 6 PM ONWARDS</p>
+                </div>
+                
+                {/* Carousel Navigation Arrows */}
+                <button 
+                  onClick={prevSlide}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group z-10"
+                >
+                  <ChevronLeft className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                </button>
+                <button 
+                  onClick={nextSlide}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group z-10"
+                >
+                  <ChevronRight className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                </button>
+                
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {carouselSlides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        currentSlide === index ? 'bg-white' : 'bg-white/40'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Event Details Section */}
+      <section className="py-16 bg-white text-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Event Title */}
+              <div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-4">
+                  Andrea Jeremiah Live Ft. The Jeremiah Project at Etisalat Academy in Dubai
+                </h2>
+                <p className="text-lg text-gray-600 mb-4">
+                  Andrea Jeremiah lights up Dubai with multilingual hits at Etisalat Academy!
+                </p>
+                <div className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors">
+                  <MapPin className="w-4 h-4" />
+                  <a href="#" className="font-medium">Etisalat Academy</a>
+                </div>
+              </div>
+
+              {/* Event Description */}
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <ArrowRight className="w-5 h-5 text-gray-400 mt-1 flex-shrink-0" />
+                  <p className="text-gray-700 leading-relaxed">
+                    Andrea Jeremiah Live in Dubai FT. the Jeremiah Project is set to be one of the most anticipated South Indian musical nights of the year. Taking place on October 18, 2025 at the Etisalat Academy Sports and Leisure Club, the event will feature the sensational Andrea Jeremiah performing her biggest hits live.
+                  </p>
+                </div>
+                
+                <p className="text-gray-700 leading-relaxed">
+                  Known for her captivating stage presence, soulful voice, and versatility as a performer, Andrea is ready to create an unforgettable evening for her fans in Dubai. The concert promises a spectacular production setup with first-class sound, lights, and immersive visual experiences, bringing audiences closer to the magic of live music.
+                </p>
+                
+                <p className="text-gray-700 leading-relaxed">
+                  With a diverse setlist covering Tamil, Malayalam, and multilingual hits, Andrea Jeremiah Live will unite music lovers from across the region for a night of rhythm, energy, and celebration. Get ready to sing along, dance, and be part of a truly electrifying musical journey!
+                </p>
+              </div>
+
+              {/* Exchange Policy */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-white text-xs font-bold">✓</span>
+                  </div>
+                  <p className="text-blue-800 font-medium">
+                    If you can't make it, you can always exchange your ticket with another fan.
+                  </p>
+                </div>
+              </div>
+
+              {/* Additional Information */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-black">Additional Information</h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start space-x-2">
+                    <span className="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                    <span>The event will be conducted in English/Hindi.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                    <span>Convenient shuttle services will be available to and from the venue, connecting key locations such as Rigga, Satwa, Sharjah, and Karama, as well as the nearest Metro station, at a minimal charge.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                    <span>More details on ticket booking or general inquiry please call the following numbers: 0542320886, 0542320887, 0542320889, 0542320890</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                    <span>For VIP inquiries, please contact 0564526626, 0566965596</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Ticket Information Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="bg-gray-50 rounded-lg p-6 sticky top-6">
+                {/* Date and Time */}
+                <div className="mb-6">
+                  <div className="text-2xl font-bold text-black mb-2">Sat 18 Oct</div>
+                  <div className="text-gray-600 space-y-1">
+                    <div>Doors: 17:00</div>
+                    <div>Start: 18:00</div>
+                  </div>
+                </div>
+
+                {/* Countdown Timer */}
+                <div className="mb-6">
+                  <div className="text-sm font-medium text-gray-600 mb-3">Sale ends in</div>
+                  <div className="flex space-x-2 text-center">
+                    <div className="bg-white rounded-lg p-3 flex-1">
+                      <div className="text-2xl font-bold text-black">04</div>
+                      <div className="text-xs text-gray-500">Days</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-3 flex-1">
+                      <div className="text-2xl font-bold text-black">19</div>
+                      <div className="text-xs text-gray-500">Hours</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-3 flex-1">
+                      <div className="text-2xl font-bold text-black">03</div>
+                      <div className="text-xs text-gray-500">Mins</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-3 flex-1">
+                      <div className="text-2xl font-bold text-black">04</div>
+                      <div className="text-xs text-gray-500">Secs</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price and Book Button */}
+                <div className="mb-6">
+                  <div className="text-sm text-gray-600 mb-2">Price from:</div>
+                  <div className="text-2xl font-bold text-black mb-4">14.17 USD</div>
+                  <button 
+                    onClick={() => setIsTicketModalOpen(true)}
+                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
+                  >
+                    Select tickets
+                  </button>
+                </div>
+
+                {/* Song Recommendation */}
+                <div className="bg-white rounded-lg p-4 border border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                      <Play className="w-6 h-6 text-gray-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-medium text-black">Andrea Jerem...</div>
+                      <div className="text-sm text-gray-500">Song preview</div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+                        <Star className="w-4 h-4 text-gray-600" />
+                      </button>
+                      <button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+                        <Play className="w-4 h-4 text-gray-600" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
-            
-            {/* Floating Stats */}
-            <motion.div
-              className="absolute -bottom-8 -left-8 bg-white text-black p-6 clip-hexagon"
-              animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <div className="text-center">
-                <Star className="w-6 h-6 mx-auto mb-2" />
-                <p className="font-bold text-lg">SOLD OUT</p>
-                <p className="text-sm font-mono">PREVIOUS SHOWS</p>
-              </div>
-            </motion.div>
-            
-            {/* Additional Event Image */}
-            <motion.div
-              className="absolute -top-8 -right-8 w-32 h-32 overflow-hidden clip-hexagon"
-              animate={{ rotate: 5 }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <LazyImage
-                src="https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop"
-                alt="Andrea Jeremiah Performance"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
