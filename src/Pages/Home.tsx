@@ -521,7 +521,7 @@ const Home = () => {
       </LazySection>
 
       {/* Interactive Process Section */}
-      <LazySection className="py-20 bg-black text-white relative overflow-hidden">
+      <section className="py-20 bg-black text-white relative overflow-hidden">
         <div className="absolute inset-0 noise-bg"></div>
         
         
@@ -729,8 +729,8 @@ const Home = () => {
               className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-white/20 via-white/40 to-white/20"
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
-              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-100px" }}
             />
             
             {/* Simplified Dots on Timeline */}
@@ -865,10 +865,10 @@ const Home = () => {
                 <motion.div
                   key={index}
                   className={`flex flex-col lg:flex-row items-center ${step.position === 'left' ? 'lg:flex-row' : 'lg:flex-row-reverse'} group cursor-pointer`}
-                  initial={{ opacity: 0, x: step.position === 'left' ? -100 : 100 }}
+                  initial={{ opacity: 0, x: step.position === 'left' ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05, duration: 0.4, ease: "easeOut" }}
+                  viewport={{ once: true, margin: "-50px" }}
                   whileHover={{ 
                     scale: 1.02,
                     transition: { duration: 0.3 }
@@ -893,18 +893,26 @@ const Home = () => {
                   {/* Content Section */}
                   <div className={`w-full lg:w-5/12 ${step.position === 'left' ? 'text-center lg:text-right pr-0 lg:pr-12' : 'text-center lg:text-left pl-0 lg:pl-12'} mb-8 lg:mb-0`}>
                     <motion.div 
-                      className={`space-y-6 group-hover:space-y-8 transition-all duration-300 ${
+                      className={`space-y-6 transition-all duration-300 ${
                         activeStep === index ? 'bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/20' : ''
                       }`}
                       whileHover={{ 
-                        x: step.position === 'left' ? -10 : 10,
-                        transition: { duration: 0.3 }
+                        x: step.position === 'left' ? -20 : 20,
+                        transition: { 
+                          duration: 0.4,
+                          ease: "easeOut",
+                          type: "tween"
+                        }
                       }}
                       animate={activeStep === index ? {
                         scale: 1.02,
                         backgroundColor: "rgba(255,255,255,0.05)",
                         transition: { duration: 0.3 }
                       } : {}}
+                      style={{ 
+                        willChange: 'transform',
+                        transform: 'translateZ(0)'
+                      }}
                     >
                       {/* Icon with animated background */}
                       <motion.div 
@@ -929,22 +937,40 @@ const Home = () => {
                         <div className="relative text-6xl z-10">{step.icon}</div>
                       </motion.div>
                       
-                      <motion.h3 
+                      <motion.h3
                         className="text-3xl lg:text-4xl font-bold font-mono tracking-wider mb-4"
-                        whileHover={{ 
+                        whileHover={{
                           scale: 1.05,
                           color: "#fff",
-                          transition: { duration: 0.2 }
+                          x: step.position === 'left' ? -15 : 15,
+                          transition: { 
+                            duration: 0.3,
+                            ease: "easeOut",
+                            type: "tween"
+                          }
+                        }}
+                        style={{ 
+                          willChange: 'transform, color',
+                          transform: 'translateZ(0)'
                         }}
                       >
                         {step.title}
                       </motion.h3>
-                      
-                      <motion.p 
+
+                      <motion.p
                         className="text-white/80 leading-relaxed font-light text-lg"
-                        whileHover={{ 
+                        whileHover={{
                           color: "#fff",
-                          transition: { duration: 0.2 }
+                          x: step.position === 'left' ? -25 : 25,
+                          transition: { 
+                            duration: 0.4,
+                            ease: "easeOut",
+                            type: "tween"
+                          }
+                        }}
+                        style={{ 
+                          willChange: 'transform, color',
+                          transform: 'translateZ(0)'
                         }}
                       >
                         {step.description}
@@ -954,19 +980,31 @@ const Home = () => {
                       <motion.div
                         className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         initial={{ opacity: 0, y: 10 }}
-                        whileHover={{ opacity: 1, y: 0 }}
+                        whileHover={{ 
+                          opacity: 1, 
+                          y: 0,
+                          x: step.position === 'left' ? -10 : 10,
+                          transition: { 
+                            duration: 0.3,
+                            ease: "easeOut"
+                          }
+                        }}
+                        style={{ 
+                          willChange: 'transform, opacity',
+                          transform: 'translateZ(0)'
+                        }}
                       >
                         <div className="flex items-center space-x-2">
                           <motion.div
                             className="w-2 h-2 bg-white rounded-full"
-                            animate={{ 
+                            animate={{
                               scale: [1, 1.5, 1],
                               opacity: [0.5, 1, 0.5]
                             }}
-                            transition={{ 
-                              duration: 1.5, 
-                              repeat: Infinity, 
-                              ease: "easeInOut" 
+                            transition={{
+                              duration: 1.5,
+                              repeat: Infinity,
+                              ease: "easeInOut"
                             }}
                           />
                           <span className="text-sm font-mono tracking-wider text-white/60">
@@ -1039,16 +1077,16 @@ const Home = () => {
                       />
                     </motion.div>
                     
-                    {/* Connection lines to next step */}
-                    {index < 8 && (
-                      <motion.div
-                        className="absolute top-full left-1/2 transform -translate-x-1/2 w-1 h-12 bg-gradient-to-b from-white/40 to-white/20"
-                        initial={{ scaleY: 0 }}
-                        whileInView={{ scaleY: 1 }}
-                        transition={{ delay: index * 0.05 + 0.3, duration: 0.4 }}
-                        viewport={{ once: true }}
-                      />
-                    )}
+                        {/* Connection lines to next step */}
+                        {index < 8 && (
+                          <motion.div
+                            className="absolute top-full left-1/2 transform -translate-x-1/2 w-1 h-12 bg-gradient-to-b from-white/40 to-white/20"
+                            initial={{ scaleY: 0 }}
+                            whileInView={{ scaleY: 1 }}
+                            transition={{ delay: index * 0.02 + 0.1, duration: 0.3, ease: "easeOut" }}
+                            viewport={{ once: true, margin: "-50px" }}
+                          />
+                        )}
                   </div>
                   
                   <div className="w-full lg:w-5/12 hidden lg:block"></div>
@@ -1057,7 +1095,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </LazySection>
+      </section>
 
       {/* Revolutionary CTA Section */}
       <section className="py-20 bg-white text-black relative overflow-hidden">
