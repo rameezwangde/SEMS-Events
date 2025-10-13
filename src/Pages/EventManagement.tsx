@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar, Users, Trophy, Music, GraduationCap, Heart, Building, Lightbulb, Store, Shirt, Activity, Leaf, MapPin, ArrowRight, CheckCircle, Star, Zap } from 'lucide-react';
 
 // Simple image component with lazy loading
@@ -13,6 +14,7 @@ const LazyImage = ({ src, alt, className, priority }: any) => (
 );
 
 const EventManagement = () => {
+  const navigate = useNavigate();
   const eventTypes = [
     {
       icon: Building,
@@ -629,7 +631,7 @@ const EventManagement = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/contact?service=Event Management';
+                  navigate('/contact?service=Event Management');
                 }}
               >
                 <span className="relative z-10 flex items-center space-x-3">
@@ -645,7 +647,7 @@ const EventManagement = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/portfolio';
+                  navigate('/portfolio');
                 }}
               >
                 <span className="flex items-center space-x-3">

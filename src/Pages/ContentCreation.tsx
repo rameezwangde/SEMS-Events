@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { Camera, FileText, Search, Share2, BarChart3, ArrowRight, CheckCircle, Star, Zap, Users, Eye, Target, PenTool, Image, Video, Calendar } from 'lucide-react';
 
 // Simple image component with lazy loading
@@ -13,6 +14,7 @@ const LazyImage = ({ src, alt, className, priority }: any) => (
 );
 
 const ContentCreation = () => {
+  const navigate = useNavigate();
   const services = [
     {
       icon: FileText,
@@ -706,7 +708,7 @@ const ContentCreation = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/contact?service=Content Creation';
+                  navigate('/contact?service=Content Creation');
                 }}
               >
                 <span className="relative z-10 flex items-center space-x-3">
@@ -722,7 +724,7 @@ const ContentCreation = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/portfolio';
+                  navigate('/portfolio');
                 }}
               >
                 <span className="flex items-center space-x-3">

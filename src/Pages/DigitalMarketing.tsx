@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { Megaphone, Search, FileText, Share2, MousePointer, Users, TrendingUp, Globe, BarChart3, Smartphone, Video, Target, ArrowRight, CheckCircle, Star, Zap, Eye, DollarSign, MessageCircle } from 'lucide-react';
 
 // Simple image component with lazy loading
@@ -13,6 +14,7 @@ const LazyImage = ({ src, alt, className, priority }: any) => (
 );
 
 const DigitalMarketing = () => {
+  const navigate = useNavigate();
   const services = [
     {
       icon: Search,
@@ -652,7 +654,7 @@ const DigitalMarketing = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/contact?service=Digital Marketing';
+                  navigate('/contact?service=Digital Marketing');
                 }}
               >
                 <span className="relative z-10 flex items-center space-x-3">
@@ -668,7 +670,7 @@ const DigitalMarketing = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/portfolio';
+                  navigate('/portfolio');
                 }}
               >
                 <span className="flex items-center space-x-3">

@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { Shield, Palette, Monitor, Smartphone, Printer, Package, Home, BarChart3, Share2, Play, BookOpen, Camera, PenTool, MapPin, ArrowRight, CheckCircle, Zap, Layers, Users } from 'lucide-react';
 
 // Simple image component with lazy loading
@@ -13,6 +14,7 @@ const LazyImage = ({ src, alt, className, priority }: any) => (
 );
 
 const BrandingDesign = () => {
+  const navigate = useNavigate();
   const services = [
     {
       icon: Palette,
@@ -692,7 +694,7 @@ const BrandingDesign = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/contact?service=Branding & Design';
+                  navigate('/contact?service=Branding & Design');
                 }}
               >
                 <span className="relative z-10 flex items-center space-x-3">
@@ -708,7 +710,7 @@ const BrandingDesign = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  window.location.href = '/portfolio';
+                  navigate('/portfolio');
                 }}
               >
                 <span className="flex items-center space-x-3">
