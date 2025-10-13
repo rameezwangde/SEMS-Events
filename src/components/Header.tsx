@@ -80,7 +80,7 @@ const Header = () => {
                   <span className="font-mono">+971 564526626</span>
                 </motion.a>
                 
-                {/* All Navigation Links - Grouped together */}
+                {/* All Navigation Links with Social Media - Grouped together */}
                 <div className="flex items-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 ml-4">
                   {navItems.map((item, _) => (
                     <Link
@@ -102,43 +102,44 @@ const Header = () => {
                       )}
                     </Link>
                   ))}
+                  
+                  {/* Social Media Icons - Next to Contact */}
+                  <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-white/20">
+                    <motion.a
+                      href="https://wa.me/971508194875"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <MessageCircle className="w-4 h-4 text-white" />
+                    </motion.a>
+                    <motion.a
+                      href="https://instagram.com/semsmanaging"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Instagram className="w-4 h-4 text-white" />
+                    </motion.a>
+                    <motion.a
+                      href="https://facebook.com/semsmanaging"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Facebook className="w-4 h-4 text-white" />
+                    </motion.a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Social Media Icons - Far Right */}
-            <div className="hidden lg:flex items-center space-x-2">
-              <motion.a
-                href="https://wa.me/971508194875"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <MessageCircle className="w-4 h-4 text-white" />
-              </motion.a>
-              <motion.a
-                href="https://instagram.com/semsmanaging"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Instagram className="w-4 h-4 text-white" />
-              </motion.a>
-              <motion.a
-                href="https://facebook.com/semsmanaging"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Facebook className="w-4 h-4 text-white" />
-              </motion.a>
-            </div>
 
             {/* Futuristic Mobile Menu Button */}
             <button

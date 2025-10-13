@@ -1,19 +1,56 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, Sparkles, MapPin, ChevronDown, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import TicketBookingModal from '../components/TicketBookingModal';
 
-// Simple image component with lazy loading
-const LazyImage = ({ src, alt, className, priority }: any) => (
+// Ultra-optimized lazy loading image component
+const LazyImage = ({ src, alt, className, priority, onLoad }: any) => (
   <img 
     src={src} 
     alt={alt} 
     className={className}
     loading={priority ? 'eager' : 'lazy'}
     decoding="async"
+    onLoad={onLoad}
+    style={{ 
+      willChange: 'auto',
+      backfaceVisibility: 'hidden',
+      transform: 'translateZ(0)',
+      imageRendering: 'optimizeSpeed'
+    }}
   />
 );
+
+// Lazy loading wrapper component
+const LazySection = ({ children, className = "", delay = 0 }: any) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={className}>
+      {isVisible ? children : <div className="h-96 bg-gray-900/20 animate-pulse rounded-lg" />}
+    </div>
+  );
+};
 
 const Home = () => {
   const containerRef = useRef(null);
@@ -70,7 +107,15 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen bg-black text-white" ref={containerRef}>
+    <div 
+      className="min-h-screen bg-black text-white" 
+      ref={containerRef}
+      style={{
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden',
+        perspective: '1000px'
+      }}
+    >
       {/* Featured Event Section */}
       <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
         <div className="absolute inset-0 grid-dots opacity-20"></div>
@@ -158,12 +203,12 @@ const Home = () => {
                         }}
                       >
                         <source src={carouselSlides[currentSlide].src} type="video/mp4" />
-                        <LazyImage
+                <LazyImage
                           src={carouselSlides[currentSlide].fallback}
                           alt={carouselSlides[currentSlide].alt}
                           className="w-full h-full object-cover"
-                          priority={true}
-                        />
+                  priority={true}
+                />
                       </video>
                     ) : (
                       <LazyImage
@@ -188,11 +233,11 @@ const Home = () => {
                       <div className="flex items-center space-x-2">
                         <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
                           <div className="w-3 h-3 bg-white rounded-full"></div>
-                        </div>
-                        <span className="text-black font-bold text-sm">BUNNY NIGHT CLUB</span>
-                      </div>
-                    </div>
                   </div>
+                        <span className="text-black font-bold text-sm">BUNNY NIGHT CLUB</span>
+                </div>
+              </div>
+            </div>
                 )}
                 
                 {/* Event Text Overlays - Only for Video Slide */}
@@ -207,13 +252,13 @@ const Home = () => {
                       </h2>
                       <p className="text-white text-lg font-medium">FIRST-EVER LIVE CONCERT IN DUBAI</p>
                       <p className="text-white/90 text-sm">FT. THE JEREMIAH PROJECT</p>
-                    </div>
+              </div>
                     
                     {/* Event Details - Bottom Left */}
                     <div className="absolute left-6 bottom-6 space-y-1">
                       <p className="text-white text-2xl font-bold">OCTOBER 18, 2025</p>
                       <p className="text-white text-lg">ETISALAT ACADEMY | 6 PM ONWARDS</p>
-                    </div>
+        </div>
                   </>
                 )}
                 
@@ -245,8 +290,8 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
-        </div>
+                  </motion.div>
+                </div>
       </section>
 
       {/* Event Details Section */}
@@ -268,7 +313,7 @@ const Home = () => {
                   <a href="#" className="font-medium">Etisalat Academy</a>
                 </div>
               </div>
-
+              
               {/* Event Description */}
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
@@ -342,15 +387,15 @@ const Home = () => {
                     <div className="bg-white rounded-lg p-3 flex-1">
                       <div className="text-2xl font-bold text-black">04</div>
                       <div className="text-xs text-gray-500">Days</div>
-                    </div>
+              </div>
                     <div className="bg-white rounded-lg p-3 flex-1">
                       <div className="text-2xl font-bold text-black">19</div>
                       <div className="text-xs text-gray-500">Hours</div>
-                    </div>
+          </div>
                     <div className="bg-white rounded-lg p-3 flex-1">
                       <div className="text-2xl font-bold text-black">03</div>
                       <div className="text-xs text-gray-500">Mins</div>
-                    </div>
+        </div>
                     <div className="bg-white rounded-lg p-3 flex-1">
                       <div className="text-2xl font-bold text-black">04</div>
                       <div className="text-xs text-gray-500">Secs</div>
@@ -375,7 +420,7 @@ const Home = () => {
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
                       <Play className="w-6 h-6 text-gray-600" />
-                    </div>
+                </div>
                     <div className="flex-1">
                       <div className="font-medium text-black">Andrea Jerem...</div>
                       <div className="text-sm text-gray-500">Song preview</div>
@@ -399,7 +444,7 @@ const Home = () => {
 
 
       {/* Revolutionary Google Reviews */}
-      <section className="py-20 bg-black text-white relative">
+      <LazySection className="py-20 bg-black text-white relative">
         <div className="absolute inset-0 noise-bg"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -473,10 +518,10 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </section>
+      </LazySection>
 
       {/* Interactive Process Section */}
-      <section className="py-20 bg-black text-white relative overflow-hidden">
+      <LazySection className="py-20 bg-black text-white relative overflow-hidden">
         <div className="absolute inset-0 noise-bg"></div>
         
         
@@ -557,7 +602,8 @@ const Home = () => {
               className="text-5xl lg:text-7xl font-bold mb-8"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.8 }}
+              transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-100px" }}
             >
               <motion.span 
                 className="block text-white"
@@ -630,17 +676,23 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
                 
-                {/* Floating decorative elements */}
+                 {/* Ultra-optimized floating decorative elements */}
                 <motion.div
                   className="absolute -top-4 -right-4 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-lg"
                   animate={{ 
-                    y: [-5, 5, -5],
-                    rotate: [0, 10, 0]
+                     y: [-2, 2, -2],
+                     rotate: [0, 3, 0]
                   }}
                   transition={{ 
-                    duration: 3, 
+                     duration: 6, 
                     repeat: Infinity, 
-                    ease: "easeInOut" 
+                     ease: "easeInOut",
+                     type: "tween",
+                     repeatType: "reverse"
+                   }}
+                   style={{ 
+                     willChange: 'auto',
+                     transform: 'translateZ(0)'
                   }}
                 >
                   <Star className="w-4 h-4 text-black" />
@@ -649,14 +701,20 @@ const Home = () => {
                 <motion.div
                   className="absolute -bottom-4 -left-4 w-6 h-6 bg-white/90 rounded-full flex items-center justify-center shadow-lg"
                   animate={{ 
-                    y: [5, -5, 5],
-                    rotate: [0, -10, 0]
+                     y: [2, -2, 2],
+                     rotate: [0, -3, 0]
                   }}
                   transition={{ 
-                    duration: 4, 
+                     duration: 7, 
                     repeat: Infinity, 
                     ease: "easeInOut",
-                    delay: 1
+                     delay: 3,
+                     type: "tween",
+                     repeatType: "reverse"
+                   }}
+                   style={{ 
+                     willChange: 'auto',
+                     transform: 'translateZ(0)'
                   }}
                 >
                   <Sparkles className="w-3 h-3 text-black" />
@@ -817,14 +875,20 @@ const Home = () => {
                   }}
                   onClick={() => setActiveStep(activeStep === index ? null : index)}
                   animate={isPlaying ? {
-                    scale: [1, 1.02, 1],
+                     scale: [1, 1.005, 1],
                     transition: {
-                      duration: 3,
+                       duration: 5,
                       repeat: Infinity,
-                      delay: index * 0.15,
-                      ease: "easeInOut"
+                       delay: index * 0.3,
+                       ease: "easeInOut",
+                       type: "tween",
+                       repeatType: "reverse"
                     }
                   } : {}}
+                   style={{ 
+                     willChange: isPlaying ? 'transform' : 'auto',
+                     transform: 'translateZ(0)'
+                   }}
                 >
                   {/* Content Section */}
                   <div className={`w-full lg:w-5/12 ${step.position === 'left' ? 'text-center lg:text-right pr-0 lg:pr-12' : 'text-center lg:text-left pl-0 lg:pl-12'} mb-8 lg:mb-0`}>
@@ -928,26 +992,41 @@ const Home = () => {
                         transition: { duration: 0.6 }
                       } : {}}
                     >
-                      {/* Animated background ring */}
+                          {/* Ultra-optimized background ring */}
                       <motion.div
                         className={`absolute inset-0 bg-gradient-to-r ${step.color} opacity-30 rounded-full blur-md`}
                         animate={{ 
-                          scale: [1, 1.2, 1],
-                          opacity: [0.3, 0.5, 0.3]
+                              scale: [1, 1.05, 1],
+                              opacity: [0.3, 0.35, 0.3]
                         }}
                         transition={{ 
-                          duration: 3, 
+                              duration: 6,
                           repeat: Infinity, 
-                          ease: "easeInOut" 
-                        }}
-                      />
+                              ease: "easeInOut",
+                              type: "tween",
+                              repeatType: "reverse"
+                            }}
+                            style={{ 
+                              willChange: 'auto',
+                              transform: 'translateZ(0)'
+                            }}
+                          />
                       
-                      {/* Main hexagon */}
+                      {/* Ultra-optimized main hexagon */}
                       <motion.div 
                         className="relative w-20 h-20 bg-white text-black flex items-center justify-center font-bold text-xl clip-hexagon shadow-2xl"
                         whileHover={{ 
-                          rotate: 360,
-                          transition: { duration: 0.5 }
+                          rotate: 90,
+                          scale: 1.03,
+                          transition: { 
+                            duration: 0.8,
+                            ease: "easeInOut",
+                            type: "tween"
+                          }
+                        }}
+                        style={{ 
+                          willChange: 'auto',
+                          transform: 'translateZ(0)'
                         }}
                       >
                         {step.step}
@@ -978,7 +1057,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </LazySection>
 
       {/* Revolutionary CTA Section */}
       <section className="py-20 bg-white text-black relative overflow-hidden">
