@@ -507,8 +507,12 @@ const Services = () => {
                       }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => {
-                        // Redirect to contact page with service pre-selected
-                        window.location.href = '/contact?service=' + encodeURIComponent(service.title);
+                        // Redirect to specific service page or contact page
+                        if (service.title === 'EVENT MANAGEMENT') {
+                          window.location.href = '/event-management';
+                        } else {
+                          window.location.href = '/contact?service=' + encodeURIComponent(service.title);
+                        }
                       }}
                     >
                       <span>GET QUOTE</span>
