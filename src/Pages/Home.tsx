@@ -68,12 +68,6 @@ const Home = () => {
     }
   ];
 
-  const stats = [
-    { number: '847', label: 'EVENTS EXECUTED', icon: Calendar },
-    { number: '12K+', label: 'SATISFIED CLIENTS', icon: Users },
-    { number: '23', label: 'INDUSTRY AWARDS', icon: Award },
-    { number: '4.9', label: 'GOOGLE RATING', icon: Star }
-  ];
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden" ref={containerRef}>
@@ -82,17 +76,6 @@ const Home = () => {
         <div className="absolute inset-0 grid-dots opacity-20"></div>
         <div className="absolute inset-0 noise-bg"></div>
         
-        {/* Floating Elements */}
-        <motion.div
-          className="absolute top-20 left-20 w-32 h-32 border-2 border-white/20 clip-hexagon"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-20 w-24 h-24 bg-white/10 clip-triangle"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -161,12 +144,13 @@ const Home = () => {
                   >
                     {carouselSlides[currentSlide].type === 'video' ? (
                       <video
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         muted
                         loop
                         playsInline
                         autoPlay
                         controls={false}
+                        preload="metadata"
                         style={{ position: 'relative', opacity: 1, left: 0 }}
                         onError={(e) => {
                           console.log('Video failed to load, showing fallback image');
@@ -185,7 +169,7 @@ const Home = () => {
                       <LazyImage
                         src={carouselSlides[currentSlide].src}
                         alt={carouselSlides[currentSlide].alt}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         priority={true}
                       />
                     )}
@@ -195,14 +179,6 @@ const Home = () => {
                 {/* Dark overlay for better text contrast */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                 
-                {/* Play Button Overlay - Only for video */}
-                {carouselSlides[currentSlide].type === 'video' && (
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                      <Play className="w-8 h-8 text-white ml-1" />
-                    </div>
-                  </div>
-                )}
                 
                 {/* Bunny Night Club Logo - Top Right */}
                 <div className="absolute top-6 right-6 text-right">
@@ -217,22 +193,27 @@ const Home = () => {
                   </div>
                 </div>
                 
-                {/* Main Event Title - Center Left */}
-                <div className="absolute left-6 bottom-32 space-y-2">
-                  <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
-                    ANDREA
-                    <br />
-                    JEREMIAH
-                  </h2>
-                  <p className="text-white text-lg font-medium">FIRST-EVER LIVE CONCERT IN DUBAI</p>
-                  <p className="text-white/90 text-sm">FT. THE JEREMIAH PROJECT</p>
-                </div>
-                
-                {/* Event Details - Bottom Left */}
-                <div className="absolute left-6 bottom-6 space-y-1">
-                  <p className="text-white text-2xl font-bold">OCTOBER 18, 2025</p>
-                  <p className="text-white text-lg">ETISALAT ACADEMY | 6 PM ONWARDS</p>
-                </div>
+                {/* Event Text Overlays - Only for Video Slide */}
+                {carouselSlides[currentSlide].type === 'video' && (
+                  <>
+                    {/* Main Event Title - Center Left */}
+                    <div className="absolute left-6 bottom-32 space-y-2">
+                      <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                        ANDREA
+                        <br />
+                        JEREMIAH
+                      </h2>
+                      <p className="text-white text-lg font-medium">FIRST-EVER LIVE CONCERT IN DUBAI</p>
+                      <p className="text-white/90 text-sm">FT. THE JEREMIAH PROJECT</p>
+                    </div>
+                    
+                    {/* Event Details - Bottom Left */}
+                    <div className="absolute left-6 bottom-6 space-y-1">
+                      <p className="text-white text-2xl font-bold">OCTOBER 18, 2025</p>
+                      <p className="text-white text-lg">ETISALAT ACADEMY | 6 PM ONWARDS</p>
+                    </div>
+                  </>
+                )}
                 
                 {/* Carousel Navigation Arrows */}
                 <button 
@@ -413,502 +394,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Revolutionary Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center">
-        {/* Animated Background */}
-        <div className="absolute inset-0 grid-dots opacity-20"></div>
-        <div className="absolute inset-0 noise-bg"></div>
-        
-        {/* Floating Geometric Shapes */}
-        <motion.div
-          className="absolute top-20 left-20 w-32 h-32 border-2 border-white/20 clip-hexagon"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-20 w-24 h-24 bg-white/10 clip-triangle"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center min-h-screen py-16 sm:py-0">
-            {/* Left Content - Avant-garde Typography */}
-            <motion.div
-              className="lg:col-span-7 space-y-6 sm:space-y-8 perspective-3d"
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-            >
-              <div className="space-y-4 sm:space-y-6">
-                <motion.div
-                  className="flex items-center space-x-3 sm:space-x-4 mb-6 sm:mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="w-1 sm:w-2 h-12 sm:h-16 bg-white"></div>
-                  <span className="font-mono text-xs sm:text-sm tracking-[0.3em] text-white/60">PREMIUM EVENT MANAGEMENT</span>
-                </motion.div>
-
-                <div className="space-y-4">
-                  <motion.h1
-                    className="text-4xl sm:text-6xl lg:text-8xl font-bold leading-none"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 1 }}
-                  >
-                    <motion.span 
-                      className="block text-white"
-                      initial={{ 
-                        opacity: 0, 
-                        y: -100, 
-                        scale: 0.5,
-                        rotateX: -90
-                      }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0, 
-                        scale: 1,
-                        rotateX: 0
-                      }}
-                      transition={{ 
-                        delay: 0.5, 
-                        duration: 1.2, 
-                        ease: "easeOut",
-                        type: "spring",
-                        stiffness: 100
-                      }}
-                      whileHover={{ 
-                        y: -10,
-                        scale: 1.05,
-                        transition: { duration: 0.3 }
-                      }}
-                    >
-                      WE
-                    </motion.span>
-                    <motion.span 
-                      className="block text-outline glitch-text"
-                      initial={{ 
-                        opacity: 0, 
-                        y: -120, 
-                        scale: 0.3,
-                        rotateX: -90,
-                        rotateY: 45
-                      }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0, 
-                        scale: 1,
-                        rotateX: 0,
-                        rotateY: 0
-                      }}
-                      transition={{ 
-                        delay: 0.7, 
-                        duration: 1.4, 
-                        ease: "easeOut",
-                        type: "spring",
-                        stiffness: 80
-                      }}
-                      whileHover={{ 
-                        y: -15,
-                        scale: 1.08,
-                        rotateY: 5,
-                        transition: { duration: 0.4 }
-                      }}
-                    >
-                      CREATE
-                    </motion.span>
-                    <motion.span 
-                      className="block text-white"
-                      initial={{ 
-                        opacity: 0, 
-                        y: -140, 
-                        scale: 0.4,
-                        rotateX: -90,
-                        rotateY: -45
-                      }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0, 
-                        scale: 1,
-                        rotateX: 0,
-                        rotateY: 0
-                      }}
-                      transition={{ 
-                        delay: 0.9, 
-                        duration: 1.6, 
-                        ease: "easeOut",
-                        type: "spring",
-                        stiffness: 60
-                      }}
-                      whileHover={{ 
-                        y: -12,
-                        scale: 1.06,
-                        rotateY: -3,
-                        transition: { duration: 0.3 }
-                      }}
-                    >
-                      MOMENTS
-                    </motion.span>
-                  </motion.h1>
-                  
-                  <motion.div
-                    className="flex items-center space-x-4"
-                    initial={{ 
-                      opacity: 0, 
-                      x: -50, 
-                      y: -80,
-                      scale: 0.8,
-                      rotateX: -45
-                    }}
-                    animate={{ 
-                      opacity: 1, 
-                      x: 0, 
-                      y: 0,
-                      scale: 1,
-                      rotateX: 0
-                    }}
-                    transition={{ 
-                      delay: 1.1, 
-                      duration: 1.2,
-                      ease: "easeOut",
-                      type: "spring",
-                      stiffness: 120
-                    }}
-                    whileHover={{ 
-                      x: 10,
-                      scale: 1.05,
-                      transition: { duration: 0.3 }
-                    }}
-                  >
-                    <motion.div
-                      initial={{ 
-                        opacity: 0, 
-                        scale: 0,
-                        rotate: -180
-                      }}
-                      animate={{ 
-                        opacity: 1, 
-                        scale: 1,
-                        rotate: 0
-                      }}
-                      transition={{ 
-                        delay: 1.3, 
-                        duration: 0.8,
-                        ease: "easeOut",
-                        type: "spring"
-                      }}
-                      whileHover={{ 
-                        rotate: 360,
-                        scale: 1.2,
-                        transition: { duration: 0.5 }
-                      }}
-                    >
-                      <Sparkles className="w-8 h-8 text-white" />
-                    </motion.div>
-                    <motion.span 
-                      className="text-2xl font-mono tracking-wider"
-                      initial={{ 
-                        opacity: 0, 
-                        y: -60,
-                        scale: 0.9
-                      }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0,
-                        scale: 1
-                      }}
-                      transition={{ 
-                        delay: 1.4, 
-                        duration: 1,
-                        ease: "easeOut"
-                      }}
-                      whileHover={{ 
-                        scale: 1.05,
-                        color: "#fff",
-                        transition: { duration: 0.2 }
-                      }}
-                    >
-                      THAT MATTER
-                    </motion.span>
-                  </motion.div>
-                </div>
-
-                <motion.p
-                  className="text-base sm:text-xl text-white/80 max-w-2xl leading-relaxed font-light"
-                  initial={{ 
-                    opacity: 0, 
-                    y: -50, 
-                    scale: 0.9,
-                    rotateX: -30
-                  }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0, 
-                    scale: 1,
-                    rotateX: 0
-                  }}
-                  transition={{ 
-                    delay: 1.5, 
-                    duration: 1.2,
-                    ease: "easeOut",
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  whileHover={{ 
-                    y: -5,
-                    scale: 1.02,
-                    color: "#fff",
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  Transforming visions into extraordinary experiences through innovative design, 
-                  flawless execution, and uncompromising attention to detail.
-                </motion.p>
-              </div>
-              
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-6 sm:pt-8"
-                initial={{ 
-                  opacity: 0, 
-                  y: -60, 
-                  scale: 0.8,
-                  rotateX: -20
-                }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1,
-                  rotateX: 0
-                }}
-                transition={{ 
-                  delay: 1.7, 
-                  duration: 1.2,
-                  ease: "easeOut",
-                  type: "spring",
-                  stiffness: 80
-                }}
-              >
-                <Link
-                  to="/contact"
-                  className="btn-minimal group"
-                >
-                  <span className="relative z-10 flex items-center space-x-3">
-                    <span>START YOUR EVENT</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </Link>
-                <Link
-                  to="/portfolio"
-                  className="btn-ghost group"
-                >
-                  <span className="flex items-center space-x-3">
-                    <Eye className="w-5 h-5" />
-                    <span>VIEW PORTFOLIO</span>
-                  </span>
-                </Link>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Content - Layered Image Design */}
-            <motion.div
-              className="lg:col-span-5 relative"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
-            >
-              <div className="relative h-[600px]">
-                {/* Background Layer */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-3xl"
-                  animate={{ 
-                    scale: [1, 1.05, 1],
-                    opacity: [0.3, 0.5, 0.3]
-                  }}
-                  transition={{ 
-                    duration: 6, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                />
-                
-                {/* Main Image - Circular Design */}
-                <motion.div
-                  className="absolute top-8 left-8 w-80 h-80 rounded-full overflow-hidden shadow-2xl"
-                  whileHover={{ 
-                    scale: 1.05,
-                    rotate: 5,
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <LazyImage
-                    src="https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="SEMS Events"
-                    className="w-full h-full object-cover"
-                    priority={true}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                </motion.div>
-
-                {/* Secondary Image - Hexagonal */}
-                <motion.div
-                  className="absolute bottom-8 right-8 w-48 h-48 overflow-hidden clip-hexagon shadow-xl"
-                  animate={{ 
-                    y: [-5, 5, -5],
-                    rotate: [0, 2, 0]
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                  whileHover={{ 
-                    scale: 1.1,
-                    rotate: 10,
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <LazyImage
-                    src="https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=400"
-                    alt="Event Performance"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-
-                {/* Tertiary Image - Diamond Shape */}
-                <motion.div
-                  className="absolute top-1/2 right-4 w-32 h-32 overflow-hidden clip-diamond shadow-lg"
-                  animate={{ 
-                    x: [-3, 3, -3],
-                    rotate: [0, -5, 0]
-                  }}
-                  transition={{ 
-                    duration: 5, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                  whileHover={{ 
-                    scale: 1.2,
-                    rotate: -15,
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <LazyImage
-                    src="https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=300"
-                    alt="Concert Stage"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-
-                {/* Floating Stats Card - New Position */}
-                <motion.div
-                  className="absolute -bottom-4 -left-4 bg-white text-black p-4 rounded-2xl shadow-2xl"
-                  animate={{ y: [-8, 8, -8] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  <div className="flex items-center space-x-2 mb-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 text-yellow-500 fill-current" />
-                    ))}
-                  </div>
-                  <p className="font-bold text-sm">4.9/5 RATING</p>
-                  <p className="text-xs opacity-70">300+ REVIEWS</p>
-                </motion.div>
-
-                {/* Animated Geometric Elements */}
-                <motion.div
-                  className="absolute top-4 right-4 w-12 h-12 border-2 border-white/30 rounded-full"
-                  animate={{ 
-                    scale: [1, 1.3, 1],
-                    opacity: [0.3, 0.8, 0.3]
-                  }}
-                  transition={{ 
-                    duration: 3, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                />
-                
-                <motion.div
-                  className="absolute bottom-1/3 left-4 w-8 h-8 bg-white/20 clip-triangle"
-                  animate={{ 
-                    rotate: [0, 180, 360],
-                    scale: [1, 1.2, 1]
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                />
-
-                {/* Connection Lines */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 w-1 h-20 bg-gradient-to-b from-white/40 to-transparent"
-                  animate={{ 
-                    scaleY: [1, 1.2, 1],
-                    opacity: [0.4, 0.8, 0.4]
-                  }}
-                  transition={{ 
-                    duration: 2, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Revolutionary Stats Section */}
-      <section className="py-32 bg-white text-black relative overflow-hidden">
-        <div className="absolute inset-0 grid-dots opacity-10"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6">
-              <span className="text-outline-black">PROVEN</span>
-              <span className="block text-black">EXCELLENCE</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                className="text-center group"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="relative mb-4 sm:mb-6">
-                  <stat.icon className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform" />
-                  <motion.div
-                    className="absolute inset-0 border-2 border-black/20 clip-hexagon opacity-0 group-hover:opacity-100 transition-opacity"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  />
-                </div>
-                <h3 className="text-2xl sm:text-4xl lg:text-6xl font-bold mb-1 sm:mb-2 font-mono">{stat.number}</h3>
-                <p className="text-xs sm:text-sm font-mono tracking-wider opacity-70">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Revolutionary Google Reviews */}
       <section className="py-32 bg-black text-white relative">
@@ -991,29 +477,6 @@ const Home = () => {
       <section className="py-32 bg-black text-white relative overflow-hidden">
         <div className="absolute inset-0 noise-bg"></div>
         
-        {/* Simplified Background Elements */}
-        <motion.div
-          className="absolute top-20 left-20 w-32 h-32 border-2 border-white/10 clip-hexagon"
-          animate={{ 
-            rotate: 360
-          }}
-          transition={{ 
-            duration: 30, 
-            repeat: Infinity, 
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-20 w-24 h-24 bg-white/5 clip-triangle"
-          animate={{ 
-            rotate: -360
-          }}
-          transition={{ 
-            duration: 25, 
-            repeat: Infinity, 
-            ease: "linear"
-          }}
-        />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
