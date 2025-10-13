@@ -70,9 +70,9 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden" ref={containerRef}>
+    <div className="min-h-screen bg-black text-white" ref={containerRef}>
       {/* Featured Event Section */}
-      <section className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
         <div className="absolute inset-0 grid-dots opacity-20"></div>
         <div className="absolute inset-0 noise-bg"></div>
         
@@ -180,18 +180,20 @@ const Home = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                 
                 
-                {/* Bunny Night Club Logo - Top Right */}
-                <div className="absolute top-6 right-6 text-right">
-                  <p className="text-white text-xs tracking-wider mb-1">PROUDLY PRESENTS</p>
-                  <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-white rounded-full"></div>
+                {/* Bunny Night Club Logo - Top Right - Only for Video Slide */}
+                {carouselSlides[currentSlide].type === 'video' && (
+                  <div className="absolute top-6 right-6 text-right">
+                    <p className="text-white text-xs tracking-wider mb-1">PROUDLY PRESENTS</p>
+                    <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
+                          <div className="w-3 h-3 bg-white rounded-full"></div>
+                        </div>
+                        <span className="text-black font-bold text-sm">BUNNY NIGHT CLUB</span>
                       </div>
-                      <span className="text-black font-bold text-sm">BUNNY NIGHT CLUB</span>
                     </div>
                   </div>
-                </div>
+                )}
                 
                 {/* Event Text Overlays - Only for Video Slide */}
                 {carouselSlides[currentSlide].type === 'video' && (
@@ -397,7 +399,7 @@ const Home = () => {
 
 
       {/* Revolutionary Google Reviews */}
-      <section className="py-32 bg-black text-white relative">
+      <section className="py-20 bg-black text-white relative">
         <div className="absolute inset-0 noise-bg"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -474,7 +476,7 @@ const Home = () => {
       </section>
 
       {/* Interactive Process Section */}
-      <section className="py-32 bg-black text-white relative overflow-hidden">
+      <section className="py-20 bg-black text-white relative overflow-hidden">
         <div className="absolute inset-0 noise-bg"></div>
         
         
@@ -979,7 +981,7 @@ const Home = () => {
       </section>
 
       {/* Revolutionary CTA Section */}
-      <section className="py-32 bg-white text-black relative overflow-hidden">
+      <section className="py-20 bg-white text-black relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-black to-transparent"></div>
           <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-black to-transparent"></div>

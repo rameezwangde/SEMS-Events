@@ -38,7 +38,7 @@ const Footer = () => {
           <div className="space-y-6 sm:space-y-8">
             <h4 className="text-base sm:text-lg font-bold font-mono tracking-wider">NAVIGATION</h4>
             <nav className="space-y-4">
-              {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item) => (
+              {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT', 'PRIVACY'].map((item) => (
                 <Link
                   key={item}
                   to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
