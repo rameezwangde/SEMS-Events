@@ -633,6 +633,15 @@ const EventManagement = () => {
                 onClick={() => {
                   navigate('/contact?service=Event Management');
                 }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  navigate('/contact?service=Event Management');
+                }}
+                style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  cursor: 'pointer'
+                }}
               >
                 <span className="relative z-10 flex items-center space-x-3">
                   <span>GET CONSULTATION</span>
@@ -648,6 +657,15 @@ const EventManagement = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
                   navigate('/portfolio');
+                }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  navigate('/portfolio');
+                }}
+                style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  cursor: 'pointer'
                 }}
               >
                 <span className="flex items-center space-x-3">

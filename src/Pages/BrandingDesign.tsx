@@ -696,6 +696,15 @@ const BrandingDesign = () => {
                 onClick={() => {
                   navigate('/contact?service=Branding & Design');
                 }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  navigate('/contact?service=Branding & Design');
+                }}
+                style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  cursor: 'pointer'
+                }}
               >
                 <span className="relative z-10 flex items-center space-x-3">
                   <span>GET CONSULTATION</span>
@@ -711,6 +720,15 @@ const BrandingDesign = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
                   navigate('/portfolio');
+                }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  navigate('/portfolio');
+                }}
+                style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  cursor: 'pointer'
                 }}
               >
                 <span className="flex items-center space-x-3">

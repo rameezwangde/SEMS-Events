@@ -180,6 +180,10 @@ html {
   font-weight: 500;
   transition: all 0.3s ease;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  min-height: 44px; /* Minimum touch target size for mobile */
 }
 
 .btn-minimal::before {
@@ -212,6 +216,10 @@ html {
   color: #fff;
   font-weight: 600;
   transition: all 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  min-height: 44px; /* Minimum touch target size for mobile */
 }
 
 .btn-ghost:hover {
