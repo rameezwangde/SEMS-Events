@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, Sparkles, MapPin, ChevronDown, Play } from 'lucide-react';
+import TicketBookingModal from '../components/TicketBookingModal';
 
 // Simple image component with lazy loading
 const LazyImage = ({ src, alt, className, priority }: any) => (
@@ -18,6 +19,7 @@ const Home = () => {
   const containerRef = useRef(null);
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
 
   const reviews = [
     {
@@ -107,13 +109,7 @@ const Home = () => {
               className="bg-white text-black px-6 sm:px-12 py-4 sm:py-6 font-bold text-base sm:text-lg hover:bg-white/90 transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 group mx-auto cursor-pointer relative z-10"
               whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,255,255,0.3)" }}
               whileTap={{ scale: 0.95 }}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Button clicked!');
-                // Redirect to the specific Andrea Jeremiah event on Platinumlist
-                window.open('https://dubai.platinumlist.net/event-tickets/101167/andrea-jeremiah-live-ft-the-jeremiah-project-at-etisalat-academy-in-dubai?utm_source=website&utm_medium=button&utm_campaign=andrea_concert&utm_content=platinumlist', '_blank');
-              }}
+              onClick={() => setIsTicketModalOpen(true)}
               style={{ pointerEvents: 'auto' }}
             >
               <span>BOOK NOW</span>
@@ -1325,6 +1321,12 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Ticket Booking Modal */}
+      <TicketBookingModal 
+        isOpen={isTicketModalOpen} 
+        onClose={() => setIsTicketModalOpen(false)} 
+      />
     </div>
   );
 };
