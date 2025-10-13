@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from 'motion/react';
 import { X, ExternalLink } from 'lucide-react';
 
 interface TicketBookingModalProps {
@@ -7,6 +6,8 @@ interface TicketBookingModalProps {
 }
 
 const TicketBookingModal = ({ isOpen, onClose }: TicketBookingModalProps) => {
+  if (!isOpen) return null;
+
   const ticketOptions = [
     {
       name: 'Platinumlist',
@@ -49,90 +50,117 @@ const TicketBookingModal = ({ isOpen, onClose }: TicketBookingModalProps) => {
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+    <div 
+      style={{ 
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 0,
+        padding: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backdropFilter: 'blur(4px)'
+      }}
+      onClick={onClose}
+    >
+      {/* Modal Content */}
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: 'relative',
+          backgroundColor: '#1f2937',
+          borderRadius: '1rem',
+          padding: '2rem',
+          maxWidth: '28rem',
+          width: '90%',
+          margin: '0 auto',
+          zIndex: 10000
+        }}
+      >
+        {/* Close Button - Top Right */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-white hover:text-gray-300 transition-colors"
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
+            width: '2rem',
+            height: '2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            backgroundColor: 'transparent',
+            border: 'none',
+            cursor: 'pointer'
+          }}
         >
-          {/* Backdrop */}
-          <motion.div
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
+          <X className="w-5 h-5" />
+        </button>
 
-          {/* Modal Content */}
-          <motion.div
-            className="relative bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4"
-            initial={{ scale: 0.8, opacity: 0, y: 50 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 50 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 30,
-              duration: 0.4 
-            }}
-          >
-            {/* Close Button - Top Right */}
+        {/* Modal Header */}
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-bold text-white mb-2">Choose Your Ticket Platform</h3>
+          <p className="text-gray-400 text-sm">Select your preferred ticketing platform to purchase tickets</p>
+        </div>
+
+        {/* Ticket Options */}
+        <div className="space-y-4 mb-8">
+          {ticketOptions.map((option, index) => (
             <button
-              onClick={onClose}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-white hover:text-gray-300 transition-colors"
-              aria-label="Close modal"
+              key={option.name}
+              onClick={() => handleTicketClick(option.url)}
+              className="w-full bg-gray-700 hover:bg-gray-600 rounded-xl p-4 flex items-center justify-between transition-all duration-300 group"
+              style={{
+                width: '100%',
+                backgroundColor: '#374151',
+                borderRadius: '0.75rem',
+                padding: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                border: 'none',
+                cursor: 'pointer',
+                marginBottom: '1rem'
+              }}
             >
-              <X className="w-5 h-5" />
+              <div className="flex items-center space-x-4">
+                {option.logo}
+                <div className="text-left">
+                  <div className="text-white font-semibold">Buy Tickets</div>
+                  <div className="text-gray-400 text-xs">{option.description}</div>
+                </div>
+              </div>
+              <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
             </button>
+          ))}
+        </div>
 
-            {/* Modal Header */}
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-white mb-2">Choose Your Ticket Platform</h3>
-              <p className="text-gray-400 text-sm">Select your preferred ticketing platform to purchase tickets</p>
-            </div>
-
-            {/* Ticket Options */}
-            <div className="space-y-4 mb-8">
-              {ticketOptions.map((option, index) => (
-                <motion.button
-                  key={option.name}
-                  onClick={() => handleTicketClick(option.url)}
-                  className="w-full bg-gray-700 hover:bg-gray-600 rounded-xl p-4 flex items-center justify-between transition-all duration-300 group"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="flex items-center space-x-4">
-                    {option.logo}
-                    <div className="text-left">
-                      <div className="text-white font-semibold">Buy Tickets</div>
-                      <div className="text-gray-400 text-xs">{option.description}</div>
-                    </div>
-                  </div>
-                  <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Close Button - Bottom */}
-            <motion.button
-              onClick={onClose}
-              className="w-full bg-gray-600 hover:bg-gray-500 text-white py-3 rounded-xl font-medium transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Close
-            </motion.button>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        {/* Close Button - Bottom */}
+        <button
+          onClick={onClose}
+          className="w-full bg-gray-600 hover:bg-gray-500 text-white py-3 rounded-xl font-medium transition-colors"
+          style={{
+            width: '100%',
+            backgroundColor: '#4b5563',
+            color: 'white',
+            padding: '0.75rem',
+            borderRadius: '0.75rem',
+            fontWeight: '500',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          Close
+        </button>
+      </div>
+    </div>
   );
 };
 

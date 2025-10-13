@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, Sparkles, MapPin, ChevronDown, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import TicketBookingModal from '../components/TicketBookingModal';
 
 // Ultra-optimized lazy loading image component
@@ -55,7 +55,6 @@ const LazySection = ({ children, className = "", delay = 0 }: any) => {
 const Home = () => {
   const containerRef = useRef(null);
   const [activeStep, setActiveStep] = useState<number | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -572,31 +571,6 @@ const Home = () => {
               />
             </motion.div>
             
-            {/* Interactive Play Button */}
-            <motion.div 
-              className="flex justify-center mb-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <motion.button
-                className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-full hover:bg-white/20 transition-all duration-300 group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsPlaying(!isPlaying)}
-              >
-                <motion.div
-                  animate={{ rotate: isPlaying ? 360 : 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {isPlaying ? <ChevronDown className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                </motion.div>
-                <span className="font-mono text-sm tracking-wider">
-                  {isPlaying ? 'PAUSE' : 'PLAY'} ANIMATION
-                </span>
-              </motion.button>
-            </motion.div>
             
             <motion.h2 
               className="text-5xl lg:text-7xl font-bold mb-8"
@@ -657,70 +631,6 @@ const Home = () => {
               </motion.span>
             </motion.h2>
             
-            {/* SEMS Image */}
-            <motion.div 
-              className="mb-12 flex justify-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
-              viewport={{ once: true }}
-            >
-              <div className="relative max-w-md">
-                <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                  <img 
-                    src="https://tse3.mm.bing.net/th/id/OIP.X7j2EaIpWdgwo2BNYZ3ofAHaHa?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3"
-                    alt="SEMS Events"
-                    className="w-full h-auto object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </div>
-                
-                 {/* Ultra-optimized floating decorative elements */}
-                <motion.div
-                  className="absolute -top-4 -right-4 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-lg"
-                  animate={{ 
-                     y: [-2, 2, -2],
-                     rotate: [0, 3, 0]
-                  }}
-                  transition={{ 
-                     duration: 6, 
-                    repeat: Infinity, 
-                     ease: "easeInOut",
-                     type: "tween",
-                     repeatType: "reverse"
-                   }}
-                   style={{ 
-                     willChange: 'auto',
-                     transform: 'translateZ(0)'
-                  }}
-                >
-                  <Star className="w-4 h-4 text-black" />
-                </motion.div>
-                
-                <motion.div
-                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-white/90 rounded-full flex items-center justify-center shadow-lg"
-                  animate={{ 
-                     y: [2, -2, 2],
-                     rotate: [0, -3, 0]
-                  }}
-                  transition={{ 
-                     duration: 7, 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                     delay: 3,
-                     type: "tween",
-                     repeatType: "reverse"
-                   }}
-                   style={{ 
-                     willChange: 'auto',
-                     transform: 'translateZ(0)'
-                  }}
-                >
-                  <Sparkles className="w-3 h-3 text-black" />
-                </motion.div>
-              </div>
-            </motion.div>
           </motion.div>
 
           <div className="relative">
@@ -874,21 +784,10 @@ const Home = () => {
                     transition: { duration: 0.3 }
                   }}
                   onClick={() => setActiveStep(activeStep === index ? null : index)}
-                  animate={isPlaying ? {
-                     scale: [1, 1.005, 1],
-                    transition: {
-                       duration: 5,
-                      repeat: Infinity,
-                       delay: index * 0.3,
-                       ease: "easeInOut",
-                       type: "tween",
-                       repeatType: "reverse"
-                    }
-                  } : {}}
-                   style={{ 
-                     willChange: isPlaying ? 'transform' : 'auto',
-                     transform: 'translateZ(0)'
-                   }}
+                  style={{
+                    willChange: 'auto',
+                    transform: 'translateZ(0)'
+                  }}
                 >
                   {/* Content Section */}
                   <div className={`w-full lg:w-5/12 ${step.position === 'left' ? 'text-center lg:text-right pr-0 lg:pr-12' : 'text-center lg:text-left pl-0 lg:pl-12'} mb-8 lg:mb-0`}>
