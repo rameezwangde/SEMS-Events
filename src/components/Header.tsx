@@ -59,7 +59,7 @@ const Header = () => {
                 </div>
               </Link>
               
-              {/* Phone Numbers - Hidden on mobile, visible on desktop */}
+              {/* Phone Numbers and All Navigation - Hidden on mobile, visible on desktop */}
               <div className="hidden lg:flex items-center space-x-4">
                 <motion.a 
                   href="tel:+971508194875"
@@ -71,76 +71,74 @@ const Header = () => {
                   <span className="font-mono">+971 508194875</span>
                 </motion.a>
                 <motion.a 
-                  href="tel:+97156452626"
+                  href="tel:+971564526626"
                   className="flex items-center gap-1 text-white/80 hover:text-white transition-colors text-sm"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Phone className="w-3 h-3" />
-                  <span className="font-mono">+971 56452626</span>
+                  <span className="font-mono">+971 564526626</span>
                 </motion.a>
+                
+                {/* All Navigation Links - Grouped together */}
+                <div className="flex items-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 ml-4">
+                  {navItems.map((item, _) => (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      className={`relative px-6 py-3 text-sm font-mono font-medium transition-all duration-300 rounded-full ${
+                        location.pathname === item.path
+                          ? 'bg-white text-black'
+                          : 'text-white/80 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="relative z-10">{item.name}</span>
+                      {location.pathname === item.path && (
+                        <motion.div
+                          className="absolute inset-0 bg-white rounded-full"
+                          layoutId="activeTab"
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        />
+                      )}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Avant-garde Desktop Navigation with Social Media */}
-            <nav className="hidden lg:flex items-center space-x-4">
-              <div className="flex items-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2">
-                {navItems.map((item, _) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`relative px-6 py-3 text-sm font-mono font-medium transition-all duration-300 rounded-full ${
-                      location.pathname === item.path 
-                        ? 'bg-white text-black' 
-                        : 'text-white/80 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <span className="relative z-10">{item.name}</span>
-                    {location.pathname === item.path && (
-                      <motion.div
-                        className="absolute inset-0 bg-white rounded-full"
-                        layoutId="activeTab"
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                      />
-                    )}
-                  </Link>
-                ))}
-              </div>
-              
-              {/* Social Media Icons */}
-              <div className="flex items-center space-x-2">
-                <motion.a 
-                  href="https://wa.me/971508194875"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <MessageCircle className="w-4 h-4 text-white" />
-                </motion.a>
-                <motion.a 
-                  href="https://instagram.com/semsmanaging"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Instagram className="w-4 h-4 text-white" />
-                </motion.a>
-                <motion.a 
-                  href="https://facebook.com/semsmanaging"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Facebook className="w-4 h-4 text-white" />
-                </motion.a>
-              </div>
-            </nav>
+            {/* Social Media Icons - Far Right */}
+            <div className="hidden lg:flex items-center space-x-2">
+              <motion.a
+                href="https://wa.me/971508194875"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <MessageCircle className="w-4 h-4 text-white" />
+              </motion.a>
+              <motion.a
+                href="https://instagram.com/semsmanaging"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Instagram className="w-4 h-4 text-white" />
+              </motion.a>
+              <motion.a
+                href="https://facebook.com/semsmanaging"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Facebook className="w-4 h-4 text-white" />
+              </motion.a>
+            </div>
 
             {/* Futuristic Mobile Menu Button */}
             <button
