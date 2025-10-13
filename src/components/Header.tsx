@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X, Zap, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const Header = () => {
@@ -41,26 +41,50 @@ const Header = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
-            {/* Revolutionary Logo */}
-            <Link 
-              to="/" 
-              className="flex items-center space-x-2 sm:space-x-4 group"
-              aria-label="SEMS Events - Go to homepage"
-            >
-              <div className="relative">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white text-black flex items-center justify-center font-bold text-lg sm:text-xl clip-hexagon group-hover:morph-shape transition-all duration-300">
-                  S
+            {/* Revolutionary Logo with Contact */}
+            <div className="flex items-center space-x-4">
+              <Link 
+                to="/" 
+                className="flex items-center space-x-2 sm:space-x-4 group"
+                aria-label="SEMS Events - Go to homepage"
+              >
+                <div className="relative">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white text-black flex items-center justify-center font-bold text-lg sm:text-xl clip-hexagon group-hover:morph-shape transition-all duration-300">
+                    S
+                  </div>
+                  <Zap className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <Zap className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="font-mono">
+                  <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wider glitch-text">SEMS</h1>
+                  <p className="text-xs text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
+                </div>
+              </Link>
+              
+              {/* Phone Numbers - Hidden on mobile, visible on desktop */}
+              <div className="hidden lg:flex items-center space-x-4">
+                <motion.a 
+                  href="tel:+971508194875"
+                  className="flex items-center gap-1 text-white/80 hover:text-white transition-colors text-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Phone className="w-3 h-3" />
+                  <span className="font-mono">+971 508194875</span>
+                </motion.a>
+                <motion.a 
+                  href="tel:+97156452626"
+                  className="flex items-center gap-1 text-white/80 hover:text-white transition-colors text-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Phone className="w-3 h-3" />
+                  <span className="font-mono">+971 56452626</span>
+                </motion.a>
               </div>
-              <div className="font-mono">
-                <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wider glitch-text">SEMS</h1>
-                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
-              </div>
-            </Link>
+            </div>
 
-            {/* Avant-garde Desktop Navigation */}
-            <nav className="hidden lg:flex items-center">
+            {/* Avant-garde Desktop Navigation with Social Media */}
+            <nav className="hidden lg:flex items-center space-x-4">
               <div className="flex items-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2">
                 {navItems.map((item, _) => (
                   <Link
@@ -82,6 +106,40 @@ const Header = () => {
                     )}
                   </Link>
                 ))}
+              </div>
+              
+              {/* Social Media Icons */}
+              <div className="flex items-center space-x-2">
+                <motion.a 
+                  href="https://wa.me/971508194875"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <MessageCircle className="w-4 h-4 text-white" />
+                </motion.a>
+                <motion.a 
+                  href="https://instagram.com/semsmanaging"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Instagram className="w-4 h-4 text-white" />
+                </motion.a>
+                <motion.a 
+                  href="https://facebook.com/semsmanaging"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Facebook className="w-4 h-4 text-white" />
+                </motion.a>
               </div>
             </nav>
 
