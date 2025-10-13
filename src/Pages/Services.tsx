@@ -510,6 +510,12 @@ const Services = () => {
                         // Redirect to specific service page or contact page
                         if (service.title === 'EVENT MANAGEMENT') {
                           window.location.href = '/event-management';
+                        } else if (service.title === 'DIGITAL MARKETING') {
+                          window.location.href = '/digital-marketing';
+                        } else if (service.title === 'BRANDING & DESIGN') {
+                          window.location.href = '/branding-design';
+                        } else if (service.title === 'CONTENT CREATION') {
+                          window.location.href = '/content-creation';
                         } else {
                           window.location.href = '/contact?service=' + encodeURIComponent(service.title);
                         }
