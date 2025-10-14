@@ -1,59 +1,76 @@
 import { motion } from 'motion/react';
-import { Users, Award, Heart, Target, CheckCircle, Zap, Eye, Lightbulb } from 'lucide-react';
+import { Users, Award, Heart, Target, CheckCircle, Zap, Eye, Lightbulb, ArrowRight, ExternalLink } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  const navigate = useNavigate();
   const values = [
     {
       icon: Lightbulb,
-      title: 'INNOVATION',
-      description: 'Pushing boundaries with cutting-edge concepts and revolutionary event experiences.'
+      title: 'CREATIVITY',
+      description: 'Innovative design concepts and creative solutions that make every event unique and memorable.'
     },
     {
       icon: Target,
       title: 'PRECISION',
-      description: 'Meticulous planning and flawless execution in every detail of your event.'
+      description: 'Meticulous event planning and coordination ensuring flawless execution from concept to completion.'
     },
     {
       icon: Users,
       title: 'COLLABORATION',
-      description: 'Working as true partners to bring your unique vision to extraordinary life.'
+      description: 'Working closely with clients as partners to bring their vision to life with tailored experiences.'
     },
     {
       icon: Award,
       title: 'EXCELLENCE',
-      description: 'Delivering award-winning experiences that exceed expectations every time.'
+      description: 'Commitment to delivering exceptional quality across all 15 event categories we serve.'
     }
   ];
 
-  const team = [
+  const expertise = [
     {
-      name: 'ALEXANDRA STONE',
-      role: 'FOUNDER & CREATIVE DIRECTOR',
-      image: 'https://images.pexels.com/photos/3760137/pexels-photo-3760137.jpeg?auto=compress&cs=tinysrgb&w=400',
-      bio: 'Visionary leader with 18 years of experience creating extraordinary events that push creative boundaries.',
-      specialty: 'CREATIVE STRATEGY'
+      title: 'CORPORATE EVENTS',
+      description: 'Elevate your business gatherings to new heights with our expertly curated corporate event services.',
+      icon: '🏢',
+      route: '/services'
     },
     {
-      name: 'MARCUS CHEN',
-      role: 'OPERATIONS DIRECTOR',
-      image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400',
-      bio: 'Master of logistics and execution, ensuring every event runs with military precision and seamless flow.',
-      specialty: 'OPERATIONS EXCELLENCE'
+      title: 'SOCIAL EVENTS',
+      description: 'Craft unforgettable social events that celebrate life\'s moments with style and flair.',
+      icon: '🎉',
+      route: '/services'
     },
     {
-      name: 'SOPHIA RIVERA',
-      role: 'LEAD EXPERIENCE DESIGNER',
-      image: 'https://images.pexels.com/photos/3760736/pexels-photo-3760736.jpeg?auto=compress&cs=tinysrgb&w=400',
-      bio: 'Award-winning designer who transforms spaces into immersive environments that captivate and inspire.',
-      specialty: 'SPATIAL DESIGN'
+      title: 'CULTURAL EVENTS',
+      description: 'Celebrate diversity and creativity through a tapestry of vibrant cultural events.',
+      icon: '🎭',
+      route: '/services'
+    },
+    {
+      title: 'SPORTS EVENTS',
+      description: 'Where the thrill of the game meets unforgettable experiences and heart-pounding excitement.',
+      icon: '⚽',
+      route: '/services'
+    },
+    {
+      title: 'ENTERTAINMENT EVENTS',
+      description: 'Where the stage is set for unforgettable moments, laughter, and pure joy.',
+      icon: '🎪',
+      route: '/services'
+    },
+    {
+      title: 'OTHER SERVICES',
+      description: 'Comprehensive event solutions tailored to your unique needs and requirements.',
+      icon: '🌟',
+      route: '/services'
     }
   ];
 
   const achievements = [
-    { number: '847', label: 'EVENTS DELIVERED' },
-    { number: '23', label: 'INDUSTRY AWARDS' },
-    { number: '18', label: 'YEARS EXPERIENCE' },
-    { number: '4.9', label: 'CLIENT RATING' }
+    { number: '15+', label: 'EVENT CATEGORIES' },
+    { number: '100%', label: 'CLIENT SATISFACTION' },
+    { number: 'GLOBAL', label: 'REACH' },
+    { number: '24/7', label: 'SUPPORT' }
   ];
 
   return (
@@ -101,7 +118,7 @@ const About = () => {
                 }}
               >
                 <div className="w-1 sm:w-2 h-12 sm:h-16 bg-white"></div>
-                <span className="font-mono text-xs sm:text-sm tracking-[0.3em] text-white/60">ABOUT SEMS EVENTS</span>
+                <span className="font-mono text-xs sm:text-sm tracking-[0.3em] text-white/60">ABOUT SEMS</span>
               </motion.div>
 
               <div className="space-y-6">
@@ -133,7 +150,7 @@ const About = () => {
                       transition: { duration: 0.3 }
                     }}
                   >
-                    WE ARE
+                    CRAFTING
                   </motion.span>
                   <motion.span 
                     className="block text-outline glitch-text"
@@ -165,7 +182,7 @@ const About = () => {
                       transition: { duration: 0.4 }
                     }}
                   >
-                    EVENT
+                    UNFORGETTABLE
                   </motion.span>
                   <motion.span 
                     className="block text-white"
@@ -197,7 +214,7 @@ const About = () => {
                       transition: { duration: 0.3 }
                     }}
                   >
-                    ARCHITECTS
+                    MOMENTS, GLOBALLY
                   </motion.span>
                 </h1>
                 
@@ -229,16 +246,15 @@ const About = () => {
                     transition: { duration: 0.3 }
                   }}
                 >
-                  Since 2006, we've been revolutionizing the event industry through innovative design, 
-                  cutting-edge technology, and an unwavering commitment to creating extraordinary experiences.
+                  Welcome to Shuaib Events Management L.L.C, your premier partner in turning ordinary moments into extraordinary memories. Based in the vibrant city of Dubai, we are a dynamic and innovative event management company that takes pride in offering a diverse range of services across 15 different event categories.
                 </motion.p>
               </div>
               
               <div className="space-y-3 sm:space-y-4 pt-6 sm:pt-8">
                 {[
-                  '847+ SUCCESSFUL EVENTS DELIVERED',
-                  '23 INDUSTRY AWARDS WON',
-                  '4.9/5 CLIENT SATISFACTION RATING'
+                  '15+ DIFFERENT EVENT CATEGORIES',
+                  'COMPREHENSIVE EVENT SOLUTIONS',
+                  'GLOBAL REACH FROM DUBAI'
                 ].map((achievement, index) => (
                   <motion.div
                     key={index}
@@ -256,30 +272,103 @@ const About = () => {
 
             <motion.div
               className="lg:col-span-5 relative"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 1 }}
+              initial={{ opacity: 0, scale: 0.8, rotateY: 45 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ delay: 0.3, duration: 1.2, ease: "easeOut" }}
             >
               <div className="relative">
-                <div className="overflow-hidden clip-diagonal">
-                  <img
-                    src="https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="About SEMS Events"
-                    className="w-full h-96 lg:h-[600px] object-cover hover-scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                </div>
-                
-                {/* Floating Stats */}
+                {/* Logo Container with Enhanced Animations */}
                 <motion.div
-                  className="absolute -bottom-8 -left-8 bg-white text-black p-6"
-                  animate={{ y: [-10, 10, -10] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-3xl p-12 lg:p-16 overflow-hidden"
+                  whileHover={{ 
+                    scale: 1.05, 
+                    rotateY: 5,
+                    transition: { duration: 0.4, ease: "easeOut" }
+                  }}
+                  initial={{ rotateX: -15, opacity: 0 }}
+                  animate={{ rotateX: 0, opacity: 1 }}
+                  transition={{ delay: 0.5, duration: 1 }}
+                >
+                  {/* Animated Background Elements */}
+                  <motion.div
+                    className="absolute top-0 right-0 w-32 h-32 border-2 border-white/20 clip-hexagon"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.div
+                    className="absolute bottom-0 left-0 w-24 h-24 border-2 border-white/10 clip-triangle"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  />
+                  
+                  {/* SEMS Logo */}
+                  <div className="relative z-10 text-center">
+                    <motion.div
+                      className="text-8xl lg:text-9xl font-bold mb-6"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ 
+                        delay: 0.8, 
+                        duration: 1.5, 
+                        type: "spring", 
+                        stiffness: 100 
+                      }}
+                      whileHover={{ 
+                        scale: 1.1, 
+                        rotate: 5,
+                        transition: { duration: 0.3 }
+                      }}
+                    >
+                      <span className="text-outline glitch-text">SEMS</span>
+                    </motion.div>
+                    
+                    <motion.p
+                      className="text-xl text-white/80 font-mono tracking-wider"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.2, duration: 0.8 }}
+                    >
+                      EVENTS MANAGEMENT
+                    </motion.p>
+                    
+                    <motion.p
+                      className="text-sm text-white/60 font-mono mt-2"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.4, duration: 0.8 }}
+                    >
+                      Dubai, UAE
+                    </motion.p>
+                  </div>
+                </motion.div>
+                
+                {/* Floating Stats with Enhanced Animation */}
+                <motion.div
+                  className="absolute -bottom-8 -left-8 bg-white text-black p-6 rounded-2xl shadow-2xl"
+                  animate={{ 
+                    y: [-10, 10, -10],
+                    rotate: [-2, 2, -2]
+                  }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  whileHover={{ 
+                    scale: 1.1, 
+                    rotate: 0,
+                    transition: { duration: 0.3 }
+                  }}
                 >
                   <div className="text-center">
-                    <Zap className="w-8 h-8 mx-auto mb-2" />
-                    <p className="font-bold text-2xl">18+</p>
-                    <p className="text-sm font-mono">YEARS</p>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Zap className="w-8 h-8 mx-auto mb-2" />
+                    </motion.div>
+                    <p className="font-bold text-2xl">15+</p>
+                    <p className="text-sm font-mono">CATEGORIES</p>
                   </div>
                 </motion.div>
               </div>
@@ -310,13 +399,10 @@ const About = () => {
               
               <div className="space-y-6 text-lg leading-relaxed text-black/80 font-light">
                 <p>
-                  To revolutionize the event industry by creating extraordinary experiences that 
-                  transcend expectations and leave lasting impressions on every attendee.
+                  Our commitment to excellence, creativity, and precision sets us apart as we strive to bring your visions to life on a global stage.
                 </p>
                 <p>
-                  We believe every event should be a masterpiece of creativity, precision, and 
-                  innovation. Our mission is to transform ordinary moments into extraordinary 
-                  memories through cutting-edge design and flawless execution.
+                  We specialize in creating tailored experiences that align with your brand identity and goals. Our team handles logistics, vendor management, and on-site coordination, allowing you to focus on what matters most.
                 </p>
               </div>
             </motion.div>
@@ -338,12 +424,10 @@ const About = () => {
               
               <div className="space-y-6 text-lg leading-relaxed text-black/80 font-light">
                 <p>
-                  To be the global leader in event innovation, setting new standards for 
-                  creativity, sustainability, and technological integration in every experience we create.
+                  To be the premier event management company that transforms ordinary moments into extraordinary memories, creating unforgettable experiences that resonate globally.
                 </p>
                 <p>
-                  We envision a future where events are not just gatherings, but transformative 
-                  experiences that inspire, connect, and create positive change in the world.
+                  We envision a future where every event we manage becomes a masterpiece of creativity, precision, and innovation, setting new standards in the industry while delivering exceptional value to our clients.
                 </p>
               </div>
             </motion.div>
@@ -404,8 +488,225 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team - Revolutionary Presentation */}
-      <section className="py-32 bg-white text-black relative overflow-hidden">
+      {/* Services Section */}
+      <section className="py-32 bg-white text-black relative">
+        <div className="absolute inset-0 grid-dots opacity-10"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center justify-center space-x-4 mb-8">
+              <div className="w-16 h-1 bg-black"></div>
+              <span className="font-mono text-sm tracking-[0.3em] text-black/60">OUR SERVICES</span>
+              <div className="w-16 h-1 bg-black"></div>
+            </div>
+            
+            <h2 className="text-5xl lg:text-7xl font-bold">
+              <span className="block text-black">COMPREHENSIVE</span>
+              <span className="block text-outline-black">SOLUTIONS</span>
+            </h2>
+            <p className="text-xl text-black/60 max-w-3xl mx-auto mt-8 font-light">
+              From concept to execution, we offer a complete range of event management and marketing services
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: 'EVENT MANAGEMENT',
+                description: 'From concept to execution, our event management services cover everything. We specialize in creating tailored experiences that align with your brand identity and goals.',
+                icon: '🎪',
+                route: '/event-management'
+              },
+              {
+                title: 'DIGITAL MARKETING',
+                description: 'Enhance your brand visibility and engagement with our comprehensive digital marketing services including social media management, SEO, and paid advertising.',
+                icon: '📱',
+                route: '/digital-marketing'
+              },
+              {
+                title: 'BRANDING & DESIGN',
+                description: 'A cohesive and visually appealing brand is key to making a lasting impression. Our branding services encompass logo design, brand strategy, and graphic design.',
+                icon: '🎨',
+                route: '/branding-design'
+              },
+              {
+                title: 'CONTENT CREATION',
+                description: 'Engaging content is at the heart of successful marketing. Our team excels in producing compelling written, visual, and multimedia content.',
+                icon: '✍️',
+                route: '/content-creation'
+              }
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                className="group relative cursor-pointer"
+                initial={{ opacity: 0, y: 50, rotateX: -30 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.8 }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  y: -10, 
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate(service.route)}
+              >
+                <div className="bg-black/5 backdrop-blur-sm border border-black/10 p-8 h-full hover:bg-black/10 transition-all duration-500 group-hover:border-black/30 relative overflow-hidden rounded-2xl">
+                  <div className="relative z-10">
+                    <motion.div 
+                      className="text-4xl mb-6 group-hover:scale-110 transition-transform"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {service.icon}
+                    </motion.div>
+                    <h3 className="text-xl font-bold mb-4 font-mono tracking-wider group-hover:text-black/90 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-black/80 leading-relaxed font-light mb-6 group-hover:text-black/90 transition-colors">
+                      {service.description}
+                    </p>
+                    
+                    {/* Click to navigate indicator */}
+                    <motion.div 
+                      className="flex items-center text-black/60 group-hover:text-black font-mono text-sm"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileHover={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span className="mr-2">Learn More</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </motion.div>
+                  </div>
+                  
+                  {/* Animated Background Element */}
+                  <motion.div
+                    className="absolute top-0 right-0 w-16 h-16 border-2 border-black/20 clip-triangle opacity-0 group-hover:opacity-100"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  />
+                  
+                  {/* Hover overlay effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={{ scale: 0 }}
+                    whileHover={{ scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Expertise Section */}
+      <section className="py-32 bg-black text-white relative overflow-hidden">
+        <div className="absolute inset-0 noise-bg"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-5xl lg:text-7xl font-bold mb-8">
+              <span className="block text-white">OUR</span>
+              <span className="block text-outline">EXPERTISE</span>
+            </h2>
+            <p className="text-xl text-white/60 max-w-3xl mx-auto font-light">
+              Specialized event management across diverse categories
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {expertise.map((item, index) => (
+              <motion.div
+                key={index}
+                className="group relative cursor-pointer"
+                initial={{ opacity: 0, y: 50, rotateX: -20 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  y: -15, 
+                  scale: 1.03,
+                  rotateY: 5,
+                  transition: { duration: 0.4, ease: "easeOut" }
+                }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => navigate(item.route)}
+              >
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 h-full hover:bg-white/10 transition-all duration-500 group-hover:border-white/30 relative overflow-hidden rounded-2xl">
+                  <div className="relative z-10">
+                    <motion.div 
+                      className="text-4xl mb-6 group-hover:scale-110 transition-transform"
+                      whileHover={{ 
+                        rotate: [0, -10, 10, 0],
+                        scale: 1.2
+                      }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {item.icon}
+                    </motion.div>
+                    <h3 className="text-xl font-bold mb-4 font-mono tracking-wider group-hover:text-white transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-white/80 leading-relaxed font-light mb-6 group-hover:text-white/90 transition-colors">
+                      {item.description}
+                    </p>
+                    
+                    {/* Click to navigate indicator */}
+                    <motion.div 
+                      className="flex items-center text-white/60 group-hover:text-white font-mono text-sm"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileHover={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span className="mr-2">Explore</span>
+                      <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </motion.div>
+                  </div>
+                  
+                  {/* Animated Background Element */}
+                  <motion.div
+                    className="absolute top-0 right-0 w-16 h-16 border-2 border-white/20 clip-triangle opacity-0 group-hover:opacity-100"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  />
+                  
+                  {/* Hover overlay effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={{ scale: 0, rotate: 45 }}
+                    whileHover={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                  
+                  {/* Glow effect on hover */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100"
+                    style={{
+                      background: 'linear-gradient(45deg, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.1))',
+                      filter: 'blur(20px)'
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What We Do Section */}
+      <section className="py-32 bg-white text-black relative">
         <div className="absolute inset-0 grid-dots opacity-10"></div>
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -416,70 +717,143 @@ const About = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-5xl lg:text-7xl font-bold mb-8">
-              <span className="block text-black">MEET THE</span>
-              <span className="block text-outline-black">VISIONARIES</span>
+              <span className="block text-black">WHAT</span>
+              <span className="block text-outline-black">WE DO</span>
             </h2>
             <p className="text-xl text-black/60 max-w-3xl mx-auto font-light">
-              The creative minds behind every extraordinary experience
+              Comprehensive event management services from planning to execution
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {team.map((member, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              'Meticulous event planning and coordination',
+              'Logistics management for seamless execution',
+              'On-site coordination for a flawless experience',
+              'Entertainment and content creation tailored to your audience',
+              'Exquisite catering services with attention to detail',
+              'Innovative decoration and design concepts',
+              'Cutting-edge audio-visual services',
+              'Strategic promotion and marketing initiatives',
+              'Post-event evaluation for continuous improvement'
+            ].map((item, index) => (
               <motion.div
                 key={index}
-                className="group relative"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
+                className="flex items-start space-x-4 group cursor-pointer"
+                initial={{ opacity: 0, x: -30, scale: 0.9 }}
+                whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ 
+                  delay: index * 0.1, 
+                  duration: 0.8,
+                  ease: "easeOut"
+                }}
                 viewport={{ once: true }}
+                whileHover={{ 
+                  x: 10, 
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
               >
-                <div className="relative overflow-hidden mb-6">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-80 object-cover clip-diagonal group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
-                  {/* Specialty Badge */}
-                  <div className="absolute top-4 left-4 bg-black text-white px-3 py-1 text-xs font-mono tracking-wider">
-                    {member.specialty}
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold font-mono tracking-wider">{member.name}</h3>
-                  <p className="text-lg text-black/60 font-mono">{member.role}</p>
-                  <p className="text-black/80 leading-relaxed font-light">{member.bio}</p>
-                </div>
-                
-                {/* Decorative Elements */}
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-black opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-black opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <motion.div 
+                  className="w-2 h-2 bg-black rounded-full mt-3 group-hover:scale-150 transition-transform"
+                  whileHover={{ 
+                    scale: 2,
+                    backgroundColor: "#000",
+                    boxShadow: "0 0 20px rgba(0,0,0,0.3)"
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.p 
+                  className="text-lg text-black/80 font-light leading-relaxed group-hover:text-black transition-colors"
+                  whileHover={{ 
+                    x: 5,
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  {item}
+                </motion.p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Achievements - Minimal Stats */}
-      <section className="py-32 bg-black text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      {/* Achievements - Enhanced Stats */}
+      <section className="py-32 bg-black text-white relative overflow-hidden">
+        <div className="absolute inset-0 noise-bg"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl lg:text-6xl font-bold mb-4">
+              <span className="text-outline">OUR</span>
+              <span className="block text-white">IMPACT</span>
+            </h2>
+            <p className="text-xl text-white/60 font-light">
+              Numbers that speak to our commitment to excellence
+            </p>
+          </motion.div>
+          
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={index}
-                className="text-center group"
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.8 }}
+                className="text-center group cursor-pointer"
+                initial={{ opacity: 0, scale: 0.5, rotateY: -90 }}
+                whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+                transition={{ 
+                  delay: index * 0.2, 
+                  duration: 1,
+                  type: "spring",
+                  stiffness: 100
+                }}
                 viewport={{ once: true }}
+                whileHover={{ 
+                  scale: 1.1, 
+                  y: -10,
+                  rotateY: 5,
+                  transition: { duration: 0.4, ease: "easeOut" }
+                }}
               >
-                <h3 className="text-5xl lg:text-7xl font-bold mb-2 font-mono group-hover:text-outline transition-all duration-300">
-                  {achievement.number}
-                </h3>
-                <p className="text-sm font-mono tracking-[0.3em] text-white/60">{achievement.label}</p>
+                <motion.div
+                  className="relative p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 transition-all duration-500"
+                  whileHover={{ 
+                    boxShadow: "0 20px 40px rgba(255,255,255,0.1)",
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <motion.h3 
+                    className="text-5xl lg:text-7xl font-bold mb-2 font-mono group-hover:text-outline transition-all duration-300"
+                    whileHover={{ 
+                      scale: 1.1,
+                      textShadow: "0 0 30px rgba(255,255,255,0.5)"
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {achievement.number}
+                  </motion.h3>
+                  <motion.p 
+                    className="text-sm font-mono tracking-[0.3em] text-white/60 group-hover:text-white/80 transition-colors"
+                    whileHover={{ 
+                      y: -2,
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    {achievement.label}
+                  </motion.p>
+                  
+                  {/* Animated background element */}
+                  <motion.div
+                    className="absolute top-0 right-0 w-16 h-16 border-2 border-white/20 clip-triangle opacity-0 group-hover:opacity-100"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  />
+                </motion.div>
               </motion.div>
             ))}
           </div>

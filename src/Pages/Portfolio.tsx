@@ -1,109 +1,144 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Users, Calendar, MapPin, X, Filter, Star, Eye, Zap } from 'lucide-react';
+import { Users, Calendar, MapPin, X, Filter, Star, Eye, Zap, ArrowRight, ExternalLink, Music, Award, Globe } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const navigate = useNavigate();
 
-  const categories = ['ALL', 'WEDDINGS', 'CORPORATE', 'SOCIAL', 'CONFERENCES'];
+  const categories = ['ALL', 'ENTERTAINMENT', 'CORPORATE', 'SOCIAL', 'CULTURAL', 'SPORTS'];
 
   const projects = [
     {
       id: 1,
-      title: 'ETHEREAL GARDEN WEDDING',
-      category: 'WEDDINGS',
-      description: 'A romantic outdoor ceremony featuring cascading florals, ambient lighting, and bespoke installations.',
-      image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
+      title: 'ANDREA JEREMIAH LIVE IN DUBAI',
+      category: 'ENTERTAINMENT',
+      description: 'First ever live concert in Dubai featuring The Jeremiah Project, Amrut Suresh, DJ Black, and host Kuraishi. A high-energy night with first-class sound, lights and immersive visuals.',
+      image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600',
       details: {
-        guests: 180,
-        date: 'JUNE 2024',
-        location: 'GARDEN VALLEY ESTATE',
-        budget: '$45,000'
+        guests: 2000,
+        date: 'OCTOBER 2025',
+        location: 'ETISALAT ACADEMY, DUBAI',
+        duration: '4 HOURS'
       },
-      testimonial: 'SEMS Events transformed our wedding into pure magic. Every detail was flawlessly executed.',
+      testimonial: 'SEMS delivered an unforgettable South-Indian music spectacle that exceeded all expectations. The production quality was world-class.',
       rating: 5,
-      tags: ['LUXURY', 'OUTDOOR', 'FLORAL DESIGN']
+      tags: ['LIVE MUSIC', 'MULTILINGUAL', 'IMMERSIVE'],
+      featured: true
     },
     {
       id: 2,
-      title: 'TECH INNOVATION SUMMIT',
+      title: 'DUBAI CORPORATE SUMMIT 2024',
       category: 'CORPORATE',
-      description: 'A cutting-edge technology conference with interactive displays and immersive brand experiences.',
+      description: 'International business conference featuring keynote speakers, networking sessions, and cutting-edge technology displays.',
       image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=600',
       details: {
-        guests: 750,
+        guests: 500,
         date: 'MARCH 2024',
-        location: 'CONVENTION CENTER',
-        budget: '$95,000'
+        location: 'DUBAI CONVENTION CENTER',
+        duration: '2 DAYS'
       },
-      testimonial: 'Professional execution from concept to completion. Exceeded all expectations.',
+      testimonial: 'Flawless execution from start to finish. SEMS handled every detail with precision and professionalism.',
       rating: 5,
-      tags: ['TECHNOLOGY', 'CORPORATE', 'INTERACTIVE']
+      tags: ['INTERNATIONAL', 'TECHNOLOGY', 'NETWORKING']
     },
     {
       id: 3,
-      title: 'GOLDEN ANNIVERSARY GALA',
-      category: 'SOCIAL',
-      description: 'An elegant 50th wedding anniversary celebration with sophisticated decor and personalized touches.',
-      image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600',
+      title: 'CULTURAL FESTIVAL DUBAI',
+      category: 'CULTURAL',
+      description: 'A vibrant celebration of diversity featuring traditional performances, art exhibitions, and cultural showcases from around the world.',
+      image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
       details: {
-        guests: 120,
-        date: 'SEPTEMBER 2024',
-        location: 'GRAND BALLROOM',
-        budget: '$32,000'
+        guests: 3000,
+        date: 'NOVEMBER 2024',
+        location: 'DUBAI FESTIVAL CITY',
+        duration: '3 DAYS'
       },
-      testimonial: 'They captured our 50 years together beautifully. Absolutely perfect evening.',
+      testimonial: 'An incredible celebration of cultures that brought our community together. SEMS made it magical.',
       rating: 5,
-      tags: ['ANNIVERSARY', 'ELEGANT', 'PERSONALIZED']
+      tags: ['MULTICULTURAL', 'FESTIVAL', 'COMMUNITY']
     },
     {
       id: 4,
-      title: 'MEDICAL SYMPOSIUM 2024',
-      category: 'CONFERENCES',
-      description: 'International medical conference featuring state-of-the-art technology and seamless logistics.',
+      title: 'DUBAI MARATHON 2024',
+      category: 'SPORTS',
+      description: 'Annual marathon event with professional runners, community participation, and comprehensive event management including logistics, timing, and entertainment.',
       image: 'https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=600',
       details: {
-        guests: 450,
-        date: 'OCTOBER 2024',
-        location: 'MEDICAL CENTER',
-        budget: '$78,000'
+        guests: 15000,
+        date: 'JANUARY 2024',
+        location: 'DUBAI MARINA',
+        duration: '1 DAY'
       },
-      testimonial: 'Exceptional attention to detail and flawless coordination throughout the event.',
+      testimonial: 'Outstanding event management for our marathon. Every detail was perfectly coordinated.',
       rating: 5,
-      tags: ['MEDICAL', 'INTERNATIONAL', 'TECHNOLOGY']
+      tags: ['SPORTS', 'COMMUNITY', 'LOGISTICS']
     },
     {
       id: 5,
-      title: 'CORPORATE AWARDS GALA',
-      category: 'CORPORATE',
-      description: 'An exclusive black-tie awards ceremony with dramatic lighting and premium entertainment.',
+      title: 'LUXURY WEDDING GALA',
+      category: 'SOCIAL',
+      description: 'An opulent wedding celebration featuring bespoke decor, premium catering, and personalized entertainment for a high-profile couple.',
       image: 'https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=600',
       details: {
-        guests: 300,
-        date: 'DECEMBER 2024',
-        location: 'FIVE STAR HOTEL',
-        budget: '$68,000'
+        guests: 250,
+        date: 'FEBRUARY 2024',
+        location: 'BURJ AL ARAB',
+        duration: '8 HOURS'
       },
-      testimonial: 'A night to remember! The production value was absolutely incredible.',
+      testimonial: 'SEMS created the wedding of our dreams. Every moment was perfect and unforgettable.',
       rating: 5,
-      tags: ['BLACK-TIE', 'AWARDS', 'PREMIUM']
+      tags: ['LUXURY', 'WEDDING', 'BESPOKE']
     },
     {
       id: 6,
-      title: 'SUNSET BEACH WEDDING',
-      category: 'WEDDINGS',
-      description: 'An intimate seaside ceremony at golden hour with minimalist elegance and natural beauty.',
+      title: 'TECH STARTUP SHOWCASE',
+      category: 'CORPORATE',
+      description: 'Innovation showcase featuring emerging tech companies, investor presentations, and networking opportunities in Dubai\'s tech ecosystem.',
       image: 'https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg?auto=compress&cs=tinysrgb&w=600',
       details: {
-        guests: 85,
-        date: 'AUGUST 2024',
-        location: 'SUNSET BEACH',
-        budget: '$35,000'
+        guests: 400,
+        date: 'SEPTEMBER 2024',
+        location: 'DUBAI INTERNATIONAL FINANCIAL CENTRE',
+        duration: '6 HOURS'
       },
-      testimonial: 'Our dream beach wedding came to life exactly as we envisioned. Perfect!',
+      testimonial: 'Professional event management that helped our startup gain visibility and connections.',
       rating: 5,
-      tags: ['BEACH', 'INTIMATE', 'MINIMALIST']
+      tags: ['STARTUP', 'INNOVATION', 'NETWORKING']
+    },
+    {
+      id: 7,
+      title: 'RAMADAN IFTAR GATHERING',
+      category: 'CULTURAL',
+      description: 'Community iftar event bringing together families and friends for a traditional Ramadan celebration with cultural performances and authentic cuisine.',
+      image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600',
+      details: {
+        guests: 800,
+        date: 'APRIL 2024',
+        location: 'DUBAI CULTURE VILLAGE',
+        duration: '5 HOURS'
+      },
+      testimonial: 'A beautiful celebration of tradition and community. SEMS made it truly special.',
+      rating: 5,
+      tags: ['RAMADAN', 'COMMUNITY', 'TRADITIONAL']
+    },
+    {
+      id: 8,
+      title: 'DUBAI FASHION WEEK',
+      category: 'ENTERTAINMENT',
+      description: 'Fashion week event featuring runway shows, designer showcases, and industry networking with international and local fashion brands.',
+      image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
+      details: {
+        guests: 1200,
+        date: 'MAY 2024',
+        location: 'DUBAI MALL',
+        duration: '4 DAYS'
+      },
+      testimonial: 'Exceptional production value and flawless execution. Our fashion week was a huge success.',
+      rating: 5,
+      tags: ['FASHION', 'RUNWAY', 'INDUSTRY']
     }
   ];
 
@@ -186,7 +221,7 @@ const Portfolio = () => {
                   transition: { duration: 0.3 }
                 }}
               >
-                EXTRAORDINARY
+                SEMS
               </motion.span>
               <motion.span 
                 className="block text-outline glitch-text"
@@ -218,7 +253,7 @@ const Portfolio = () => {
                   transition: { duration: 0.4 }
                 }}
               >
-                EXPERIENCES
+                PORTFOLIO
               </motion.span>
             </h1>
             
@@ -250,15 +285,15 @@ const Portfolio = () => {
                 transition: { duration: 0.3 }
               }}
             >
-              A curated showcase of our most innovative and memorable events that demonstrate 
-              our commitment to excellence and creative vision.
+              Showcasing our most successful events across Dubai and beyond. From Andrea Jeremiah's 
+              first Dubai concert to corporate summits and cultural festivals - each event tells a story of excellence.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Revolutionary Filter Section */}
-      <section className="py-16 bg-white text-black sticky top-20 z-40 border-b-2 border-black">
+      {/* Fixed Filter Section */}
+      <section className="py-16 bg-white text-black sticky top-20 z-50 border-b-2 border-black shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-3 sm:space-x-4">
@@ -303,69 +338,172 @@ const Portfolio = () => {
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.8, rotateY: -30 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, rotateY: 30 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  initial={{ opacity: 0, scale: 0.8, rotateY: -30, y: 50 }}
+                  animate={{ opacity: 1, scale: 1, rotateY: 0, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, rotateY: 30, y: -50 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 100
+                  }}
                   className="group cursor-pointer relative"
+                  whileHover={{ 
+                    y: -10, 
+                    scale: 1.02,
+                    rotateY: 5,
+                    transition: { duration: 0.4, ease: "easeOut" }
+                  }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedProject(project)}
                 >
-                  <div className="relative overflow-hidden mb-6">
-                    <img
+                  <div className="relative overflow-hidden mb-6 rounded-2xl">
+                    <motion.img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-80 object-cover clip-diagonal group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
                     
+                    {/* Featured Badge */}
+                    {project.featured && (
+                      <motion.div 
+                        className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 text-xs font-mono tracking-wider rounded-full"
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: index * 0.1 + 0.5, duration: 0.6 }}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                      >
+                        FEATURED
+                      </motion.div>
+                    )}
+                    
                     {/* Category Badge */}
-                    <div className="absolute top-4 left-4 bg-white text-black px-3 py-1 text-xs font-mono tracking-wider">
+                    <motion.div 
+                      className="absolute top-4 left-4 bg-white text-black px-3 py-1 text-xs font-mono tracking-wider rounded-full"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 + 0.3 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
                       {project.category}
-                    </div>
+                    </motion.div>
                     
                     {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <motion.div 
+                      className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                      initial={{ scale: 0.8 }}
+                      whileHover={{ scale: 1 }}
+                    >
                       <div className="text-center">
-                        <Eye className="w-12 h-12 mx-auto mb-4" />
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        >
+                          <Eye className="w-12 h-12 mx-auto mb-4" />
+                        </motion.div>
                         <span className="font-mono font-bold tracking-wider">VIEW PROJECT</span>
                       </div>
-                    </div>
+                    </motion.div>
                     
                     {/* Floating Stats */}
-                    <div className="absolute bottom-4 right-4 bg-white text-black p-3 clip-hexagon opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <motion.div 
+                      className="absolute bottom-4 right-4 bg-white text-black p-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      initial={{ scale: 0, rotate: 45 }}
+                      whileHover={{ scale: 1.1, rotate: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <div className="text-center">
                         <Users className="w-4 h-4 mx-auto mb-1" />
-                        <p className="text-xs font-bold">{project.details.guests}</p>
+                        <p className="text-xs font-bold">{project.details.guests.toLocaleString()}</p>
                       </div>
-                    </div>
+                    </motion.div>
+                    
+                    {/* Animated Border */}
+                    <motion.div
+                      className="absolute inset-0 border-2 border-white/20 rounded-2xl opacity-0 group-hover:opacity-100"
+                      animate={{ 
+                        borderColor: ["rgba(255,255,255,0.2)", "rgba(255,255,255,0.8)", "rgba(255,255,255,0.2)"]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
                   </div>
                   
                   <div className="space-y-4">
-                    <h3 className="text-xl font-bold font-mono tracking-wider group-hover:text-outline transition-all duration-300">
+                    <motion.h3 
+                      className="text-xl font-bold font-mono tracking-wider group-hover:text-outline transition-all duration-300"
+                      whileHover={{ x: 5 }}
+                    >
                       {project.title}
-                    </h3>
-                    <p className="text-white/80 leading-relaxed font-light">{project.description}</p>
+                    </motion.h3>
+                    <motion.p 
+                      className="text-white/80 leading-relaxed font-light"
+                      whileHover={{ color: "#fff" }}
+                    >
+                      {project.description}
+                    </motion.p>
                     
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag, i) => (
-                        <span key={i} className="text-xs font-mono tracking-wider bg-white/10 px-2 py-1">
+                        <motion.span 
+                          key={i} 
+                          className="text-xs font-mono tracking-wider bg-white/10 px-2 py-1 rounded-full"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.1 + i * 0.1 }}
+                          whileHover={{ 
+                            scale: 1.1, 
+                            backgroundColor: "rgba(255,255,255,0.2)",
+                            transition: { duration: 0.2 }
+                          }}
+                        >
                           {tag}
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
                     
-                    <div className="flex items-center justify-between text-sm text-white/60 font-mono">
-                      <div className="flex items-center space-x-2">
+                    <motion.div 
+                      className="flex items-center justify-between text-sm text-white/60 font-mono"
+                      whileHover={{ color: "#fff" }}
+                    >
+                      <motion.div 
+                        className="flex items-center space-x-2"
+                        whileHover={{ x: 5 }}
+                      >
                         <Calendar className="w-4 h-4" />
                         <span>{project.details.date}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
+                      </motion.div>
+                      <motion.div 
+                        className="flex items-center space-x-1"
+                        whileHover={{ scale: 1.1 }}
+                      >
                         {[...Array(project.rating)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 text-white fill-current" />
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: index * 0.1 + i * 0.1 }}
+                            whileHover={{ scale: 1.2, rotate: 10 }}
+                          >
+                            <Star className="w-3 h-3 text-white fill-current" />
+                          </motion.div>
                         ))}
-                      </div>
-                    </div>
+                      </motion.div>
+                    </motion.div>
+                    
+                    {/* Navigation Button */}
+                    <motion.div 
+                      className="flex items-center text-white/60 group-hover:text-white font-mono text-sm mt-4"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileHover={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span className="mr-2">View Details</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}
@@ -374,7 +512,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Revolutionary Project Modal */}
+      {/* Enhanced Project Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -385,20 +523,29 @@ const Portfolio = () => {
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0, rotateX: -30 }}
-              animate={{ scale: 1, opacity: 1, rotateX: 0 }}
-              exit={{ scale: 0.8, opacity: 0, rotateX: 30 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white text-black max-w-6xl w-full max-h-[90vh] overflow-y-auto relative"
+              initial={{ scale: 0.8, opacity: 0, rotateX: -30, y: 50 }}
+              animate={{ scale: 1, opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, rotateX: 30, y: -50 }}
+              transition={{ 
+                duration: 0.6, 
+                type: "spring", 
+                stiffness: 100 
+              }}
+              className="bg-white text-black max-w-6xl w-full max-h-[90vh] overflow-y-auto relative rounded-3xl shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
-              <button
+              {/* Enhanced Close Button */}
+              <motion.button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-6 right-6 z-10 w-12 h-12 bg-black text-white flex items-center justify-center hover:bg-black/80 transition-colors clip-hexagon"
+                className="absolute top-6 right-6 z-10 w-12 h-12 bg-black text-white flex items-center justify-center hover:bg-black/80 transition-colors rounded-full"
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
               >
                 <X className="w-6 h-6" />
-              </button>
+              </motion.button>
 
               {/* Hero Section */}
               <div className="relative h-96 lg:h-[500px]">
@@ -450,8 +597,8 @@ const Portfolio = () => {
                       </div>
                       <div className="text-center p-6 bg-black/5 border border-black/10">
                         <Zap className="w-10 h-10 mx-auto mb-3" />
-                        <p className="text-sm text-black/60 font-mono">INVESTMENT</p>
-                        <p className="text-lg font-bold font-mono">{selectedProject.details.budget}</p>
+                        <p className="text-sm text-black/60 font-mono">DURATION</p>
+                        <p className="text-lg font-bold font-mono">{selectedProject.details.duration}</p>
                       </div>
                     </div>
                   </div>
@@ -485,6 +632,92 @@ const Portfolio = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Call to Action Section */}
+      <section className="py-32 bg-gradient-to-br from-white to-gray-100 text-black relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots opacity-10"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl lg:text-6xl font-bold mb-8">
+              <span className="block text-black">READY TO CREATE</span>
+              <span className="block text-outline-black">YOUR EVENT?</span>
+            </h2>
+            <p className="text-xl text-black/60 max-w-3xl mx-auto mb-12 font-light">
+              Let SEMS transform your vision into an unforgettable experience. 
+              From concept to execution, we bring your events to life.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <motion.button
+                onClick={() => navigate('/contact')}
+                className="bg-black text-white px-8 py-4 font-mono font-bold tracking-wider hover:bg-black/80 transition-colors rounded-2xl flex items-center space-x-3"
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -2,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>GET STARTED</span>
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+              
+              <motion.button
+                onClick={() => navigate('/services')}
+                className="border-2 border-black text-black px-8 py-4 font-mono font-bold tracking-wider hover:bg-black hover:text-white transition-colors rounded-2xl flex items-center space-x-3"
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -2,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.2)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>OUR SERVICES</span>
+                <ExternalLink className="w-5 h-5" />
+              </motion.button>
+            </div>
+            
+            {/* Stats */}
+            <motion.div 
+              className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              {[
+                { number: '50+', label: 'EVENTS DELIVERED' },
+                { number: '15+', label: 'EVENT CATEGORIES' },
+                { number: '100%', label: 'CLIENT SATISFACTION' },
+                { number: '24/7', label: 'SUPPORT' }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center group"
+                  whileHover={{ scale: 1.1, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.h3 
+                    className="text-3xl lg:text-4xl font-bold mb-2 font-mono group-hover:text-outline-black transition-all duration-300"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    {stat.number}
+                  </motion.h3>
+                  <p className="text-sm font-mono tracking-[0.3em] text-black/60 group-hover:text-black transition-colors">
+                    {stat.label}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };
