@@ -19,7 +19,7 @@ const Services = () => {
       title: 'EVENT MANAGEMENT',
       description: 'From concept to execution, our event management services cover everything. We specialize in creating tailored experiences that align with your brand identity and goals. Our team handles logistics, vendor management, and on-site coordination, allowing you to focus on what matters.',
       features: ['CONFERENCE MANAGEMENT', 'BRAND ACTIVATIONS', 'PRODUCT LAUNCHES', 'EXECUTIVE RETREATS', 'NETWORKING EVENTS'],
-      price: 'FROM AED 15,000',
+      duration: 'FULL SERVICE',
       image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=600',
       highlight: 'PREMIUM'
     },
@@ -28,7 +28,7 @@ const Services = () => {
       title: 'DIGITAL MARKETING',
       description: 'In the digital age, a strong online presence is crucial for success. Our digital marketing services are designed to enhance your brand visibility and engagement. Whether it\'s social media management, content creation, search engine optimization (SEO), or paid advertising, we employ a holistic approach to maximize your digital impact.',
       features: ['SOCIAL MEDIA MANAGEMENT', 'CONTENT CREATION', 'SEO OPTIMIZATION', 'PAID ADVERTISING', 'BRAND VISIBILITY'],
-      price: 'FROM AED 8,000',
+      duration: 'MONTHLY PACKAGES',
       image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600',
       highlight: 'DIGITAL'
     },
@@ -37,7 +37,7 @@ const Services = () => {
       title: 'BRANDING & DESIGN',
       description: 'A cohesive and visually appealing brand is key to making a lasting impression. Our branding and design services encompass logo design, brand strategy, and graphic design, ensuring that your brand communicates its unique identity effectively.',
       features: ['LOGO DESIGN', 'BRAND STRATEGY', 'GRAPHIC DESIGN', 'VISUAL IDENTITY', 'BRAND COMMUNICATION'],
-      price: 'FROM AED 12,000',
+      duration: 'PROJECT BASED',
       image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
       highlight: 'CREATIVE'
     },
@@ -46,7 +46,7 @@ const Services = () => {
       title: 'CONTENT CREATION',
       description: 'Engaging content is at the heart of successful marketing. Our team of content creators excels in producing compelling written, visual, and multimedia content that resonates with your target audience, driving engagement and loyalty.',
       features: ['WRITTEN CONTENT', 'VISUAL CONTENT', 'MULTIMEDIA PRODUCTION', 'AUDIENCE ENGAGEMENT', 'CONTENT STRATEGY'],
-      price: 'FROM AED 10,000',
+      duration: 'FLEXIBLE TERMS',
       image: 'https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=600',
       highlight: 'ENGAGING'
     }
@@ -477,7 +477,7 @@ const Services = () => {
                     ))}
                   </motion.div>
 
-                  {/* Price and CTA */}
+                  {/* Service Type and CTA */}
                   <motion.div 
                     className="flex items-center justify-between pt-8 border-t border-black/20"
                     initial={{ opacity: 0, y: 20 }}
@@ -490,13 +490,13 @@ const Services = () => {
                       transition={{ duration: 0.2 }}
                     >
                       <motion.span 
-                        className="text-3xl font-bold font-mono"
+                        className="text-2xl font-bold font-mono"
                         whileHover={{ color: "#000" }}
                         transition={{ duration: 0.2 }}
                       >
-                        {service.price}
+                        {service.duration}
                       </motion.span>
-                      <p className="text-sm text-black/60 font-mono">STARTING INVESTMENT</p>
+                      <p className="text-sm text-black/60 font-mono">SERVICE TYPE</p>
                     </motion.div>
                     <motion.button 
                       className="bg-black text-white px-8 py-4 font-bold hover:bg-black/80 transition-all duration-300 flex items-center space-x-3 group"

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import TicketBookingModal from '../components/TicketBookingModal';
+import LiveCountdown from '../components/LiveCountdown';
 
 // Ultra-optimized lazy loading image component
 const LazyImage = ({ src, alt, className, priority, onLoad }: any) => (
@@ -367,73 +368,10 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Ticket Information Sidebar */}
+            {/* Live Countdown Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-gray-50 rounded-lg p-6 sticky top-6">
-                {/* Date and Time */}
-                <div className="mb-6">
-                  <div className="text-2xl font-bold text-black mb-2">Sat 18 Oct</div>
-                  <div className="text-gray-600 space-y-1">
-                    <div>Doors: 17:00</div>
-                    <div>Start: 18:00</div>
-                  </div>
-                </div>
-
-                {/* Countdown Timer */}
-                <div className="mb-6">
-                  <div className="text-sm font-medium text-gray-600 mb-3">Sale ends in</div>
-                  <div className="flex space-x-2 text-center">
-                    <div className="bg-white rounded-lg p-3 flex-1">
-                      <div className="text-2xl font-bold text-black">04</div>
-                      <div className="text-xs text-gray-500">Days</div>
-              </div>
-                    <div className="bg-white rounded-lg p-3 flex-1">
-                      <div className="text-2xl font-bold text-black">19</div>
-                      <div className="text-xs text-gray-500">Hours</div>
-          </div>
-                    <div className="bg-white rounded-lg p-3 flex-1">
-                      <div className="text-2xl font-bold text-black">03</div>
-                      <div className="text-xs text-gray-500">Mins</div>
-        </div>
-                    <div className="bg-white rounded-lg p-3 flex-1">
-                      <div className="text-2xl font-bold text-black">04</div>
-                      <div className="text-xs text-gray-500">Secs</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Price and Book Button */}
-                <div className="mb-6">
-                  <div className="text-sm text-gray-600 mb-2">Price from:</div>
-                  <div className="text-2xl font-bold text-black mb-4">14.17 USD</div>
-                  <button 
-                    onClick={() => setIsTicketModalOpen(true)}
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
-                  >
-                    Select tickets
-                  </button>
-                </div>
-
-                {/* Song Recommendation */}
-                <div className="bg-white rounded-lg p-4 border border-gray-200">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
-                      <Play className="w-6 h-6 text-gray-600" />
-                </div>
-                    <div className="flex-1">
-                      <div className="font-medium text-black">Andrea Jerem...</div>
-                      <div className="text-sm text-gray-500">Song preview</div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                        <Star className="w-4 h-4 text-gray-600" />
-                      </button>
-                      <button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                        <Play className="w-4 h-4 text-gray-600" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              <div className="sticky top-6">
+                <LiveCountdown />
               </div>
             </div>
           </div>
