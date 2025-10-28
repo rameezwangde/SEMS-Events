@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Users, Calendar, MapPin, X, Filter, Star, Eye, Zap, ArrowRight, ExternalLink, Music, Award, Globe } from 'lucide-react';
+import { Users, Calendar, MapPin, X, Star, Zap, ArrowRight, ExternalLink, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Portfolio = () => {
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const navigate = useNavigate();
-
-  const categories = ['ALL', 'ENTERTAINMENT', 'CORPORATE', 'SOCIAL', 'CULTURAL', 'SPORTS'];
 
   const projects = [
     {
@@ -141,10 +138,6 @@ const Portfolio = () => {
       tags: ['FASHION', 'RUNWAY', 'INDUSTRY']
     }
   ];
-
-  const filteredProjects = selectedCategory === 'ALL' 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-black text-white pt-20">
@@ -292,40 +285,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Fixed Filter Section */}
-      <section className="py-16 bg-white text-black sticky top-20 z-50 border-b-2 border-black shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
-            <div className="flex items-center space-x-3 sm:space-x-4">
-              <Filter className="w-5 h-5 sm:w-6 sm:h-6" />
-              <span className="font-mono text-base sm:text-lg tracking-wider font-bold">FILTER PROJECTS</span>
-            </div>
-            <div className="flex items-center space-x-2 sm:space-x-3">
-              <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="font-mono text-xs sm:text-sm tracking-wider">{filteredProjects.length} PROJECTS</span>
-            </div>
-          </div>
-          
-          <div className="flex flex-wrap gap-2 sm:gap-4">
-            {categories.map((category) => (
-              <motion.button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 sm:px-8 py-3 sm:py-4 font-mono font-bold tracking-wider transition-all duration-300 text-sm sm:text-base ${
-                  selectedCategory === category
-                    ? 'bg-black text-white'
-                    : 'bg-black/10 text-black hover:bg-black/20'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {category}
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Revolutionary Projects Grid */}
       <section className="py-32 bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -334,7 +293,7 @@ const Portfolio = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           >
             <AnimatePresence>
-              {filteredProjects.map((project, index) => (
+              {projects.map((project, index) => (
                 <motion.div
                   key={project.id}
                   layout
@@ -618,7 +577,7 @@ const Portfolio = () => {
                       
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mt-8">
-                        {selectedProject.tags.map((tag, i) => (
+                        {selectedProject.tags.map((tag: string, i: number) => (
                           <span key={i} className="text-xs font-mono tracking-wider bg-white/20 px-3 py-1">
                             {tag}
                           </span>
