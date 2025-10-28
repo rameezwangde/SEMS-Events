@@ -155,7 +155,7 @@ const Services = () => {
           }}
         />
         
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center perspective-3d">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-center perspective-3d">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -206,7 +206,7 @@ const Services = () => {
             </motion.div>
             
             <motion.h1 
-              className="text-6xl lg:text-8xl font-bold mb-8 leading-none"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-6 sm:mb-8 leading-tight px-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 1.2 }}
@@ -329,7 +329,7 @@ const Services = () => {
           }}
         />
         
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="space-y-32">
             {services.map((service, index) => (
               <motion.div
@@ -541,7 +541,7 @@ const Services = () => {
       <section className="py-32 bg-black text-white relative">
         <div className="absolute inset-0 noise-bg"></div>
         
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-20"
             initial={{ opacity: 0, y: 50 }}
@@ -599,7 +599,7 @@ const Services = () => {
 
       {/* Add-ons Section */}
       <section className="py-32 bg-white text-black">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 50 }}

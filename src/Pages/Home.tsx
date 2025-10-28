@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play } from 'lucide-react';
+import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import LiveCountdown from '../components/LiveCountdown';
 
 // Ultra-optimized lazy loading image component
@@ -92,53 +92,251 @@ const Home = () => {
       }}
     >
       {/* Hero Section - Crafting Unforgettable Moments */}
-      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+      <section className="relative pt-0 pb-20 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
         <div className="absolute inset-0 grid-dots opacity-20"></div>
         <div className="absolute inset-0 noise-bg"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          {/* Navigation Section */}
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="flex items-center justify-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 mb-8 sm:mb-12 mt-2 sm:mt-4"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+          >
+            {/* SEMS Logo */}
+            <Link 
+              to="/" 
+              className="flex items-center space-x-2 sm:space-x-3 group mr-4"
+              aria-label="SEMS Events - Go to homepage"
+            >
+              <div className="relative">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white text-black flex items-center justify-center font-bold text-sm sm:text-lg clip-hexagon group-hover:morph-shape transition-all duration-300">
+                  S
+                </div>
+                <Zap className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <div className="font-mono">
+                <h1 className="text-lg sm:text-xl font-bold text-white tracking-wider glitch-text">SEMS</h1>
+                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
+              </div>
+            </Link>
+            
+            {/* Navigation Links */}
+            {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item, index) => (
+              <Link
+                key={item}
+                to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
+                className={`relative px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
+                  item === 'HOME'
+                    ? 'bg-white text-black'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <span className="relative z-10">{item}</span>
+                {item === 'HOME' && (
+                  <motion.div
+                    className="absolute inset-0 bg-white rounded-full"
+                    layoutId="activeTab"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </Link>
+            ))}
+            
+            {/* Social Media Icons */}
+            <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-white/20">
+              <motion.a
+                href="https://wa.me/971508194875"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <MessageCircle className="w-4 h-4 text-white" />
+              </motion.a>
+              <motion.a
+                href="https://instagram.com/semsmanaging"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Instagram className="w-4 h-4 text-white" />
+              </motion.a>
+              <motion.a
+                href="https://facebook.com/semsmanaging"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Facebook className="w-4 h-4 text-white" />
+              </motion.a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="text-center mb-8 sm:mb-12 lg:mb-16"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <div className="flex items-center justify-center space-x-2 sm:space-x-4 mb-6 sm:mb-8">
-              <div className="w-8 sm:w-16 h-1 bg-white"></div>
-              <span className="font-mono text-xs sm:text-sm tracking-[0.3em] text-white/60">WELCOME TO SEMS</span>
-              <div className="w-8 sm:w-16 h-1 bg-white"></div>
-            </div>
+            <motion.div 
+              className="flex items-center justify-center space-x-2 sm:space-x-4 mb-6 sm:mb-8"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              <motion.div 
+                className="w-8 sm:w-16 h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent"
+                initial={{ width: 0 }}
+                animate={{ width: "4rem" }}
+                transition={{ delay: 0.5, duration: 1 }}
+              />
+              <motion.span 
+                className="font-mono-enhanced text-xs sm:text-sm tracking-[0.3em] text-gray-400 letter-spacing-animate"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+              >
+                WELCOME TO SEMS
+              </motion.span>
+              <motion.div 
+                className="w-8 sm:w-16 h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent"
+                initial={{ width: 0 }}
+                animate={{ width: "4rem" }}
+                transition={{ delay: 0.5, duration: 1 }}
+              />
+            </motion.div>
             
-            <h2 className="text-3xl sm:text-5xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
-              <span className="block text-white">CRAFTING UNFORGETTABLE</span>
-              <span className="block text-outline">MOMENTS, GLOBALLY</span>
-            </h2>
+            <motion.h2 
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-4 sm:mb-6 lg:mb-8 leading-tight px-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 1.2 }}
+            >
+              <motion.span 
+                className="block text-gray-200 fade-in-up"
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
+                whileHover={{ 
+                  scale: 1.02,
+                  textShadow: "0 0 30px rgba(255,255,255,0.3)",
+                  transition: { duration: 0.3 }
+                }}
+              >
+                CRAFTING UNFORGETTABLE
+              </motion.span>
+              <motion.span 
+                className="block text-gray-300"
+                initial={{ opacity: 0, y: 100, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }}
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: { duration: 0.3 }
+                }}
+              >
+                MOMENTS, GLOBALLY
+              </motion.span>
+            </motion.h2>
             
-            <p className="text-sm sm:text-xl text-white/80 mb-6 sm:mb-8 font-mono tracking-wider px-4 max-w-4xl mx-auto">
+            <motion.p 
+              className="text-sm sm:text-lg md:text-xl text-gray-400 mb-4 sm:mb-6 lg:mb-8 font-body tracking-wider px-3 sm:px-4 max-w-4xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5, duration: 1 }}
+              whileHover={{ 
+                color: "#d1d5db",
+                transition: { duration: 0.3 }
+              }}
+            >
               Welcome to Shuaib Events Management L.L.C, your premier partner in turning ordinary moments into extraordinary memories. Based in the vibrant city of Dubai, we are a dynamic and innovative event management company that takes pride in offering a diverse range of services across 15 different event categories.
-            </p>
+            </motion.p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 mb-8 sm:mb-12">
-              <div className="flex items-center space-x-2">
-                <Users className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
-                <span className="font-mono text-sm sm:text-base text-white/80">15+ Event Categories</span>
-              </div>
-              <div className="hidden sm:block w-1 h-1 bg-white/40 rounded-full"></div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
-                <span className="font-mono text-sm sm:text-base text-white/80">Dubai • UAE</span>
-              </div>
-            </div>
+            <motion.div 
+              className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-6 mb-6 sm:mb-8 lg:mb-12 px-4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.8, duration: 0.8 }}
+            >
+              <motion.div 
+                className="flex items-center space-x-2"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 2, duration: 0.6 }}
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                >
+                  <Users className="w-4 h-4 sm:w-6 sm:h-6 text-gray-400" />
+                </motion.div>
+                <span className="font-mono-enhanced text-sm sm:text-base text-gray-400">15+ Event Categories</span>
+              </motion.div>
+              <motion.div 
+                className="hidden sm:block w-1 h-1 bg-gray-500 rounded-full pulse-glow"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 2.2, duration: 0.4 }}
+              />
+              <motion.div 
+                className="flex items-center space-x-2"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 2.4, duration: 0.6 }}
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+              >
+                <motion.div
+                  animate={{ y: [-2, 2, -2] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <MapPin className="w-4 h-4 sm:w-6 sm:h-6 text-gray-400" />
+                </motion.div>
+                <span className="font-mono-enhanced text-sm sm:text-base text-gray-400">Dubai • UAE</span>
+              </motion.div>
+            </motion.div>
             
             <motion.button
-              className="bg-white text-black px-6 sm:px-12 py-4 sm:py-6 font-bold text-base sm:text-lg hover:bg-white/90 transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 group mx-auto cursor-pointer relative z-10"
-              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,255,255,0.3)" }}
+              className="bg-gray-800 text-gray-200 px-4 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-6 font-heading text-sm sm:text-base lg:text-lg hover:bg-gray-700 transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 group mx-auto cursor-pointer relative z-10 overflow-hidden border border-gray-600 w-full max-w-xs sm:max-w-none"
+              initial={{ opacity: 0, y: 50, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 2.6, duration: 0.8, ease: "easeOut" }}
+              whileHover={{ 
+                scale: 1.05, 
+                boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+                transition: { duration: 0.3 }
+              }}
               whileTap={{ scale: 0.95 }}
               onClick={() => window.location.href = '/contact'}
               style={{ pointerEvents: 'auto' }}
             >
-              <span>GET STARTED</span>
+              <motion.span
+                className="relative z-10"
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.2 }}
+              >
+                GET STARTED
+              </motion.span>
+              <motion.div
+                className="relative z-10"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </motion.div>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-600/20 to-transparent"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.6 }}
+              />
             </motion.button>
           </motion.div>
           

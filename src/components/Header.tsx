@@ -38,8 +38,26 @@ const Header = () => {
         role="banner"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="flex items-center justify-center h-16 sm:h-20 relative">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+           <div className="flex items-center justify-between h-16 sm:h-20 relative">
+             {/* Mobile Logo - Visible on mobile and tablet */}
+             <Link 
+               to="/" 
+               className="lg:hidden flex items-center space-x-2 group"
+               aria-label="SEMS Events - Go to homepage"
+             >
+               <div className="relative">
+                 <div className="w-8 h-8 bg-white text-black flex items-center justify-center font-bold text-sm clip-hexagon group-hover:morph-shape transition-all duration-300">
+                   S
+                 </div>
+                 <Zap className="absolute -top-1 -right-1 w-2 h-2 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+               </div>
+               <div className="font-mono">
+                 <h1 className="text-lg font-bold text-white tracking-wider glitch-text">SEMS</h1>
+                 <p className="text-xs text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
+               </div>
+             </Link>
+
              {/* Centered Navigation Links with Social Media - Hidden on mobile, visible on desktop */}
              <div className="hidden lg:flex items-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2">
                {/* SEMS Logo */}
@@ -160,23 +178,92 @@ const Header = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="absolute inset-0 bg-black/95 backdrop-blur-xl">
-              <div className="flex flex-col items-center justify-center h-full space-y-8">
+              <div className="flex flex-col items-center justify-center h-full space-y-6 sm:space-y-8 px-4">
+                {/* Mobile Logo */}
+                <motion.div
+                  initial={{ opacity: 0, y: -30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1, duration: 0.5 }}
+                  className="mb-8"
+                >
+                  <Link 
+                    to="/" 
+                    className="flex items-center space-x-3 group"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-white text-black flex items-center justify-center font-bold text-lg clip-hexagon group-hover:morph-shape transition-all duration-300">
+                        S
+                      </div>
+                      <Zap className="absolute -top-1 -right-1 w-3 h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <div className="font-mono">
+                      <h1 className="text-2xl font-bold text-white tracking-wider glitch-text">SEMS</h1>
+                      <p className="text-sm text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
+                    </div>
+                  </Link>
+                </motion.div>
+
+                {/* Navigation Links */}
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.name}
                     initial={{ opacity: 0, x: -50, rotateY: -90 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    transition={{ delay: index * 0.1 + 0.2, duration: 0.5 }}
                   >
                     <Link
                       to={item.path}
-                      className="text-2xl sm:text-4xl font-mono font-bold text-white hover:text-outline transition-all duration-300 glitch-text"
+                      className={`text-xl sm:text-3xl font-mono font-bold transition-all duration-300 glitch-text ${
+                        location.pathname === item.path
+                          ? 'text-white'
+                          : 'text-white/80 hover:text-white'
+                      }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                   </motion.div>
                 ))}
+
+                {/* Social Media Links */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                  className="flex items-center space-x-4 mt-8 pt-8 border-t border-white/20"
+                >
+                  <motion.a
+                    href="https://wa.me/971508194875"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <MessageCircle className="w-6 h-6 text-white" />
+                  </motion.a>
+                  <motion.a
+                    href="https://instagram.com/semsmanaging"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Instagram className="w-6 h-6 text-white" />
+                  </motion.a>
+                  <motion.a
+                    href="https://facebook.com/semsmanaging"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Facebook className="w-6 h-6 text-white" />
+                  </motion.a>
+                </motion.div>
               </div>
             </div>
           </motion.div>

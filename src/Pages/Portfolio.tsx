@@ -153,128 +153,80 @@ const Portfolio = () => {
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center perspective-3d">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-center perspective-3d">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
             <motion.div 
-              className="flex items-center justify-center space-x-4 mb-8"
-              initial={{ 
-                opacity: 0, 
-                y: -50, 
-                scale: 0.8,
-                rotateX: -30
-              }}
-              animate={{ 
-                opacity: 1, 
-                y: 0, 
-                scale: 1,
-                rotateX: 0
-              }}
-              transition={{ 
-                delay: 0.2, 
-                duration: 1,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 100
-              }}
+              className="flex items-center justify-center space-x-2 sm:space-x-4 mb-6 sm:mb-8"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <div className="w-16 h-1 bg-white"></div>
-              <span className="font-mono text-sm tracking-[0.3em] text-white/60">OUR PORTFOLIO</span>
-              <div className="w-16 h-1 bg-white"></div>
+              <motion.div 
+                className="w-8 sm:w-16 h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent"
+                initial={{ width: 0 }}
+                animate={{ width: "4rem" }}
+                transition={{ delay: 0.5, duration: 1 }}
+              />
+              <motion.span 
+                className="font-mono-enhanced text-xs sm:text-sm tracking-[0.3em] text-gray-400 letter-spacing-animate"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+              >
+                OUR PORTFOLIO
+              </motion.span>
+              <motion.div 
+                className="w-8 sm:w-16 h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent"
+                initial={{ width: 0 }}
+                animate={{ width: "4rem" }}
+                transition={{ delay: 0.5, duration: 1 }}
+              />
             </motion.div>
             
-            <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold mb-6 sm:mb-8 leading-none">
+            <motion.h1 
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-4 sm:mb-6 lg:mb-8 leading-tight px-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 1.2 }}
+            >
               <motion.span 
-                className="block text-white"
-                initial={{ 
-                  opacity: 0, 
-                  y: -100, 
-                  scale: 0.5,
-                  rotateX: -90
-                }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1,
-                  rotateX: 0
-                }}
-                transition={{ 
-                  delay: 0.4, 
-                  duration: 1.2, 
-                  ease: "easeOut",
-                  type: "spring",
-                  stiffness: 100
-                }}
+                className="block text-gray-200 fade-in-up"
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
                 whileHover={{ 
-                  y: -10,
-                  scale: 1.05,
+                  scale: 1.02,
+                  textShadow: "0 0 30px rgba(255,255,255,0.3)",
                   transition: { duration: 0.3 }
                 }}
               >
                 SEMS
               </motion.span>
               <motion.span 
-                className="block text-outline glitch-text"
-                initial={{ 
-                  opacity: 0, 
-                  y: -120, 
-                  scale: 0.3,
-                  rotateX: -90,
-                  rotateY: 45
-                }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1,
-                  rotateX: 0,
-                  rotateY: 0
-                }}
-                transition={{ 
-                  delay: 0.6, 
-                  duration: 1.4, 
-                  ease: "easeOut",
-                  type: "spring",
-                  stiffness: 80
-                }}
+                className="block text-gray-300"
+                initial={{ opacity: 0, y: 100, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }}
                 whileHover={{ 
-                  y: -15,
-                  scale: 1.08,
-                  rotateY: 5,
-                  transition: { duration: 0.4 }
+                  scale: 1.05,
+                  transition: { duration: 0.3 }
                 }}
               >
                 PORTFOLIO
               </motion.span>
-            </h1>
+            </motion.h1>
             
             <motion.p 
-              className="text-base sm:text-xl text-white/80 max-w-3xl mx-auto font-light px-4"
-              initial={{ 
-                opacity: 0, 
-                y: -50, 
-                scale: 0.9,
-                rotateX: -30
-              }}
-              animate={{ 
-                opacity: 1, 
-                y: 0, 
-                scale: 1,
-                rotateX: 0
-              }}
-              transition={{ 
-                delay: 0.8, 
-                duration: 1.2,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 100
-              }}
+              className="text-sm sm:text-lg md:text-xl text-gray-400 mb-4 sm:mb-6 lg:mb-8 font-body tracking-wider px-3 sm:px-4 max-w-4xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5, duration: 1 }}
               whileHover={{ 
-                y: -5,
-                scale: 1.02,
-                color: "#fff",
+                color: "#d1d5db",
                 transition: { duration: 0.3 }
               }}
             >
@@ -287,31 +239,29 @@ const Portfolio = () => {
 
       {/* Revolutionary Projects Grid */}
       <section className="py-32 bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <motion.div
             layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
           >
             <AnimatePresence>
               {projects.map((project, index) => (
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.8, rotateY: -30, y: 50 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, rotateY: 30, y: -50 }}
+                  initial={{ opacity: 0, scale: 0.8, y: 100 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: -50 }}
                   transition={{ 
                     duration: 0.8, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100
+                    delay: index * 0.15,
+                    ease: "easeOut"
                   }}
                   className="group cursor-pointer relative"
                   whileHover={{ 
-                    y: -10, 
-                    scale: 1.02,
-                    rotateY: 5,
-                    transition: { duration: 0.4, ease: "easeOut" }
+                    y: -15, 
+                    scale: 1.03,
+                    transition: { duration: 0.3, ease: "easeOut" }
                   }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedProject(project)}
@@ -320,7 +270,7 @@ const Portfolio = () => {
                     <motion.img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-48 sm:h-64 lg:h-80 object-cover group-hover:scale-110 transition-transform duration-700"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.6 }}
                     />
@@ -392,30 +342,44 @@ const Portfolio = () => {
                   
                   <div className="space-y-4">
                     <motion.h3 
-                      className="text-xl font-bold font-mono tracking-wider group-hover:text-outline transition-all duration-300"
-                      whileHover={{ x: 5 }}
+                      className="text-base sm:text-lg lg:text-xl font-heading font-bold tracking-wide group-hover:text-gray-200 transition-all duration-300 mb-2 sm:mb-3"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 + 0.2 }}
+                      whileHover={{ 
+                        x: 5,
+                        scale: 1.02,
+                        transition: { duration: 0.2 }
+                      }}
                     >
                       {project.title}
                     </motion.h3>
                     <motion.p 
-                      className="text-white/80 leading-relaxed font-light"
-                      whileHover={{ color: "#fff" }}
+                      className="text-gray-400 leading-relaxed font-body text-xs sm:text-sm lg:text-base mb-3 sm:mb-4"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 + 0.3 }}
+                      whileHover={{ 
+                        color: "#d1d5db",
+                        transition: { duration: 0.3 }
+                      }}
                     >
                       {project.description}
                     </motion.p>
                     
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 mb-4">
                       {project.tags.map((tag, i) => (
                         <motion.span 
                           key={i} 
-                          className="text-xs font-mono tracking-wider bg-white/10 px-2 py-1 rounded-full"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.1 + i * 0.1 }}
+                          className="text-xs font-mono-enhanced tracking-wider bg-gray-800/50 px-2 sm:px-3 py-1 rounded-full border border-gray-700/50"
+                          initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 + i * 0.1 + 0.4 }}
                           whileHover={{ 
-                            scale: 1.1, 
-                            backgroundColor: "rgba(255,255,255,0.2)",
+                            scale: 1.05, 
+                            backgroundColor: "rgba(75, 85, 99, 0.8)",
+                            borderColor: "rgba(156, 163, 175, 0.8)",
                             transition: { duration: 0.2 }
                           }}
                         >
@@ -425,8 +389,11 @@ const Portfolio = () => {
                     </div>
                     
                     <motion.div 
-                      className="flex items-center justify-between text-sm text-white/60 font-mono"
-                      whileHover={{ color: "#fff" }}
+                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs sm:text-sm text-gray-500 font-mono-enhanced space-y-1 sm:space-y-0"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 + 0.5 }}
+                      whileHover={{ color: "#d1d5db" }}
                     >
                       <motion.div 
                         className="flex items-center space-x-2"

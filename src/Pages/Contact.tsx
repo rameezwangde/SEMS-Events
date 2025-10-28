@@ -174,7 +174,7 @@ const Contact = () => {
           }}
         />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center perspective-3d">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-center perspective-3d">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -225,7 +225,7 @@ const Contact = () => {
             </motion.div>
             
             <motion.h1 
-              className="text-4xl sm:text-6xl lg:text-8xl font-bold mb-6 sm:mb-8 leading-none"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-6 sm:mb-8 leading-tight px-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 1.2 }}
@@ -380,7 +380,7 @@ const Contact = () => {
           }}
         />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-20">
             {contactInfo.map((info, index) => (
               <motion.div
