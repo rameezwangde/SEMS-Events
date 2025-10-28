@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play } from 'lucide-react';
 import LiveCountdown from '../components/LiveCountdown';
-import EventCalendar from '../components/EventCalendar';
 
 // Ultra-optimized lazy loading image component
 const LazyImage = ({ src, alt, className, priority, onLoad }: any) => (
@@ -218,10 +217,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
-
-      {/* Event Calendar Section */}
-      <EventCalendar />
 
       {/* Revolutionary Google Reviews */}
       <LazySection className="py-20 bg-black text-white relative">
