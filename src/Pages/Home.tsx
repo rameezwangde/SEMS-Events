@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook, Menu, X } from 'lucide-react';
+import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook, Menu, X, Check } from 'lucide-react';
 import LiveCountdown from '../components/LiveCountdown';
 
 // Ultra-optimized lazy loading image component
@@ -233,11 +233,11 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="lg:hidden fixed top-16 left-3 right-3 bg-gray-900 border border-white/30 rounded-2xl p-3 shadow-2xl max-w-md mx-auto"
-                  style={{ zIndex: 9999, maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}
+                  className="lg:hidden fixed inset-x-0 top-[72px] bg-gray-950 border-b-2 border-white/40 shadow-2xl"
+                  style={{ zIndex: 99999, maxHeight: '80vh', overflowY: 'auto', touchAction: 'manipulation', position: 'fixed' }}
                 >
                   {/* Mobile Navigation Links */}
-                  <div className="flex flex-col space-y-2 mb-3">
+                  <div className="flex flex-col space-y-2 p-5 bg-gray-950">
                     {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item, index) => (
                       <motion.div
                         key={item}
@@ -248,20 +248,28 @@ const Home = () => {
                         <Link
                           to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`block px-4 py-3 text-sm font-mono font-medium rounded-2xl transition-all duration-300 ${
+                          className={`flex items-center justify-between px-5 py-4 text-base font-mono font-semibold rounded-xl transition-all duration-200 min-h-[52px] touch-manipulation ${
                             item === 'HOME'
-                              ? 'bg-white text-black'
-                              : 'text-white hover:bg-white/10'
+                              ? 'bg-white text-black shadow-lg'
+                              : 'text-white bg-white/5 hover:bg-white/15 active:bg-white/20'
                           }`}
+                          style={{ 
+                            WebkitTapHighlightColor: 'transparent',
+                            touchAction: 'manipulation',
+                            cursor: 'pointer'
+                          }}
                         >
-                          {item}
+                          <span>{item}</span>
+                          {item === 'HOME' && (
+                            <Check className="w-5 h-5 ml-2 font-bold" strokeWidth={3} />
+                          )}
                         </Link>
                       </motion.div>
                     ))}
                   </div>
 
                   {/* Mobile Social Icons */}
-                  <div className="flex items-center justify-center space-x-3 pt-3 border-t border-white/10 md:hidden">
+                  <div className="flex items-center justify-center space-x-3 py-4 border-t border-white/10 md:hidden">
                     <motion.a
                       href="https://wa.me/971508194875"
                       target="_blank"
