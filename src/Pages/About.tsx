@@ -1,10 +1,25 @@
-import { motion } from 'motion/react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { Users, Award, Heart, Target, CheckCircle, Zap, Eye, Lightbulb, ArrowRight, ExternalLink, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { Users, Award, Heart, Target, CheckCircle, Zap, Eye, Lightbulb, ArrowRight, ExternalLink, MessageCircle, Instagram, Facebook, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const About = () => {
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const values = [
     {
       icon: Lightbulb,
@@ -77,14 +92,14 @@ const About = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation Section */}
-      <section className="relative pt-0 pb-20 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+      <section className="relative pt-0 pb-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
         <div className="absolute inset-0 grid-dots opacity-20"></div>
         <div className="absolute inset-0 noise-bg"></div>
         
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           {/* Navigation Section */}
           <motion.div
-            className="flex items-center justify-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 mb-8 sm:mb-12 mt-2 sm:mt-4"
+            className="flex items-center justify-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 mb-8 sm:mb-12 mt-2 sm:mt-4 relative"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8 }}
@@ -92,7 +107,7 @@ const About = () => {
             {/* SEMS Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-2 sm:space-x-3 group mr-4"
+              className="flex items-center space-x-1.5 sm:space-x-2 group mr-2 sm:mr-3"
               aria-label="SEMS Events - Go to homepage"
             >
               <div className="relative">
@@ -101,18 +116,18 @@ const About = () => {
                 </div>
                 <Zap className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <div className="font-mono">
-                <h1 className="text-lg sm:text-xl font-bold text-white tracking-wider glitch-text">SEMS</h1>
-                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
+              <div className="font-heading">
+                <h1 className="text-base sm:text-lg font-bold text-white tracking-wide glitch-text" style={{ fontWeight: 900 }}>SEMS</h1>
+                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1 font-mono">EVENTS</p>
               </div>
             </Link>
             
-            {/* Navigation Links */}
+            {/* Navigation Links - Hidden on Mobile */}
             {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item, index) => (
               <Link
                 key={item}
                 to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                className={`relative px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
+                className={`hidden lg:block relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
                   item === 'ABOUT'
                     ? 'bg-white text-black'
                     : 'text-white/80 hover:text-white hover:bg-white/10'
@@ -129,8 +144,8 @@ const About = () => {
               </Link>
             ))}
             
-            {/* Social Media Icons */}
-            <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-white/20">
+            {/* Social Media Icons - Hidden on Mobile */}
+            <div className="hidden md:flex items-center space-x-1.5 ml-2 sm:ml-3 pl-2 sm:pl-3 border-l border-white/20">
               <motion.a
                 href="https://wa.me/971508194875"
                 target="_blank"
@@ -162,11 +177,124 @@ const About = () => {
                 <Facebook className="w-4 h-4 text-white" />
               </motion.a>
             </div>
+
+            {/* Mobile Hamburger Menu Button - Only on Mobile */}
+            <motion.button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden ml-auto w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle menu"
+            >
+              <AnimatePresence mode="wait">
+                {isMobileMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="w-5 h-5 text-white" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="w-5 h-5 text-white" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+
+            {/* Mobile Dropdown Menu */}
+            <AnimatePresence>
+              {isMobileMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="lg:hidden absolute top-full left-0 right-0 mt-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-4 shadow-2xl z-50"
+                >
+                  {/* Mobile Navigation Links */}
+                  <div className="flex flex-col space-y-2 mb-3">
+                    {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item, index) => (
+                      <motion.div
+                        key={item}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Link
+                          to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`block px-4 py-3 text-sm font-mono font-medium rounded-2xl transition-all duration-300 ${
+                            item === 'ABOUT'
+                              ? 'bg-white text-black'
+                              : 'text-white hover:bg-white/10'
+                          }`}
+                        >
+                          {item}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Mobile Social Icons */}
+                  <div className="flex items-center justify-center space-x-3 pt-3 border-t border-white/10 md:hidden">
+                    <motion.a
+                      href="https://wa.me/971508194875"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.25 }}
+                    >
+                      <MessageCircle className="w-5 h-5 text-white" />
+                    </motion.a>
+                    <motion.a
+                      href="https://instagram.com/semsmanaging"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <Instagram className="w-5 h-5 text-white" />
+                    </motion.a>
+                    <motion.a
+                      href="https://facebook.com/semsmanaging"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.35 }}
+                    >
+                      <Facebook className="w-5 h-5 text-white" />
+                    </motion.a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </section>
       {/* Revolutionary Hero Section */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-10 relative overflow-hidden">
         <div className="absolute inset-0 grid-dots opacity-20"></div>
         <div className="absolute inset-0 noise-bg"></div>
         
