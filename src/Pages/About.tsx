@@ -219,7 +219,8 @@ const About = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="lg:hidden absolute top-full left-0 right-0 mt-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-4 shadow-2xl z-50"
+                  className="lg:hidden fixed top-16 left-3 right-3 bg-gray-900 border border-white/30 rounded-2xl p-3 shadow-2xl max-w-md mx-auto"
+                  style={{ zIndex: 9999, maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}
                 >
                   {/* Mobile Navigation Links */}
                   <div className="flex flex-col space-y-2 mb-3">

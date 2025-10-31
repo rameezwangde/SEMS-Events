@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Star, ArrowRight, Users, Award, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook, Menu, X } from 'lucide-react';
 import LiveCountdown from '../components/LiveCountdown';
@@ -54,6 +54,7 @@ const LazySection = ({ children, className = "", delay = 0 }: any) => {
 
 const Home = () => {
   const containerRef = useRef(null);
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -232,7 +233,8 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="lg:hidden absolute top-full left-0 right-0 mt-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-4 shadow-2xl z-50"
+                  className="lg:hidden fixed top-16 left-3 right-3 bg-gray-900 border border-white/30 rounded-2xl p-3 shadow-2xl max-w-md mx-auto"
+                  style={{ zIndex: 9999, maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}
                 >
                   {/* Mobile Navigation Links */}
                   <div className="flex flex-col space-y-2 mb-3">
@@ -583,7 +585,7 @@ const Home = () => {
                 scale: 0.95,
                 y: 0
               }}
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => navigate('/contact')}
               style={{ pointerEvents: 'auto' }}
             >
               <motion.span
@@ -850,10 +852,16 @@ const Home = () => {
                 Ready to create your own unforgettable moment?
               </motion.p>
               <motion.button
-                className="inline-flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-full font-mono font-bold text-sm hover:bg-gray-200 transition-all"
+                className="relative inline-flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-full font-mono font-bold text-sm hover:bg-gray-200 transition-all min-h-[44px] touch-manipulation cursor-pointer"
+                style={{ 
+                  zIndex: 100,
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation',
+                  pointerEvents: 'auto'
+                }}
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,255,255,0.2)" }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.location.href = '/portfolio'}
+                onClick={() => navigate('/portfolio')}
               >
                 <span>VIEW OUR PORTFOLIO</span>
                 <ArrowRight className="w-4 h-4" />
@@ -874,7 +882,7 @@ const Home = () => {
                 className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-8 hover:bg-white/10 transition-all duration-500 group cursor-pointer"
                 whileHover={{ scale: 1.05, y: -10 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.location.href = '/services'}
+                onClick={() => navigate('/services')}
               >
                 <div className="text-center">
                   <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors">
@@ -890,7 +898,7 @@ const Home = () => {
                 className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-8 hover:bg-white/10 transition-all duration-500 group cursor-pointer"
                 whileHover={{ scale: 1.05, y: -10 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.location.href = '/services'}
+                onClick={() => navigate('/services')}
               >
                 <div className="text-center">
                   <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors">
@@ -906,7 +914,7 @@ const Home = () => {
                 className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-8 hover:bg-white/10 transition-all duration-500 group cursor-pointer"
                 whileHover={{ scale: 1.05, y: -10 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.location.href = '/services'}
+                onClick={() => navigate('/services')}
               >
                 <div className="text-center">
                   <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors">
@@ -922,7 +930,7 @@ const Home = () => {
                 className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-8 hover:bg-white/10 transition-all duration-500 group cursor-pointer"
                 whileHover={{ scale: 1.05, y: -10 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.location.href = '/services'}
+                onClick={() => navigate('/services')}
               >
                 <div className="text-center">
                   <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors">
