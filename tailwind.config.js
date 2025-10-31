@@ -15,6 +15,12 @@ export default {
     },
     extend: {
       fontFamily: {
+        'display': ['Orbitron', 'Outfit', 'sans-serif'],
+        'heading': ['Outfit', 'Space Grotesk', 'sans-serif'],
+        'body': ['DM Sans', 'Sora', 'sans-serif'],
+        'elegant': ['Playfair Display', 'serif'],
+        'modern': ['Sora', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'monospace'],
         'space-grotesk': ['Space Grotesk', 'sans-serif'],
         'jetbrains-mono': ['JetBrains Mono', 'monospace'],
       },

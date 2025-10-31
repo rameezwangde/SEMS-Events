@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Zap, Users, Calendar, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Zap, Users, Calendar, MessageCircle, Instagram, Facebook, Sparkles, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,10 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set());
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   // Handle service parameter from URL
   useEffect(() => {
@@ -26,13 +30,76 @@ const Contact = () => {
     }
   }, []);
 
+  // Validation function
+  const validateField = (name: string, value: string): string => {
+    switch (name) {
+      case 'name':
+        if (!value.trim()) return 'Name is required';
+        if (value.trim().length < 2) return 'Name must be at least 2 characters';
+        return '';
+      case 'email':
+        if (!value.trim()) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Invalid email format';
+        return '';
+      case 'eventType':
+        if (!value) return 'Please select an event type';
+        return '';
+      case 'message':
+        if (!value.trim()) return 'Message is required';
+        if (value.trim().length < 10) return 'Message must be at least 10 characters';
+        return '';
+      default:
+        return '';
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Real-time validation for touched fields
+    if (touchedFields.has(name)) {
+      const error = validateField(name, value);
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }
+  };
+
+  const handleFieldFocus = (fieldName: string) => {
+    setFocusedField(fieldName);
+  };
+
+  const handleFieldBlur = (fieldName: string) => {
+    setFocusedField(null);
+    setTouchedFields(prev => new Set(prev).add(fieldName));
+    
+    // Validate on blur
+    const value = formData[fieldName as keyof typeof formData];
+    const error = validateField(fieldName, value);
+    setValidationErrors(prev => ({
+      ...prev,
+      [fieldName]: error
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate all required fields
+    const errors: Record<string, string> = {};
+    (['name', 'email', 'eventType', 'message'] as const).forEach(field => {
+      const error = validateField(field, formData[field]);
+      if (error) errors[field] = error;
+    });
+    
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      setTouchedFields(new Set(['name', 'email', 'eventType', 'message']));
+      return;
+    }
+    
     setIsSubmitting(true);
     
     // Simulate form submission
@@ -50,6 +117,8 @@ const Contact = () => {
       budget: '',
       message: ''
     });
+    setTouchedFields(new Set());
+    setValidationErrors({});
     
     // Reset success message after 5 seconds
     setTimeout(() => setIsSubmitted(false), 5000);
@@ -580,19 +649,92 @@ const Contact = () => {
                 </motion.h2>
               </motion.div>
               
-              {isSubmitted && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-black text-white p-6 mb-8 flex items-center space-x-4"
-                >
-                  <CheckCircle className="w-8 h-8" />
-                  <div>
-                    <p className="font-bold text-lg">MESSAGE SENT SUCCESSFULLY!</p>
-                    <p className="text-white/80">We'll get back to you within 24 hours.</p>
-                  </div>
-                </motion.div>
-              )}
+              {/* Enhanced Success Message */}
+              <AnimatePresence>
+                {isSubmitted && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: -20 }}
+                    className="relative bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 sm:p-8 mb-8 rounded-xl overflow-hidden shadow-2xl"
+                  >
+                    {/* Animated Background Pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
+                        animate={{ x: ['-100%', '200%'] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10 flex items-start space-x-4">
+                      <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ 
+                          delay: 0.2, 
+                          type: "spring", 
+                          stiffness: 200,
+                          damping: 15
+                        }}
+                      >
+                        <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0" />
+                      </motion.div>
+                      <div className="flex-1">
+                        <motion.p 
+                          className="font-bold text-lg sm:text-xl mb-2 font-mono tracking-wider"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3 }}
+                        >
+                          MESSAGE SENT SUCCESSFULLY!
+                        </motion.p>
+                        <motion.p 
+                          className="text-white/90 text-sm sm:text-base font-mono"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4 }}
+                        >
+                          We'll get back to you within 24 hours.
+                        </motion.p>
+                      </div>
+                    </div>
+
+                    {/* Floating Particles */}
+                    {[...Array(5)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-2 h-2 bg-white rounded-full"
+                        initial={{ 
+                          x: Math.random() * 100 + '%',
+                          y: '100%',
+                          opacity: 0 
+                        }}
+                        animate={{ 
+                          y: '-100%',
+                          opacity: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 2 + Math.random() * 2,
+                          delay: Math.random() * 0.5,
+                          repeat: Infinity,
+                          ease: "easeOut"
+                        }}
+                      />
+                    ))}
+
+                    {/* Corner Decorations */}
+                    <motion.div
+                      className="absolute top-0 right-0 w-20 h-20 bg-white/10"
+                      initial={{ scale: 0, rotate: 0 }}
+                      animate={{ scale: 1, rotate: 45 }}
+                      transition={{ delay: 0.5, type: "spring" }}
+                      style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <motion.form 
                 onSubmit={handleSubmit} 
@@ -609,188 +751,579 @@ const Contact = () => {
                   transition={{ delay: 1, duration: 0.6 }}
                   viewport={{ once: true }}
                 >
+                  {/* Enhanced Name Input with Floating Label */}
                   <motion.div 
-                    className="space-y-2"
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+                    className="relative"
+                    animate={{ 
+                      scale: focusedField === 'name' ? 1.01 : 1,
+                      y: focusedField === 'name' ? -2 : 0
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <motion.label 
-                      className="block text-sm font-mono tracking-wider font-bold text-black/80"
-                      initial={{ opacity: 0.6 }}
-                      whileFocus={{ opacity: 1 }}
-                    >
-                      FULL NAME *
-                    </motion.label>
-                    <motion.input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-all duration-300 font-mono hover:border-black/40"
-                      placeholder="YOUR FULL NAME"
-                      whileFocus={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    />
+                    <div className="relative">
+                      <motion.input
+                        type="text"
+                        name="name"
+                        required
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        onFocus={() => handleFieldFocus('name')}
+                        onBlur={() => handleFieldBlur('name')}
+                        className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                          validationErrors.name 
+                            ? 'border-red-500' 
+                            : focusedField === 'name' 
+                              ? 'border-black' 
+                              : 'border-black/20 hover:border-black/40'
+                        } focus:outline-none transition-all duration-300 font-mono`}
+                        placeholder=" "
+                        style={{
+                          transform: 'translateZ(0)',
+                          willChange: 'transform'
+                        }}
+                      />
+                      <motion.label 
+                        className={`absolute left-0 font-mono tracking-wider font-bold pointer-events-none transition-all duration-300 ${
+                          validationErrors.name ? 'text-red-500' : 'text-black/60'
+                        }`}
+                        animate={{
+                          top: formData.name || focusedField === 'name' ? '0px' : '20px',
+                          fontSize: formData.name || focusedField === 'name' ? '0.75rem' : '0.875rem',
+                          opacity: formData.name || focusedField === 'name' ? 1 : 0.6
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        FULL NAME *
+                      </motion.label>
+                      {/* Animated Underline */}
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-black"
+                        initial={{ width: 0 }}
+                        animate={{ 
+                          width: focusedField === 'name' ? '100%' : '0%'
+                        }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                    {/* Validation Error Message */}
+                    <AnimatePresence>
+                      {validationErrors.name && touchedFields.has('name') && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, height: 0 }}
+                          animate={{ opacity: 1, y: 0, height: 'auto' }}
+                          exit={{ opacity: 0, y: -10, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex items-center gap-1 mt-1 text-red-500 text-xs font-mono"
+                        >
+                          <AlertCircle className="w-3 h-3" />
+                          <span>{validationErrors.name}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
+
+                  {/* Enhanced Email Input with Floating Label */}
                   <motion.div 
-                    className="space-y-2"
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+                    className="relative"
+                    animate={{ 
+                      scale: focusedField === 'email' ? 1.01 : 1,
+                      y: focusedField === 'email' ? -2 : 0
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <motion.label 
-                      className="block text-sm font-mono tracking-wider font-bold text-black/80"
-                      initial={{ opacity: 0.6 }}
-                      whileFocus={{ opacity: 1 }}
-                    >
-                      EMAIL ADDRESS *
-                    </motion.label>
-                    <motion.input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-all duration-300 font-mono hover:border-black/40"
-                      placeholder="YOUR@EMAIL.COM"
-                      whileFocus={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    />
+                    <div className="relative">
+                      <motion.input
+                        type="email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        onFocus={() => handleFieldFocus('email')}
+                        onBlur={() => handleFieldBlur('email')}
+                        className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                          validationErrors.email 
+                            ? 'border-red-500' 
+                            : focusedField === 'email' 
+                              ? 'border-black' 
+                              : 'border-black/20 hover:border-black/40'
+                        } focus:outline-none transition-all duration-300 font-mono`}
+                        placeholder=" "
+                        style={{
+                          transform: 'translateZ(0)',
+                          willChange: 'transform'
+                        }}
+                      />
+                      <motion.label 
+                        className={`absolute left-0 font-mono tracking-wider font-bold pointer-events-none transition-all duration-300 ${
+                          validationErrors.email ? 'text-red-500' : 'text-black/60'
+                        }`}
+                        animate={{
+                          top: formData.email || focusedField === 'email' ? '0px' : '20px',
+                          fontSize: formData.email || focusedField === 'email' ? '0.75rem' : '0.875rem',
+                          opacity: formData.email || focusedField === 'email' ? 1 : 0.6
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        EMAIL ADDRESS *
+                      </motion.label>
+                      {/* Animated Underline */}
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-black"
+                        initial={{ width: 0 }}
+                        animate={{ 
+                          width: focusedField === 'email' ? '100%' : '0%'
+                        }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                    {/* Validation Error Message */}
+                    <AnimatePresence>
+                      {validationErrors.email && touchedFields.has('email') && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, height: 0 }}
+                          animate={{ opacity: 1, y: 0, height: 'auto' }}
+                          exit={{ opacity: 0, y: -10, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex items-center gap-1 mt-1 text-red-500 text-xs font-mono"
+                        >
+                          <AlertCircle className="w-3 h-3" />
+                          <span>{validationErrors.email}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-mono tracking-wider font-bold text-black/80">
-                      PHONE NUMBER
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-colors font-mono"
-                      placeholder="+1 (555) 123-4567"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block text-sm font-mono tracking-wider font-bold text-black/80">
-                      EVENT TYPE *
-                    </label>
-                    <select
-                      name="eventType"
-                      required
-                      value={formData.eventType}
-                      onChange={handleInputChange}
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-colors font-mono"
-                    >
-                      <option value="">SELECT EVENT TYPE</option>
-                      {eventTypes.map((type) => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
+                  {/* Enhanced Phone Input */}
+                  <motion.div 
+                    className="relative"
+                    animate={{ 
+                      scale: focusedField === 'phone' ? 1.01 : 1,
+                      y: focusedField === 'phone' ? -2 : 0
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        onFocus={() => handleFieldFocus('phone')}
+                        onBlur={() => handleFieldBlur('phone')}
+                        className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                          focusedField === 'phone' ? 'border-black' : 'border-black/20 hover:border-black/40'
+                        } focus:outline-none transition-all duration-300 font-mono`}
+                        placeholder=" "
+                        style={{
+                          transform: 'translateZ(0)',
+                          willChange: 'transform'
+                        }}
+                      />
+                      <motion.label 
+                        className="absolute left-0 font-mono tracking-wider font-bold text-black/60 pointer-events-none transition-all duration-300"
+                        animate={{
+                          top: formData.phone || focusedField === 'phone' ? '0px' : '20px',
+                          fontSize: formData.phone || focusedField === 'phone' ? '0.75rem' : '0.875rem',
+                          opacity: formData.phone || focusedField === 'phone' ? 1 : 0.6
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        PHONE NUMBER
+                      </motion.label>
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-black"
+                        initial={{ width: 0 }}
+                        animate={{ width: focusedField === 'phone' ? '100%' : '0%' }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                  </motion.div>
+
+                  {/* Enhanced Event Type Select */}
+                  <motion.div 
+                    className="relative"
+                    animate={{ 
+                      scale: focusedField === 'eventType' ? 1.01 : 1,
+                      y: focusedField === 'eventType' ? -2 : 0
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <div className="relative">
+                      <select
+                        name="eventType"
+                        required
+                        value={formData.eventType}
+                        onChange={handleInputChange}
+                        onFocus={() => handleFieldFocus('eventType')}
+                        onBlur={() => handleFieldBlur('eventType')}
+                        className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                          validationErrors.eventType 
+                            ? 'border-red-500' 
+                            : focusedField === 'eventType' 
+                              ? 'border-black' 
+                              : 'border-black/20 hover:border-black/40'
+                        } focus:outline-none transition-all duration-300 font-mono cursor-pointer`}
+                        style={{
+                          transform: 'translateZ(0)',
+                          willChange: 'transform'
+                        }}
+                      >
+                        <option value="">SELECT EVENT TYPE</option>
+                        {eventTypes.map((type) => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </select>
+                      <motion.label 
+                        className={`absolute left-0 font-mono tracking-wider font-bold pointer-events-none transition-all duration-300 ${
+                          validationErrors.eventType ? 'text-red-500' : 'text-black/60'
+                        }`}
+                        animate={{
+                          top: '0px',
+                          fontSize: '0.75rem',
+                          opacity: 1
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        EVENT TYPE *
+                      </motion.label>
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-black"
+                        initial={{ width: 0 }}
+                        animate={{ width: focusedField === 'eventType' ? '100%' : '0%' }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                    <AnimatePresence>
+                      {validationErrors.eventType && touchedFields.has('eventType') && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, height: 0 }}
+                          animate={{ opacity: 1, y: 0, height: 'auto' }}
+                          exit={{ opacity: 0, y: -10, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex items-center gap-1 mt-1 text-red-500 text-xs font-mono"
+                        >
+                          <AlertCircle className="w-3 h-3" />
+                          <span>{validationErrors.eventType}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-mono tracking-wider font-bold text-black/80">
-                      EVENT DATE
-                    </label>
-                    <input
-                      type="date"
-                      name="eventDate"
-                      value={formData.eventDate}
-                      onChange={handleInputChange}
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-colors font-mono"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block text-sm font-mono tracking-wider font-bold text-black/80">
-                      GUEST COUNT
-                    </label>
-                    <input
-                      type="number"
-                      name="guestCount"
-                      value={formData.guestCount}
-                      onChange={handleInputChange}
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-colors font-mono"
-                      placeholder="E.G. 150"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="block text-sm font-mono tracking-wider font-bold text-black/80">
-                    BUDGET RANGE
-                  </label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleInputChange}
-                    className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-colors font-mono"
+                  {/* Enhanced Event Date Input */}
+                  <motion.div 
+                    className="relative"
+                    animate={{ 
+                      scale: focusedField === 'eventDate' ? 1.01 : 1,
+                      y: focusedField === 'eventDate' ? -2 : 0
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <option value="">SELECT BUDGET RANGE</option>
-                    {budgetRanges.map((range) => (
-                      <option key={range} value={range}>{range}</option>
-                    ))}
-                  </select>
+                    <div className="relative">
+                      <input
+                        type="date"
+                        name="eventDate"
+                        value={formData.eventDate}
+                        onChange={handleInputChange}
+                        onFocus={() => handleFieldFocus('eventDate')}
+                        onBlur={() => handleFieldBlur('eventDate')}
+                        className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                          focusedField === 'eventDate' ? 'border-black' : 'border-black/20 hover:border-black/40'
+                        } focus:outline-none transition-all duration-300 font-mono cursor-pointer`}
+                        style={{
+                          transform: 'translateZ(0)',
+                          willChange: 'transform'
+                        }}
+                      />
+                      <motion.label 
+                        className="absolute left-0 top-0 font-mono tracking-wider font-bold text-black/60 pointer-events-none text-xs"
+                        initial={{ opacity: 1 }}
+                      >
+                        EVENT DATE
+                      </motion.label>
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-black"
+                        initial={{ width: 0 }}
+                        animate={{ width: focusedField === 'eventDate' ? '100%' : '0%' }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                  </motion.div>
+
+                  {/* Enhanced Guest Count Input */}
+                  <motion.div 
+                    className="relative"
+                    animate={{ 
+                      scale: focusedField === 'guestCount' ? 1.01 : 1,
+                      y: focusedField === 'guestCount' ? -2 : 0
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <div className="relative">
+                      <input
+                        type="number"
+                        name="guestCount"
+                        value={formData.guestCount}
+                        onChange={handleInputChange}
+                        onFocus={() => handleFieldFocus('guestCount')}
+                        onBlur={() => handleFieldBlur('guestCount')}
+                        className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                          focusedField === 'guestCount' ? 'border-black' : 'border-black/20 hover:border-black/40'
+                        } focus:outline-none transition-all duration-300 font-mono`}
+                        placeholder=" "
+                        style={{
+                          transform: 'translateZ(0)',
+                          willChange: 'transform'
+                        }}
+                      />
+                      <motion.label 
+                        className="absolute left-0 font-mono tracking-wider font-bold text-black/60 pointer-events-none transition-all duration-300"
+                        animate={{
+                          top: formData.guestCount || focusedField === 'guestCount' ? '0px' : '20px',
+                          fontSize: formData.guestCount || focusedField === 'guestCount' ? '0.75rem' : '0.875rem',
+                          opacity: formData.guestCount || focusedField === 'guestCount' ? 1 : 0.6
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        GUEST COUNT
+                      </motion.label>
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-black"
+                        initial={{ width: 0 }}
+                        animate={{ width: focusedField === 'guestCount' ? '100%' : '0%' }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                  </motion.div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="block text-sm font-mono tracking-wider font-bold text-black/80">
-                    TELL US ABOUT YOUR EVENT *
-                  </label>
-                  <textarea
-                    name="message"
-                    required
-                    rows={6}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className="w-full px-0 py-4 bg-transparent border-0 border-b-2 border-black/20 focus:border-black focus:outline-none transition-colors resize-none font-mono"
-                    placeholder="DESCRIBE YOUR VISION, SPECIAL REQUIREMENTS, OR ANY QUESTIONS..."
-                  />
-                </div>
+                {/* Enhanced Budget Select */}
+                <motion.div 
+                  className="relative"
+                  animate={{ 
+                    scale: focusedField === 'budget' ? 1.01 : 1,
+                    y: focusedField === 'budget' ? -2 : 0
+                  }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                >
+                  <div className="relative">
+                    <select
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFieldFocus('budget')}
+                      onBlur={() => handleFieldBlur('budget')}
+                      className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                        focusedField === 'budget' ? 'border-black' : 'border-black/20 hover:border-black/40'
+                      } focus:outline-none transition-all duration-300 font-mono cursor-pointer`}
+                      style={{
+                        transform: 'translateZ(0)',
+                        willChange: 'transform'
+                      }}
+                    >
+                      <option value="">SELECT BUDGET RANGE</option>
+                      {budgetRanges.map((range) => (
+                        <option key={range} value={range}>{range}</option>
+                      ))}
+                    </select>
+                    <motion.label 
+                      className="absolute left-0 top-0 font-mono tracking-wider font-bold text-black/60 pointer-events-none text-xs"
+                      initial={{ opacity: 1 }}
+                    >
+                      BUDGET RANGE
+                    </motion.label>
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-0.5 bg-black"
+                      initial={{ width: 0 }}
+                      animate={{ width: focusedField === 'budget' ? '100%' : '0%' }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  </div>
+                </motion.div>
 
+                {/* Enhanced Message Textarea with Character Counter */}
+                <motion.div 
+                  className="relative"
+                  animate={{ 
+                    scale: focusedField === 'message' ? 1.01 : 1,
+                    y: focusedField === 'message' ? -2 : 0
+                  }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                >
+                  <div className="relative">
+                    <textarea
+                      name="message"
+                      required
+                      rows={6}
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFieldFocus('message')}
+                      onBlur={() => handleFieldBlur('message')}
+                      className={`w-full px-0 pt-6 pb-2 bg-transparent border-0 border-b-2 ${
+                        validationErrors.message 
+                          ? 'border-red-500' 
+                          : focusedField === 'message' 
+                            ? 'border-black' 
+                            : 'border-black/20 hover:border-black/40'
+                      } focus:outline-none transition-all duration-300 resize-none font-mono`}
+                      placeholder=" "
+                      maxLength={500}
+                      style={{
+                        transform: 'translateZ(0)',
+                        willChange: 'transform'
+                      }}
+                    />
+                    <motion.label 
+                      className={`absolute left-0 font-mono tracking-wider font-bold pointer-events-none transition-all duration-300 ${
+                        validationErrors.message ? 'text-red-500' : 'text-black/60'
+                      }`}
+                      animate={{
+                        top: '0px',
+                        fontSize: '0.75rem',
+                        opacity: 1
+                      }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      TELL US ABOUT YOUR EVENT *
+                    </motion.label>
+                    {/* Character Counter */}
+                    <motion.div
+                      className="absolute bottom-2 right-0 text-xs font-mono text-black/40"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: focusedField === 'message' ? 1 : 0.5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {formData.message.length}/500
+                    </motion.div>
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-0.5 bg-black"
+                      initial={{ width: 0 }}
+                      animate={{ width: focusedField === 'message' ? '100%' : '0%' }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  </div>
+                  <AnimatePresence>
+                    {validationErrors.message && touchedFields.has('message') && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, height: 0 }}
+                        animate={{ opacity: 1, y: 0, height: 'auto' }}
+                        exit={{ opacity: 0, y: -10, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-center gap-1 mt-1 text-red-500 text-xs font-mono"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        <span>{validationErrors.message}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                {/* Enhanced Submit Button with Ripple Effect */}
                 <motion.button
+                  ref={submitButtonRef}
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-6 font-mono font-bold tracking-wider transition-all duration-300 flex items-center justify-center space-x-4 ${
+                  className={`relative w-full py-6 font-mono font-bold tracking-wider transition-all duration-300 flex items-center justify-center space-x-4 overflow-hidden group ${
                     isSubmitting
                       ? 'bg-black/50 cursor-not-allowed text-white/50'
-                      : 'bg-black text-white hover:bg-black/80'
+                      : 'bg-black text-white hover:bg-black/90'
                   }`}
                   whileHover={!isSubmitting ? { 
                     scale: 1.02,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                    transition: { duration: 0.2 }
+                    y: -3,
+                    boxShadow: "0 15px 40px rgba(0,0,0,0.4)",
+                    transition: { duration: 0.2, ease: "easeOut" }
                   } : {}}
                   whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.4, duration: 0.6 }}
                   viewport={{ once: true }}
+                  style={{
+                    transform: 'translateZ(0)',
+                    willChange: 'transform'
+                  }}
                 >
-                  {isSubmitting ? (
-                    <>
-                      <motion.div 
-                        className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      />
-                      <span>SENDING MESSAGE...</span>
-                    </>
-                  ) : (
-                    <>
-                      <motion.div
-                        whileHover={{ rotate: 15 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Send className="w-6 h-6" />
-                      </motion.div>
-                      <span>SEND MESSAGE</span>
-                    </>
-                  )}
+                  {/* Animated Background Gradient */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100"
+                    initial={false}
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  {/* Border Glow on Hover */}
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    initial={false}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/50 via-purple-500/50 to-pink-500/50 blur-sm"></div>
+                  </motion.div>
+
+                  {/* Button Content */}
+                  <div className="relative z-10 flex items-center space-x-4">
+                    {isSubmitting ? (
+                      <>
+                        <motion.div 
+                          className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        />
+                        <span>SENDING MESSAGE...</span>
+                      </>
+                    ) : (
+                      <>
+                        <motion.div
+                          animate={{ 
+                            x: isSubmitting ? 0 : [0, 3, 0],
+                            rotate: 0
+                          }}
+                          transition={{ 
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                          whileHover={{ 
+                            rotate: 15,
+                            x: 3,
+                            transition: { duration: 0.2 }
+                          }}
+                        >
+                          <Send className="w-6 h-6" />
+                        </motion.div>
+                        <span>SEND MESSAGE</span>
+                        <motion.div
+                          className="absolute right-6"
+                          animate={{
+                            opacity: [0, 1, 0],
+                            scale: [0.8, 1.2, 0.8]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <Sparkles className="w-5 h-5" />
+                        </motion.div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Shimmer Effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '200%' }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                      repeatDelay: 1
+                    }}
+                  />
                 </motion.button>
               </motion.form>
             </motion.div>

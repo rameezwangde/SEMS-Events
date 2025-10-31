@@ -107,7 +107,7 @@ const Home = () => {
             {/* SEMS Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-2 sm:space-x-3 group mr-4"
+              className="flex items-center space-x-1.5 sm:space-x-2 group mr-2 sm:mr-3"
               aria-label="SEMS Events - Go to homepage"
             >
               <div className="relative">
@@ -116,9 +116,9 @@ const Home = () => {
                 </div>
                 <Zap className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <div className="font-mono">
-                <h1 className="text-lg sm:text-xl font-bold text-white tracking-wider glitch-text">SEMS</h1>
-                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
+              <div className="font-heading">
+                <h1 className="text-base sm:text-lg font-bold text-white tracking-wide glitch-text" style={{ fontWeight: 900 }}>SEMS</h1>
+                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1 font-mono">EVENTS</p>
               </div>
             </Link>
             
@@ -127,7 +127,7 @@ const Home = () => {
               <Link
                 key={item}
                 to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                className={`relative px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
+                className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
                   item === 'HOME'
                     ? 'bg-white text-black'
                     : 'text-white/80 hover:text-white hover:bg-white/10'
@@ -145,7 +145,7 @@ const Home = () => {
             ))}
             
             {/* Social Media Icons */}
-            <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-white/20">
+            <div className="flex items-center space-x-1.5 ml-2 sm:ml-3 pl-2 sm:pl-3 border-l border-white/20">
               <motion.a
                 href="https://wa.me/971508194875"
                 target="_blank"
@@ -180,67 +180,122 @@ const Home = () => {
           </motion.div>
 
           <motion.div
-            className="text-center mb-8 sm:mb-12 lg:mb-16"
+            className="text-center mb-8 sm:mb-12 lg:mb-16 perspective-3d"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
             <motion.div 
               className="flex items-center justify-center space-x-2 sm:space-x-4 mb-6 sm:mb-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              initial={{ 
+                opacity: 0, 
+                scale: 0.5,
+                rotateX: -30
+              }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                rotateX: 0
+              }}
+              transition={{ 
+                delay: 0.2, 
+                duration: 1,
+                type: "spring",
+                stiffness: 100
+              }}
             >
               <motion.div 
                 className="w-8 sm:w-16 h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent"
-                initial={{ width: 0 }}
-                animate={{ width: "4rem" }}
-                transition={{ delay: 0.5, duration: 1 }}
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: "4rem", opacity: 1 }}
+                transition={{ delay: 0.5, duration: 1.2 }}
               />
               <motion.span 
-                className="font-mono-enhanced text-xs sm:text-sm tracking-[0.3em] text-gray-400 letter-spacing-animate"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
+                className="font-mono-enhanced text-xs sm:text-sm tracking-[0.3em] text-gray-400"
+                initial={{ opacity: 0, y: -20, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  delay: 0.7, 
+                  duration: 0.8,
+                  type: "spring",
+                  stiffness: 120
+                }}
               >
                 WELCOME TO SEMS
               </motion.span>
               <motion.div 
                 className="w-8 sm:w-16 h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent"
-                initial={{ width: 0 }}
-                animate={{ width: "4rem" }}
-                transition={{ delay: 0.5, duration: 1 }}
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: "4rem", opacity: 1 }}
+                transition={{ delay: 0.5, duration: 1.2 }}
               />
             </motion.div>
             
             <motion.h2 
-              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-4 sm:mb-6 lg:mb-8 leading-tight px-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 1.2 }}
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading mb-4 sm:mb-6 lg:mb-8 leading-[1.1] px-2"
+              style={{ fontWeight: 800 }}
             >
               <motion.span 
-                className="block text-gray-200 fade-in-up"
-                initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
+                className="block text-white"
+                initial={{ 
+                  opacity: 0, 
+                  y: -100, 
+                  scale: 0.5,
+                  rotateX: -90
+                }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1,
+                  rotateX: 0
+                }}
+                transition={{ 
+                  delay: 0.8, 
+                  duration: 1.2, 
+                  ease: "easeOut",
+                  type: "spring",
+                  stiffness: 100
+                }}
                 whileHover={{ 
-                  scale: 1.02,
-                  textShadow: "0 0 30px rgba(255,255,255,0.3)",
+                  y: -10,
+                  scale: 1.05,
+                  textShadow: "0 0 40px rgba(255,255,255,0.4)",
                   transition: { duration: 0.3 }
                 }}
+                style={{ letterSpacing: '-0.03em' }}
               >
                 CRAFTING UNFORGETTABLE
               </motion.span>
               <motion.span 
-                className="block text-gray-300"
-                initial={{ opacity: 0, y: 100, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }}
-                whileHover={{ 
-                  scale: 1.05,
-                  transition: { duration: 0.3 }
+                className="block bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent"
+                initial={{ 
+                  opacity: 0, 
+                  y: -120, 
+                  scale: 0.3,
+                  rotateX: -90,
+                  rotateY: 45
                 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1,
+                  rotateX: 0,
+                  rotateY: 0
+                }}
+                transition={{ 
+                  delay: 1.1, 
+                  duration: 1.4, 
+                  ease: "easeOut",
+                  type: "spring",
+                  stiffness: 80
+                }}
+                whileHover={{ 
+                  y: -15,
+                  scale: 1.08,
+                  rotateY: 3,
+                  transition: { duration: 0.4 }
+                }}
+                style={{ letterSpacing: '-0.03em' }}
               >
                 MOMENTS, GLOBALLY
               </motion.span>
@@ -248,11 +303,28 @@ const Home = () => {
             
             <motion.p 
               className="text-sm sm:text-lg md:text-xl text-gray-400 mb-4 sm:mb-6 lg:mb-8 font-body tracking-wider px-3 sm:px-4 max-w-4xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 1 }}
+              initial={{ 
+                opacity: 0, 
+                y: 80,
+                scale: 0.9,
+                rotateX: 20
+              }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                scale: 1,
+                rotateX: 0
+              }}
+              transition={{ 
+                delay: 1.4, 
+                duration: 1.2,
+                type: "spring",
+                stiffness: 90
+              }}
               whileHover={{ 
-                color: "#d1d5db",
+                color: "#f3f4f6",
+                scale: 1.02,
+                y: -5,
                 transition: { duration: 0.3 }
               }}
             >
@@ -261,20 +333,50 @@ const Home = () => {
             
             <motion.div 
               className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-6 mb-6 sm:mb-8 lg:mb-12 px-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.8, duration: 0.8 }}
+              initial={{ 
+                opacity: 0, 
+                y: 50,
+                scale: 0.8
+              }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                scale: 1
+              }}
+              transition={{ 
+                delay: 1.7, 
+                duration: 1,
+                type: "spring",
+                stiffness: 100
+              }}
             >
               <motion.div 
                 className="flex items-center space-x-2"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 2, duration: 0.6 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                initial={{ 
+                  opacity: 0, 
+                  x: -80,
+                  rotateY: -45
+                }}
+                animate={{ 
+                  opacity: 1, 
+                  x: 0,
+                  rotateY: 0
+                }}
+                transition={{ 
+                  delay: 1.9, 
+                  duration: 0.8,
+                  type: "spring",
+                  stiffness: 120
+                }}
+                whileHover={{ 
+                  scale: 1.1,
+                  x: 5,
+                  transition: { duration: 0.2 } 
+                }}
               >
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 >
                   <Users className="w-4 h-4 sm:w-6 sm:h-6 text-gray-400" />
                 </motion.div>
@@ -282,20 +384,41 @@ const Home = () => {
               </motion.div>
               <motion.div 
                 className="hidden sm:block w-1 h-1 bg-gray-500 rounded-full pulse-glow"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 2.2, duration: 0.4 }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ 
+                  delay: 2.1, 
+                  duration: 0.6,
+                  type: "spring"
+                }}
               />
               <motion.div 
                 className="flex items-center space-x-2"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 2.4, duration: 0.6 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                initial={{ 
+                  opacity: 0, 
+                  x: 80,
+                  rotateY: 45
+                }}
+                animate={{ 
+                  opacity: 1, 
+                  x: 0,
+                  rotateY: 0
+                }}
+                transition={{ 
+                  delay: 2.1, 
+                  duration: 0.8,
+                  type: "spring",
+                  stiffness: 120
+                }}
+                whileHover={{ 
+                  scale: 1.1,
+                  x: -5,
+                  transition: { duration: 0.2 } 
+                }}
               >
                 <motion.div
-                  animate={{ y: [-2, 2, -2] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ y: [-3, 3, -3] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <MapPin className="w-4 h-4 sm:w-6 sm:h-6 text-gray-400" />
                 </motion.div>
@@ -305,15 +428,35 @@ const Home = () => {
             
             <motion.button
               className="bg-gray-800 text-gray-200 px-4 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-6 font-heading text-sm sm:text-base lg:text-lg hover:bg-gray-700 transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 group mx-auto cursor-pointer relative z-10 overflow-hidden border border-gray-600 w-full max-w-xs sm:max-w-none"
-              initial={{ opacity: 0, y: 50, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 2.6, duration: 0.8, ease: "easeOut" }}
+              initial={{ 
+                opacity: 0, 
+                y: 80, 
+                scale: 0.6,
+                rotateX: -45
+              }}
+              animate={{ 
+                opacity: 1, 
+                y: 0, 
+                scale: 1,
+                rotateX: 0
+              }}
+              transition={{ 
+                delay: 2.3, 
+                duration: 1, 
+                ease: "easeOut",
+                type: "spring",
+                stiffness: 100
+              }}
               whileHover={{ 
-                scale: 1.05, 
-                boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+                scale: 1.08,
+                y: -5,
+                boxShadow: "0 25px 50px rgba(255,255,255,0.1)",
                 transition: { duration: 0.3 }
               }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ 
+                scale: 0.95,
+                y: 0
+              }}
               onClick={() => window.location.href = '/contact'}
               style={{ pointerEvents: 'auto' }}
             >
@@ -338,6 +481,254 @@ const Home = () => {
                 transition={{ duration: 0.6 }}
               />
             </motion.button>
+          </motion.div>
+
+          {/* Enhanced Video Showcase Section */}
+          <motion.div
+            className="mt-12 sm:mt-16 lg:mt-20 max-w-6xl mx-auto relative"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.8, duration: 1 }}
+          >
+            {/* Floating Background Elements */}
+            <motion.div
+              className="absolute -top-20 -left-20 w-40 h-40 bg-white/5 rounded-full blur-3xl"
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{ duration: 4, repeat: Infinity }}
+            />
+            <motion.div
+              className="absolute -bottom-20 -right-20 w-60 h-60 bg-white/5 rounded-full blur-3xl"
+              animate={{ 
+                scale: [1.2, 1, 1.2],
+                opacity: [0.5, 0.3, 0.5]
+              }}
+              transition={{ duration: 5, repeat: Infinity }}
+            />
+
+            {/* Section Header */}
+            <motion.div
+              className="text-center mb-8 sm:mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 3, duration: 0.8 }}
+            >
+              <motion.div
+                className="inline-flex items-center space-x-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2 mb-6"
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                >
+                  <Play className="w-4 h-4 text-white" />
+                </motion.div>
+                <span className="text-sm font-mono tracking-wider text-gray-300">WATCH OUR STORY</span>
+              </motion.div>
+              
+              <motion.h3
+                className="text-2xl sm:text-3xl lg:text-4xl font-heading text-white mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3.2, duration: 0.8 }}
+                style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
+              >
+                EXPERIENCE THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">MAGIC</span>
+              </motion.h3>
+              
+              <motion.p
+                className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 3.4, duration: 0.8 }}
+              >
+                Witness how we transform visions into unforgettable experiences across Dubai and beyond
+              </motion.p>
+            </motion.div>
+
+            {/* Video Container with Stats */}
+            <div className="relative">
+              {/* Stats Around Video */}
+              <motion.div
+                className="absolute -left-4 top-1/4 bg-gradient-to-br from-white to-gray-300 text-black p-4 rounded-2xl shadow-2xl z-10 hidden lg:block"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 3.6, duration: 0.8 }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+              >
+                <div className="text-center">
+                  <motion.div
+                    className="text-3xl font-bold font-mono"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    50+
+                  </motion.div>
+                  <div className="text-xs font-mono tracking-wider">EVENTS</div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="absolute -right-4 top-1/3 bg-gradient-to-br from-white to-gray-300 text-black p-4 rounded-2xl shadow-2xl z-10 hidden lg:block"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 3.8, duration: 0.8 }}
+                whileHover={{ scale: 1.1, rotate: -5 }}
+              >
+                <div className="text-center">
+                  <motion.div
+                    className="text-3xl font-bold font-mono"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                  >
+                    100%
+                  </motion.div>
+                  <div className="text-xs font-mono tracking-wider">SATISFACTION</div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="absolute -left-4 bottom-1/4 bg-gradient-to-br from-white to-gray-300 text-black p-4 rounded-2xl shadow-2xl z-10 hidden lg:block"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 4, duration: 0.8 }}
+                whileHover={{ scale: 1.1, rotate: -5 }}
+              >
+                <div className="text-center">
+                  <motion.div
+                    className="text-3xl font-bold font-mono"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                  >
+                    15+
+                  </motion.div>
+                  <div className="text-xs font-mono tracking-wider">CATEGORIES</div>
+                </div>
+              </motion.div>
+
+              {/* Main Video Container */}
+              <motion.div
+                className="relative rounded-2xl overflow-hidden shadow-2xl bg-black/50 backdrop-blur-sm group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 3.2, duration: 0.8 }}
+              >
+                {/* Animated Border Glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl"
+                  style={{
+                    background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent)',
+                  }}
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+                
+                {/* Inner Border */}
+                <div className="absolute inset-0 rounded-2xl border-2 border-white/20 pointer-events-none z-10"></div>
+
+                {/* Video */}
+                <video
+                  className="w-full h-auto max-h-[600px] object-contain relative z-0"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                >
+                  <source src="/promo-video.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {/* Enhanced Decorative corners */}
+                <motion.div
+                  className="absolute top-0 left-0 w-16 sm:w-20 h-16 sm:h-20 border-t-4 border-l-4 border-white/40 pointer-events-none"
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                <motion.div
+                  className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 border-t-4 border-r-4 border-white/40 pointer-events-none"
+                  animate={{ opacity: [1, 0.4, 1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                <motion.div
+                  className="absolute bottom-0 left-0 w-16 sm:w-20 h-16 sm:h-20 border-b-4 border-l-4 border-white/40 pointer-events-none"
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+                />
+                <motion.div
+                  className="absolute bottom-0 right-0 w-16 sm:w-20 h-16 sm:h-20 border-b-4 border-r-4 border-white/40 pointer-events-none"
+                  animate={{ opacity: [1, 0.4, 1] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+                />
+
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              </motion.div>
+            </div>
+
+            {/* Bottom Stats Bar - Mobile Visible */}
+            <motion.div
+              className="grid grid-cols-3 gap-4 mt-8 lg:hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 4, duration: 0.8 }}
+            >
+              <motion.div
+                className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl text-center"
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="text-2xl font-bold text-white font-mono">50+</div>
+                <div className="text-xs text-gray-400 font-mono tracking-wider">EVENTS</div>
+              </motion.div>
+              <motion.div
+                className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl text-center"
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="text-2xl font-bold text-white font-mono">100%</div>
+                <div className="text-xs text-gray-400 font-mono tracking-wider">SATISFACTION</div>
+              </motion.div>
+              <motion.div
+                className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl text-center"
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="text-2xl font-bold text-white font-mono">15+</div>
+                <div className="text-xs text-gray-400 font-mono tracking-wider">CATEGORIES</div>
+              </motion.div>
+            </motion.div>
+
+            {/* Call-to-Action Caption */}
+            <motion.div
+              className="text-center mt-8 sm:mt-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 4.2, duration: 0.8 }}
+            >
+              <motion.p
+                className="text-gray-400 text-sm sm:text-base mb-6"
+                whileHover={{ scale: 1.05 }}
+              >
+                Ready to create your own unforgettable moment?
+              </motion.p>
+              <motion.button
+                className="inline-flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-full font-mono font-bold text-sm hover:bg-gray-200 transition-all"
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,255,255,0.2)" }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => window.location.href = '/portfolio'}
+              >
+                <span>VIEW OUR PORTFOLIO</span>
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
+            </motion.div>
           </motion.div>
           
           {/* Services Grid Section */}

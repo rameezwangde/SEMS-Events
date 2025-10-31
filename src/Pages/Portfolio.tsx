@@ -1,143 +1,93 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
-import { Users, Calendar, MapPin, X, Star, Zap, ArrowRight, ExternalLink, Eye, MessageCircle, Instagram, Facebook } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { X, Zap, MessageCircle, Instagram, Facebook, ZoomIn, ArrowRight, ExternalLink } from 'lucide-react';
 
 const Portfolio = () => {
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [visibleImages, setVisibleImages] = useState(50);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   const navigate = useNavigate();
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: 'ANDREA JEREMIAH LIVE IN DUBAI',
-      category: 'ENTERTAINMENT',
-      description: 'First ever live concert in Dubai featuring The Jeremiah Project, Amrut Suresh, DJ Black, and host Kuraishi. A high-energy night with first-class sound, lights and immersive visuals.',
-      image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 2000,
-        date: 'OCTOBER 2025',
-        location: 'ETISALAT ACADEMY, DUBAI',
-        duration: '4 HOURS'
+  // Track loaded images
+  const handleImageLoad = (imagePath: string) => {
+    setLoadedImages(prev => new Set([...prev, imagePath]));
+  };
+
+  // Preload first few images
+  useEffect(() => {
+    eventImages.slice(0, 10).forEach(image => {
+      const img = new Image();
+      img.src = image;
+    });
+  }, []);
+
+  // Load more images when user scrolls near bottom
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 500) {
+        setVisibleImages(prev => Math.min(prev + 20, eventImages.length));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Intersection Observer for better lazy loading
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target as HTMLImageElement;
+            if (img.dataset.src && !img.src) {
+              img.src = img.dataset.src;
+            }
+          }
+        });
       },
-      testimonial: 'SEMS delivered an unforgettable South-Indian music spectacle that exceeded all expectations. The production quality was world-class.',
-      rating: 5,
-      tags: ['LIVE MUSIC', 'MULTILINGUAL', 'IMMERSIVE'],
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'DUBAI CORPORATE SUMMIT 2024',
-      category: 'CORPORATE',
-      description: 'International business conference featuring keynote speakers, networking sessions, and cutting-edge technology displays.',
-      image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 500,
-        date: 'MARCH 2024',
-        location: 'DUBAI CONVENTION CENTER',
-        duration: '2 DAYS'
-      },
-      testimonial: 'Flawless execution from start to finish. SEMS handled every detail with precision and professionalism.',
-      rating: 5,
-      tags: ['INTERNATIONAL', 'TECHNOLOGY', 'NETWORKING']
-    },
-    {
-      id: 3,
-      title: 'CULTURAL FESTIVAL DUBAI',
-      category: 'CULTURAL',
-      description: 'A vibrant celebration of diversity featuring traditional performances, art exhibitions, and cultural showcases from around the world.',
-      image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 3000,
-        date: 'NOVEMBER 2024',
-        location: 'DUBAI FESTIVAL CITY',
-        duration: '3 DAYS'
-      },
-      testimonial: 'An incredible celebration of cultures that brought our community together. SEMS made it magical.',
-      rating: 5,
-      tags: ['MULTICULTURAL', 'FESTIVAL', 'COMMUNITY']
-    },
-    {
-      id: 4,
-      title: 'DUBAI MARATHON 2024',
-      category: 'SPORTS',
-      description: 'Annual marathon event with professional runners, community participation, and comprehensive event management including logistics, timing, and entertainment.',
-      image: 'https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 15000,
-        date: 'JANUARY 2024',
-        location: 'DUBAI MARINA',
-        duration: '1 DAY'
-      },
-      testimonial: 'Outstanding event management for our marathon. Every detail was perfectly coordinated.',
-      rating: 5,
-      tags: ['SPORTS', 'COMMUNITY', 'LOGISTICS']
-    },
-    {
-      id: 5,
-      title: 'LUXURY WEDDING GALA',
-      category: 'SOCIAL',
-      description: 'An opulent wedding celebration featuring bespoke decor, premium catering, and personalized entertainment for a high-profile couple.',
-      image: 'https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 250,
-        date: 'FEBRUARY 2024',
-        location: 'BURJ AL ARAB',
-        duration: '8 HOURS'
-      },
-      testimonial: 'SEMS created the wedding of our dreams. Every moment was perfect and unforgettable.',
-      rating: 5,
-      tags: ['LUXURY', 'WEDDING', 'BESPOKE']
-    },
-    {
-      id: 6,
-      title: 'TECH STARTUP SHOWCASE',
-      category: 'CORPORATE',
-      description: 'Innovation showcase featuring emerging tech companies, investor presentations, and networking opportunities in Dubai\'s tech ecosystem.',
-      image: 'https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 400,
-        date: 'SEPTEMBER 2024',
-        location: 'DUBAI INTERNATIONAL FINANCIAL CENTRE',
-        duration: '6 HOURS'
-      },
-      testimonial: 'Professional event management that helped our startup gain visibility and connections.',
-      rating: 5,
-      tags: ['STARTUP', 'INNOVATION', 'NETWORKING']
-    },
-    {
-      id: 7,
-      title: 'RAMADAN IFTAR GATHERING',
-      category: 'CULTURAL',
-      description: 'Community iftar event bringing together families and friends for a traditional Ramadan celebration with cultural performances and authentic cuisine.',
-      image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 800,
-        date: 'APRIL 2024',
-        location: 'DUBAI CULTURE VILLAGE',
-        duration: '5 HOURS'
-      },
-      testimonial: 'A beautiful celebration of tradition and community. SEMS made it truly special.',
-      rating: 5,
-      tags: ['RAMADAN', 'COMMUNITY', 'TRADITIONAL']
-    },
-    {
-      id: 8,
-      title: 'DUBAI FASHION WEEK',
-      category: 'ENTERTAINMENT',
-      description: 'Fashion week event featuring runway shows, designer showcases, and industry networking with international and local fashion brands.',
-      image: 'https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=600',
-      details: {
-        guests: 1200,
-        date: 'MAY 2024',
-        location: 'DUBAI MALL',
-        duration: '4 DAYS'
-      },
-      testimonial: 'Exceptional production value and flawless execution. Our fashion week was a huge success.',
-      rating: 5,
-      tags: ['FASHION', 'RUNWAY', 'INDUSTRY']
-    }
+      {
+        rootMargin: '50px',
+        threshold: 0.01
+      }
+    );
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  // Array of event images - displaying 25 for now (AVIF format for better performance)
+  const eventImages = [
+    '/images/DSC05323.avif',
+    '/images/DSC05324.avif',
+    '/images/DSC05330.avif',
+    '/images/DSC05352.avif',
+    '/images/DSC05378.avif',
+    '/images/DSC05392.avif',
+    '/images/DSC05405.avif',
+    '/images/DSC05407.avif',
+    '/images/DSC05408.avif',
+    '/images/DSC05411.avif',
+    '/images/DSC05412.avif',
+    '/images/DSC05420.avif',
+    '/images/DSC05431.avif',
+    '/images/DSC05434.avif',
+    '/images/DSC05436.avif',
+    '/images/DSC05446.avif',
+    '/images/DSC05449.avif',
+    '/images/DSC05477.avif',
+    '/images/DSC05478.avif',
+    '/images/DSC05483.avif',
+    '/images/DSC05496.avif',
+    '/images/DSC05499.avif',
+    '/images/DSC05537.avif',
+    '/images/DSC05564.avif',
+    '/images/DSC05577.avif',
   ];
 
   return (
@@ -158,7 +108,7 @@ const Portfolio = () => {
             {/* SEMS Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-2 sm:space-x-3 group mr-4"
+              className="flex items-center space-x-1.5 sm:space-x-2 group mr-2 sm:mr-3"
               aria-label="SEMS Events - Go to homepage"
             >
               <div className="relative">
@@ -167,9 +117,9 @@ const Portfolio = () => {
                 </div>
                 <Zap className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <div className="font-mono">
-                <h1 className="text-lg sm:text-xl font-bold text-white tracking-wider glitch-text">SEMS</h1>
-                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1">EVENTS</p>
+              <div className="font-heading">
+                <h1 className="text-base sm:text-lg font-bold text-white tracking-wide glitch-text" style={{ fontWeight: 900 }}>SEMS</h1>
+                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1 font-mono">EVENTS</p>
               </div>
             </Link>
             
@@ -178,7 +128,7 @@ const Portfolio = () => {
               <Link
                 key={item}
                 to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                className={`relative px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
+                className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
                   item === 'PORTFOLIO'
                     ? 'bg-white text-black'
                     : 'text-white/80 hover:text-white hover:bg-white/10'
@@ -196,7 +146,7 @@ const Portfolio = () => {
             ))}
             
             {/* Social Media Icons */}
-            <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-white/20">
+            <div className="flex items-center space-x-1.5 ml-2 sm:ml-3 pl-2 sm:pl-3 border-l border-white/20">
               <motion.a
                 href="https://wa.me/971508194875"
                 target="_blank"
@@ -327,323 +277,210 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Revolutionary Projects Grid */}
-      <section className="py-32 bg-black text-white">
+      {/* Image Gallery Grid */}
+      <section className="py-20 bg-black text-white">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"
           >
-            <AnimatePresence>
-              {projects.map((project, index) => (
+            {eventImages.slice(0, visibleImages).map((image, index) => (
                 <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.8, y: 100 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, y: -50 }}
+                key={image}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                   transition={{ 
-                    duration: 0.8, 
-                    delay: index * 0.15,
-                    ease: "easeOut"
-                  }}
-                  className="group cursor-pointer relative"
+                  duration: 0.4,
+                  delay: index < 25 ? index * 0.03 : 0,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                className="group cursor-pointer relative aspect-square overflow-hidden rounded-xl bg-gray-900 shadow-lg"
                   whileHover={{ 
-                    y: -15, 
-                    scale: 1.03,
-                    transition: { duration: 0.3, ease: "easeOut" }
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setSelectedProject(project)}
-                >
-                  <div className="relative overflow-hidden mb-6 rounded-2xl">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-48 sm:h-64 lg:h-80 object-cover group-hover:scale-110 transition-transform duration-700"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                    
-                    {/* Featured Badge */}
-                    {project.featured && (
-                      <motion.div 
-                        className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 text-xs font-mono tracking-wider rounded-full"
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ delay: index * 0.1 + 0.5, duration: 0.6 }}
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                      >
-                        FEATURED
-                      </motion.div>
-                    )}
-                    
-                    {/* Category Badge */}
-                    <motion.div 
-                      className="absolute top-4 left-4 bg-white text-black px-3 py-1 text-xs font-mono tracking-wider rounded-full"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 + 0.3 }}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {project.category}
-                    </motion.div>
-                    
-                    {/* Hover Overlay */}
-                    <motion.div 
-                      className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                      initial={{ scale: 0.8 }}
-                      whileHover={{ scale: 1 }}
-                    >
-                      <div className="text-center">
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        >
-                          <Eye className="w-12 h-12 mx-auto mb-4" />
-                        </motion.div>
-                        <span className="font-mono font-bold tracking-wider">VIEW PROJECT</span>
-                      </div>
-                    </motion.div>
-                    
-                    {/* Floating Stats */}
-                    <motion.div 
-                      className="absolute bottom-4 right-4 bg-white text-black p-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      initial={{ scale: 0, rotate: 45 }}
-                      whileHover={{ scale: 1.1, rotate: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="text-center">
-                        <Users className="w-4 h-4 mx-auto mb-1" />
-                        <p className="text-xs font-bold">{project.details.guests.toLocaleString()}</p>
-                      </div>
-                    </motion.div>
-                    
-                    {/* Animated Border */}
-                    <motion.div
-                      className="absolute inset-0 border-2 border-white/20 rounded-2xl opacity-0 group-hover:opacity-100"
-                      animate={{ 
-                        borderColor: ["rgba(255,255,255,0.2)", "rgba(255,255,255,0.8)", "rgba(255,255,255,0.2)"]
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
+                  y: -8,
+                  transition: { 
+                    duration: 0.3,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }
+                }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedImage(image)}
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  perspective: 1000,
+                }}
+              >
+                  {/* Loading Skeleton/Placeholder */}
+                  {!loadedImages.has(image) && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-700/50 to-transparent animate-shimmer" />
+                    </div>
+                  )}
+                  
+                  {/* Hover Border Glow */}
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 blur-sm"></div>
+                    <div className="absolute inset-[2px] rounded-xl bg-gray-900"></div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <motion.h3 
-                      className="text-base sm:text-lg lg:text-xl font-heading font-bold tracking-wide group-hover:text-gray-200 transition-all duration-300 mb-2 sm:mb-3"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 + 0.2 }}
-                      whileHover={{ 
-                        x: 5,
-                        scale: 1.02,
-                        transition: { duration: 0.2 }
+                  {/* Image with enhanced effects */}
+                  <div className="relative w-full h-full overflow-hidden rounded-xl">
+                    <img
+                      src={image}
+                      alt={`SEMS Event ${index + 1}`}
+                      className={`w-full h-full object-cover group-hover:scale-105 group-hover:rotate-1 transition-all duration-500 ease-out ${
+                        loadedImages.has(image) 
+                          ? 'opacity-100 blur-0' 
+                          : 'opacity-0 blur-md'
+                      }`}
+                      style={{ 
+                        willChange: 'transform, opacity',
+                        transform: 'translateZ(0)',
+                        WebkitTransform: 'translateZ(0)',
                       }}
-                    >
-                      {project.title}
-                    </motion.h3>
-                    <motion.p 
-                      className="text-gray-400 leading-relaxed font-body text-xs sm:text-sm lg:text-base mb-3 sm:mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 + 0.3 }}
-                      whileHover={{ 
-                        color: "#d1d5db",
-                        transition: { duration: 0.3 }
-                      }}
-                    >
-                      {project.description}
-                    </motion.p>
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority={index < 10 ? "high" : "low"}
+                      onLoad={() => handleImageLoad(image)}
+                    />
                     
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag, i) => (
-                        <motion.span 
-                          key={i} 
-                          className="text-xs font-mono-enhanced tracking-wider bg-gray-800/50 px-2 sm:px-3 py-1 rounded-full border border-gray-700/50"
-                          initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 + i * 0.1 + 0.4 }}
-                          whileHover={{ 
-                            scale: 1.05, 
-                            backgroundColor: "rgba(75, 85, 99, 0.8)",
-                            borderColor: "rgba(156, 163, 175, 0.8)",
-                            transition: { duration: 0.2 }
-                          }}
-                        >
-                          {tag}
-                        </motion.span>
-                      ))}
+                    {/* Gradient Overlay on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     
+                  {/* Interactive Overlay with Icon and Text */}
+                  {loadedImages.has(image) && (
                     <motion.div 
-                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs sm:text-sm text-gray-500 font-mono-enhanced space-y-1 sm:space-y-0"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 + 0.5 }}
-                      whileHover={{ color: "#d1d5db" }}
+                      className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 pointer-events-none"
+                      initial={false}
                     >
                       <motion.div 
-                        className="flex items-center space-x-2"
-                        whileHover={{ x: 5 }}
+                        initial={{ scale: 0.5, opacity: 0 }}
+                        whileHover={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                        className="bg-white/10 backdrop-blur-sm rounded-full p-4 mb-3"
                       >
-                        <Calendar className="w-4 h-4" />
-                        <span>{project.details.date}</span>
+                        <ZoomIn className="w-8 h-8 text-white drop-shadow-lg" />
                       </motion.div>
-                      <motion.div 
-                        className="flex items-center space-x-1"
-                        whileHover={{ scale: 1.1 }}
+                      <motion.p
+                        initial={{ y: 10, opacity: 0 }}
+                        whileHover={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.2, delay: 0.1 }}
+                        className="text-white text-sm font-medium tracking-wide drop-shadow-lg"
                       >
-                        {[...Array(project.rating)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: index * 0.1 + i * 0.1 }}
-                            whileHover={{ scale: 1.2, rotate: 10 }}
-                          >
-                            <Star className="w-3 h-3 text-white fill-current" />
+                        View Image
+                      </motion.p>
                           </motion.div>
-                        ))}
-                      </motion.div>
-                    </motion.div>
-                    
-                    {/* Navigation Button */}
-                    <motion.div 
-                      className="flex items-center text-white/60 group-hover:text-white font-mono text-sm mt-4"
-                      initial={{ opacity: 0, x: -10 }}
-                      whileHover={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className="mr-2">View Details</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </motion.div>
+                  )}
+                  
+                  {/* Corner Accent */}
+                  <div className="absolute top-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                    <div className="absolute top-0 right-0 w-full h-full border-t-2 border-r-2 border-white/30 rounded-tr-xl"></div>
                   </div>
                 </motion.div>
               ))}
-            </AnimatePresence>
+          </div>
+
+          {/* Loading Indicator */}
+          {visibleImages < eventImages.length && (
+            <div className="text-center mt-12">
+              <motion.div
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="inline-block text-gray-400 text-sm font-mono"
+              >
+                Loading more images...
           </motion.div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Enhanced Project Modal */}
+      {/* Enhanced Image Lightbox Modal */}
       <AnimatePresence>
-        {selectedProject && (
+        {selectedImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
-            onClick={() => setSelectedProject(null)}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/98 backdrop-blur-2xl flex items-center justify-center p-4"
+            onClick={() => setSelectedImage(null)}
           >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0, rotateX: -30, y: 50 }}
-              animate={{ scale: 1, opacity: 1, rotateX: 0, y: 0 }}
-              exit={{ scale: 0.8, opacity: 0, rotateX: 30, y: -50 }}
-              transition={{ 
-                duration: 0.6, 
-                type: "spring", 
-                stiffness: 100 
-              }}
-              className="bg-white text-black max-w-6xl w-full max-h-[90vh] overflow-y-auto relative rounded-3xl shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Enhanced Close Button */}
+            {/* Animated Background Pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0 grid-dots"></div>
+            </div>
+
+            {/* Close Button */}
               <motion.button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-6 right-6 z-10 w-12 h-12 bg-black text-white flex items-center justify-center hover:bg-black/80 transition-colors rounded-full"
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-12 h-12 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-md text-white flex items-center justify-center hover:bg-red-500/80 transition-all duration-300 rounded-full border border-white/20 shadow-2xl"
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, type: "spring" }}
               >
                 <X className="w-6 h-6" />
               </motion.button>
 
-              {/* Hero Section */}
-              <div className="relative h-96 lg:h-[500px]">
+            {/* Image Info Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"
+            >
+              <p className="text-white text-xs sm:text-sm font-mono tracking-wider">
+                SEMS EVENT GALLERY
+              </p>
+            </motion.div>
+
+            {/* Image Container with Enhanced Animation */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ 
+                duration: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              className="max-w-7xl max-h-[85vh] w-full relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Image with Glow Effect */}
+              <div className="relative group">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 rounded-2xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"
+                ></motion.div>
                 <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
+                  src={selectedImage}
+                  alt="SEMS Event"
+                  className="relative w-full h-full object-contain rounded-xl shadow-2xl ring-1 ring-white/10"
+                  style={{
+                    maxHeight: '85vh',
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div className="absolute bottom-8 left-8 text-white">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <span className="bg-white text-black px-3 py-1 text-sm font-mono tracking-wider">
-                      {selectedProject.category}
-                    </span>
-                    <div className="flex items-center space-x-1">
-                      {[...Array(selectedProject.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-white fill-current" />
-                      ))}
-                    </div>
-                  </div>
-                  <h1 className="text-4xl lg:text-6xl font-bold mb-4 font-mono tracking-wider">
-                    {selectedProject.title}
-                  </h1>
-                  <p className="text-xl font-light max-w-2xl">{selectedProject.description}</p>
-                </div>
               </div>
 
-              {/* Project Details */}
-              <div className="p-8 lg:p-12">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  {/* Stats Grid */}
-                  <div>
-                    <h2 className="text-3xl font-bold mb-8 font-mono tracking-wider">PROJECT DETAILS</h2>
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="text-center p-6 bg-black/5 border border-black/10">
-                        <Users className="w-10 h-10 mx-auto mb-3" />
-                        <p className="text-sm text-black/60 font-mono">GUESTS</p>
-                        <p className="text-3xl font-bold font-mono">{selectedProject.details.guests}</p>
-                      </div>
-                      <div className="text-center p-6 bg-black/5 border border-black/10">
-                        <Calendar className="w-10 h-10 mx-auto mb-3" />
-                        <p className="text-sm text-black/60 font-mono">DATE</p>
-                        <p className="text-lg font-bold font-mono">{selectedProject.details.date}</p>
-                      </div>
-                      <div className="text-center p-6 bg-black/5 border border-black/10">
-                        <MapPin className="w-10 h-10 mx-auto mb-3" />
-                        <p className="text-sm text-black/60 font-mono">LOCATION</p>
-                        <p className="text-lg font-bold font-mono">{selectedProject.details.location}</p>
-                      </div>
-                      <div className="text-center p-6 bg-black/5 border border-black/10">
-                        <Zap className="w-10 h-10 mx-auto mb-3" />
-                        <p className="text-sm text-black/60 font-mono">DURATION</p>
-                        <p className="text-lg font-bold font-mono">{selectedProject.details.duration}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Testimonial */}
-                  <div>
-                    <h2 className="text-3xl font-bold mb-8 font-mono tracking-wider">CLIENT FEEDBACK</h2>
-                    <div className="bg-black text-white p-8 relative">
-                      <div className="flex items-center space-x-1 mb-6">
-                        {[...Array(selectedProject.rating)].map((_, i) => (
-                          <Star key={i} className="w-6 h-6 text-white fill-current" />
-                        ))}
-                      </div>
-                      <p className="text-xl italic mb-6 font-light leading-relaxed">
-                        "{selectedProject.testimonial}"
-                      </p>
-                      
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mt-8">
-                        {selectedProject.tags.map((tag: string, i: number) => (
-                          <span key={i} className="text-xs font-mono tracking-wider bg-white/20 px-3 py-1">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Download/Share Actions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 flex gap-3"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white/10 backdrop-blur-md text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-white/20 transition-all duration-300 border border-white/20"
+                >
+                  View Full Size
+                </motion.button>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
