@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { Calendar, Megaphone, Shield, Camera, ArrowRight, Zap, Star, Users, CheckCircle, MessageCircle, Instagram, Facebook, Menu, X, Check } from 'lucide-react';
+import { Calendar, Megaphone, Shield, Camera, ArrowRight, Zap, Star, Users, CheckCircle, MessageCircle, Instagram, Facebook } from 'lucide-react';
 
 // Simple image component with lazy loading
 const LazyImage = ({ src, alt, className, priority }: any) => (
@@ -15,19 +15,6 @@ const LazyImage = ({ src, alt, className, priority }: any) => (
 );
 
 const Services = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
 
   const services = [
     {
@@ -114,7 +101,7 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           {/* Navigation Section */}
           <motion.div
-            className="flex items-center justify-center space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 mb-8 sm:mb-12 mt-2 sm:mt-4 relative"
+            className="flex flex-col lg:flex-row items-center justify-center space-y-2 lg:space-y-0 lg:space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 lg:p-2 mb-8 sm:mb-12 mt-2 sm:mt-4 relative"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8 }}
@@ -122,7 +109,7 @@ const Services = () => {
             {/* SEMS Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-1.5 sm:space-x-2 group mr-2 sm:mr-3"
+              className="flex items-center space-x-1.5 sm:space-x-2 group mr-0 lg:mr-2 sm:mr-3"
               aria-label="SEMS Events - Go to homepage"
             >
               <div className="relative">
@@ -137,183 +124,63 @@ const Services = () => {
               </div>
             </Link>
             
-            {/* Navigation Links - Hidden on Mobile */}
-            {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item, index) => (
-              <Link
-                key={item}
-                to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                className={`hidden lg:block relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
-                  item === 'SERVICES'
-                    ? 'bg-white text-black'
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                <span className="relative z-10">{item}</span>
-                {item === 'SERVICES' && (
-                  <motion.div
-                    className="absolute inset-0 bg-white rounded-full"
-                    layoutId="activeTab"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-              </Link>
-            ))}
+            {/* Navigation Links - Visible on Mobile and Desktop */}
+            <div className="flex flex-wrap items-center justify-center gap-1 lg:gap-0 lg:space-x-1">
+              {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item) => (
+                <Link
+                  key={item}
+                  to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
+                  className={`relative px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs lg:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
+                    item === 'SERVICES'
+                      ? 'bg-white text-black'
+                      : 'text-white/80 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <span className="relative z-10">{item}</span>
+                  {item === 'SERVICES' && (
+                    <motion.div
+                      className="absolute inset-0 bg-white rounded-full"
+                      layoutId="activeTab"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                </Link>
+              ))}
+            </div>
             
-            {/* Social Media Icons - Hidden on Mobile */}
-            <div className="hidden md:flex items-center space-x-1.5 ml-2 sm:ml-3 pl-2 sm:pl-3 border-l border-white/20">
+            {/* Social Media Icons - Visible on Mobile and Desktop */}
+            <div className="flex items-center space-x-1.5 ml-0 lg:ml-2 sm:ml-3 pl-0 lg:pl-2 sm:pl-3 border-t lg:border-t-0 lg:border-l border-white/20 pt-2 lg:pt-0">
               <motion.a
                 href="https://wa.me/971508194875"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                className="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <MessageCircle className="w-4 h-4 text-white" />
+                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
               </motion.a>
               <motion.a
                 href="https://instagram.com/semsmanaging"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                className="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <Instagram className="w-4 h-4 text-white" />
+                <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
               </motion.a>
               <motion.a
                 href="https://facebook.com/semsmanaging"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                className="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <Facebook className="w-4 h-4 text-white" />
+                <Facebook className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
               </motion.a>
             </div>
-
-            {/* Mobile Hamburger Menu Button - Only on Mobile */}
-            <motion.button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden ml-auto w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle menu"
-            >
-              <AnimatePresence mode="wait">
-                {isMobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-5 h-5 text-white" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="w-5 h-5 text-white" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-
-            {/* Mobile Dropdown Menu */}
-            <AnimatePresence>
-              {isMobileMenuOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="lg:hidden fixed inset-x-0 top-[72px] bg-gray-950 border-b-2 border-white/40 shadow-2xl"
-                  style={{ zIndex: 99999, maxHeight: '80vh', overflowY: 'auto', touchAction: 'manipulation', position: 'fixed' }}
-                >
-                  {/* Mobile Navigation Links */}
-                  <div className="flex flex-col space-y-2 p-5 bg-gray-950">
-                    {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item, index) => (
-                      <motion.div
-                        key={item}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                      >
-                        <Link
-                          to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center justify-between px-5 py-4 text-base font-mono font-semibold rounded-xl transition-all duration-200 min-h-[52px] touch-manipulation ${
-                            item === 'SERVICES'
-                              ? 'bg-white text-black shadow-lg'
-                              : 'text-white bg-white/5 hover:bg-white/15 active:bg-white/20'
-                          }`}
-                          style={{ 
-                            WebkitTapHighlightColor: 'transparent',
-                            touchAction: 'manipulation',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          <span>{item}</span>
-                          {item === 'SERVICES' && (
-                            <Check className="w-5 h-5 ml-2 font-bold" strokeWidth={3} />
-                          )}
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Mobile Social Icons */}
-                  <div className="flex items-center justify-center space-x-3 py-4 border-t border-white/10 md:hidden">
-                    <motion.a
-                      href="https://wa.me/971508194875"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.25 }}
-                    >
-                      <MessageCircle className="w-5 h-5 text-white" />
-                    </motion.a>
-                    <motion.a
-                      href="https://instagram.com/semsmanaging"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      <Instagram className="w-5 h-5 text-white" />
-                    </motion.a>
-                    <motion.a
-                      href="https://facebook.com/semsmanaging"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.35 }}
-                    >
-                      <Facebook className="w-5 h-5 text-white" />
-                    </motion.a>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
         </div>
       </section>
