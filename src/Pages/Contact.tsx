@@ -187,36 +187,129 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           {/* Navigation Section */}
           <motion.div
-            className="flex flex-col lg:flex-row items-center justify-center space-y-2 lg:space-y-0 lg:space-x-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full p-2 lg:p-2 mb-8 sm:mb-12 mt-2 sm:mt-4 relative"
+            className="bg-gradient-to-br from-white/10 via-white/5 to-white/5 backdrop-blur-md border border-white/20 rounded-3xl lg:rounded-full shadow-2xl mb-8 sm:mb-12 mt-2 sm:mt-4 relative overflow-hidden"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8 }}
           >
-            {/* SEMS Logo */}
-            <Link 
-              to="/" 
-              className="flex items-center space-x-1.5 sm:space-x-2 group mr-0 lg:mr-2 sm:mr-3"
-              aria-label="SEMS Events - Go to homepage"
-            >
-              <div className="relative">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white text-black flex items-center justify-center font-bold text-sm sm:text-lg clip-hexagon group-hover:morph-shape transition-all duration-300">
-                  S
+            {/* Mobile Layout - Clean Horizontal Design */}
+            <div className="lg:hidden">
+              {/* Top Section: Logo + Social Icons */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10">
+                {/* Logo */}
+                <Link 
+                  to="/" 
+                  className="flex items-center space-x-2.5 sm:space-x-3 group flex-shrink-0"
+                  aria-label="SEMS Events - Go to homepage"
+                >
+                  <div className="relative">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-br from-white to-white/90 text-black flex items-center justify-center font-bold text-xl sm:text-2xl clip-hexagon group-hover:morph-shape transition-all duration-300 shadow-lg">
+                      S
+                    </div>
+                    <Zap className="absolute -top-0.5 -right-0.5 w-4 h-4 sm:w-5 sm:h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
+                  </div>
+                  <div className="font-heading">
+                    <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wide glitch-text drop-shadow-lg" style={{ fontWeight: 900 }}>SEMS</h1>
+                    <p className="text-xs sm:text-sm text-white/70 tracking-[0.35em] -mt-1 font-mono">EVENTS</p>
+                  </div>
+                </Link>
+                
+                {/* Social Media Icons */}
+                <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+                  <motion.a
+                    href="https://wa.me/971508194875"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 hover:bg-green-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 transition-all duration-300 shadow-lg"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label="WhatsApp"
+                  >
+                    <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </motion.a>
+                  <motion.a
+                    href="https://instagram.com/semsmanaging"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 hover:bg-pink-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 transition-all duration-300 shadow-lg"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </motion.a>
+                  <motion.a
+                    href="https://facebook.com/semsmanaging"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 hover:bg-blue-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 transition-all duration-300 shadow-lg"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </motion.a>
                 </div>
-                <Zap className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <div className="font-heading">
-                <h1 className="text-base sm:text-lg font-bold text-white tracking-wide glitch-text" style={{ fontWeight: 900 }}>SEMS</h1>
-                <p className="text-xs text-white/60 tracking-[0.3em] -mt-1 font-mono">EVENTS</p>
+              
+              {/* Navigation Links - Clean Horizontal Style */}
+              <div className="px-4 sm:px-6 py-3 sm:py-4">
+                <nav className="flex items-center justify-between gap-2 sm:gap-4">
+                  {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item) => (
+                    <Link
+                      key={item}
+                      to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
+                      className={`inline-block flex-shrink-0 text-xs sm:text-sm font-mono font-bold transition-all duration-300 px-2 sm:px-3 ${
+                        item === 'CONTACT'
+                          ? 'text-white'
+                          : 'text-white/80 hover:text-white'
+                      }`}
+                    >
+                      <span className="relative inline-block whitespace-nowrap pb-1.5 sm:pb-2">
+                        {item}
+                        {item === 'CONTACT' && (
+                          <motion.div
+                            className="absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 bg-white rounded-full"
+                            layoutId="activeTabMobile"
+                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                            style={{
+                              boxShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4)'
+                            }}
+                          />
+                        )}
+                      </span>
+                    </Link>
+                  ))}
+                </nav>
               </div>
-            </Link>
-            
-            {/* Navigation Links - Visible on Mobile and Desktop */}
-            <div className="flex flex-wrap items-center justify-center gap-1 lg:gap-0 lg:space-x-1">
+            </div>
+
+            {/* Desktop Layout - Unchanged */}
+            <div className="hidden lg:flex lg:items-center lg:justify-center lg:space-x-1 w-full">
+              {/* SEMS Logo */}
+              <Link 
+                to="/" 
+                className="flex items-center space-x-2 group mr-2"
+                aria-label="SEMS Events - Go to homepage"
+              >
+                <div className="relative">
+                  <div className="w-10 h-10 bg-white text-black flex items-center justify-center font-bold text-lg clip-hexagon group-hover:morph-shape transition-all duration-300">
+                    S
+                  </div>
+                  <Zap className="absolute -top-1 -right-1 w-3 h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="font-heading">
+                  <h1 className="text-lg font-bold text-white tracking-wide glitch-text" style={{ fontWeight: 900 }}>SEMS</h1>
+                  <p className="text-xs text-white/60 tracking-[0.3em] -mt-1 font-mono">EVENTS</p>
+                </div>
+              </Link>
+              
+              {/* Navigation Links */}
               {['HOME', 'ABOUT', 'SERVICES', 'PORTFOLIO', 'CONTACT'].map((item) => (
                 <Link
                   key={item}
                   to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                  className={`relative px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs lg:text-sm font-mono font-medium transition-all duration-300 rounded-full ${
+                  className={`relative px-4 py-2 text-sm font-mono font-medium transition-all duration-300 rounded-full ${
                     item === 'CONTACT'
                       ? 'bg-white text-black'
                       : 'text-white/80 hover:text-white hover:bg-white/10'
@@ -232,40 +325,40 @@ const Contact = () => {
                   )}
                 </Link>
               ))}
-            </div>
-            
-            {/* Social Media Icons - Visible on Mobile and Desktop */}
-            <div className="flex items-center space-x-1.5 ml-0 lg:ml-2 sm:ml-3 pl-0 lg:pl-2 sm:pl-3 border-t lg:border-t-0 lg:border-l border-white/20 pt-2 lg:pt-0">
-              <motion.a
-                href="https://wa.me/971508194875"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-              </motion.a>
-              <motion.a
-                href="https://instagram.com/semsmanaging"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-              </motion.a>
-              <motion.a
-                href="https://facebook.com/semsmanaging"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Facebook className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-              </motion.a>
+              
+              {/* Social Media Icons */}
+              <div className="flex items-center space-x-1.5 ml-2 pl-2 border-l border-white/20">
+                <motion.a
+                  href="https://wa.me/971508194875"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <MessageCircle className="w-4 h-4 text-white" />
+                </motion.a>
+                <motion.a
+                  href="https://instagram.com/semsmanaging"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Instagram className="w-4 h-4 text-white" />
+                </motion.a>
+                <motion.a
+                  href="https://facebook.com/semsmanaging"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Facebook className="w-4 h-4 text-white" />
+                </motion.a>
+              </div>
             </div>
           </motion.div>
         </div>
