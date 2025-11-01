@@ -596,7 +596,7 @@ const Portfolio = () => {
               <span className="block text-black">READY TO CREATE</span>
               <span className="block text-outline-black">YOUR EVENT?</span>
             </h2>
-            <p className="text-xl text-black/60 max-w-3xl mx-auto mb-12 font-light">
+            <p className="text-xl text-black/60 max-w-3xl mx-auto mb-12 font-light font-body">
               Let SEMS transform your vision into an unforgettable experience. 
               From concept to execution, we bring your events to life.
             </p>

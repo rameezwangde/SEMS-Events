@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Zap, Users, Calendar, MessageCircle, Instagram, Facebook, Sparkles, AlertCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Zap, Users, Calendar, MessageCircle, Instagram, Facebook, Sparkles, AlertCircle, ArrowRight, Briefcase, Image } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -580,7 +580,7 @@ const Contact = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-base sm:text-xl text-white/80 max-w-3xl mx-auto font-light px-4"
+              className="text-base sm:text-xl text-white/80 max-w-3xl mx-auto font-light px-4 font-body"
               initial={{ 
                 opacity: 0, 
                 y: -50, 
@@ -589,7 +589,7 @@ const Contact = () => {
               }}
               animate={{ 
                 opacity: 1, 
-                y: 0, 
+                y: 0,
                 scale: 1,
                 rotateX: 0
               }}
@@ -611,6 +611,207 @@ const Contact = () => {
               Let's discuss your event and bring it to life.
             </motion.p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Explore More Section - Services & Portfolio */}
+      <section className="py-16 sm:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots opacity-10"></div>
+        <div className="absolute inset-0 noise-bg"></div>
+        
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <motion.h2
+              className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono tracking-wider mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              EXPLORE OUR CAPABILITIES
+            </motion.h2>
+            <motion.p
+              className="text-sm sm:text-base text-white/70 max-w-2xl mx-auto font-body"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Discover our services or view our portfolio to see the extraordinary events we've created
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {/* Services Card */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Link to="/services" className="block group">
+                <motion.div
+                  className="bg-gradient-to-br from-white/10 via-white/5 to-white/5 backdrop-blur-md border border-white/20 rounded-2xl p-8 sm:p-10 h-full relative overflow-hidden"
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -5,
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)'
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Animated Background Gradient */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100"
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  <div className="relative z-10">
+                    <motion.div
+                      className="flex items-center justify-between mb-6"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <motion.div
+                        className="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-colors"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <Briefcase className="w-8 h-8 text-white" />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRight className="w-6 h-6 text-white/60 group-hover:text-white transition-colors" />
+                      </motion.div>
+                    </motion.div>
+                    
+                    <motion.h3
+                      className="text-2xl sm:text-3xl font-bold font-mono tracking-wider mb-4 text-white"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      OUR SERVICES
+                    </motion.h3>
+                    
+                    <motion.p
+                      className="text-white/70 font-body text-sm sm:text-base mb-6 leading-relaxed"
+                      initial={{ opacity: 0.7 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      Explore 15+ event categories including corporate events, weddings, conferences, product launches, and more. We offer comprehensive event management with digital marketing integration.
+                    </motion.p>
+
+                    <motion.div
+                      className="flex items-center text-white font-mono text-sm font-semibold tracking-wider"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <span>VIEW SERVICES</span>
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </motion.div>
+                  </div>
+
+                  {/* Decorative Elements */}
+                  <motion.div
+                    className="absolute -top-4 -right-4 w-24 h-24 border-2 border-white/10 clip-hexagon"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  />
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Portfolio Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Link to="/portfolio" className="block group">
+                <motion.div
+                  className="bg-gradient-to-br from-white/10 via-white/5 to-white/5 backdrop-blur-md border border-white/20 rounded-2xl p-8 sm:p-10 h-full relative overflow-hidden"
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -5,
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)'
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Animated Background Gradient */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-orange-600/10 to-red-600/10 opacity-0 group-hover:opacity-100"
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  <div className="relative z-10">
+                    <motion.div
+                      className="flex items-center justify-between mb-6"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <motion.div
+                        className="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-colors"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <Image className="w-8 h-8 text-white" />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRight className="w-6 h-6 text-white/60 group-hover:text-white transition-colors" />
+                      </motion.div>
+                    </motion.div>
+                    
+                    <motion.h3
+                      className="text-2xl sm:text-3xl font-bold font-mono tracking-wider mb-4 text-white"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      OUR PORTFOLIO
+                    </motion.h3>
+                    
+                    <motion.p
+                      className="text-white/70 font-body text-sm sm:text-base mb-6 leading-relaxed"
+                      initial={{ opacity: 0.7 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      Browse through our gallery of successful events. See the creativity, attention to detail, and excellence we bring to every occasion we manage.
+                    </motion.p>
+
+                    <motion.div
+                      className="flex items-center text-white font-mono text-sm font-semibold tracking-wider"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <span>VIEW PORTFOLIO</span>
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </motion.div>
+                  </div>
+
+                  {/* Decorative Elements */}
+                  <motion.div
+                    className="absolute -bottom-4 -left-4 w-24 h-24 border-2 border-white/10 clip-triangle"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
 

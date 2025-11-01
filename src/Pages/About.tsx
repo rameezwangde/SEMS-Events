@@ -406,7 +406,7 @@ const About = () => {
                 </h1>
                 
                 <motion.p 
-                  className="text-base sm:text-xl text-white/80 max-w-2xl leading-relaxed font-light"
+                  className="text-base sm:text-xl text-white/80 max-w-2xl leading-relaxed font-light font-body"
                   initial={{ 
                     opacity: 0, 
                     y: -50, 
@@ -415,7 +415,7 @@ const About = () => {
                   }}
                   animate={{ 
                     opacity: 1, 
-                    y: 0, 
+                    y: 0,
                     scale: 1,
                     rotateX: 0
                   }}
@@ -585,10 +585,10 @@ const About = () => {
               </div>
               
               <div className="space-y-6 text-lg leading-relaxed text-black/80 font-light">
-                <p>
+                <p className="font-body">
                   Our commitment to excellence, creativity, and precision sets us apart as we strive to bring your visions to life on a global stage.
                 </p>
-                <p>
+                <p className="font-body">
                   We specialize in creating tailored experiences that align with your brand identity and goals. Our team handles logistics, vendor management, and on-site coordination, allowing you to focus on what matters most.
                 </p>
               </div>
@@ -610,10 +610,10 @@ const About = () => {
               </div>
               
               <div className="space-y-6 text-lg leading-relaxed text-black/80 font-light">
-                <p>
+                <p className="font-body">
                   To be the premier event management company that transforms ordinary moments into extraordinary memories, creating unforgettable experiences that resonate globally.
                 </p>
-                <p>
+                <p className="font-body">
                   We envision a future where every event we manage becomes a masterpiece of creativity, precision, and innovation, setting new standards in the industry while delivering exceptional value to our clients.
                 </p>
               </div>
@@ -659,7 +659,7 @@ const About = () => {
                   <div className="relative z-10">
                     <value.icon className="w-12 h-12 mb-6 group-hover:scale-110 transition-transform" />
                     <h3 className="text-xl font-bold mb-4 font-mono tracking-wider">{value.title}</h3>
-                    <p className="text-white/80 leading-relaxed font-light">{value.description}</p>
+                    <p className="text-white/80 leading-relaxed font-light font-body">{value.description}</p>
                   </div>
                   
                   {/* Animated Background Element */}
@@ -696,7 +696,7 @@ const About = () => {
               <span className="block text-black">COMPREHENSIVE</span>
               <span className="block text-outline-black">SOLUTIONS</span>
             </h2>
-            <p className="text-xl text-black/60 max-w-3xl mx-auto mt-8 font-light">
+            <p className="text-xl text-black/60 max-w-3xl mx-auto mt-8 font-light font-body">
               From concept to execution, we offer a complete range of event management and marketing services
             </p>
           </motion.div>
@@ -755,7 +755,7 @@ const About = () => {
                     <h3 className="text-xl font-bold mb-4 font-mono tracking-wider group-hover:text-black/90 transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-black/80 leading-relaxed font-light mb-6 group-hover:text-black/90 transition-colors">
+                    <p className="text-black/80 leading-relaxed font-light mb-6 group-hover:text-black/90 transition-colors font-body">
                       {service.description}
                     </p>
                     
@@ -807,7 +807,7 @@ const About = () => {
               <span className="block text-white">OUR</span>
               <span className="block text-outline">EXPERTISE</span>
             </h2>
-            <p className="text-xl text-white/60 max-w-3xl mx-auto font-light">
+            <p className="text-xl text-white/60 max-w-3xl mx-auto font-light font-body">
               Specialized event management across diverse categories
             </p>
           </motion.div>
@@ -845,7 +845,7 @@ const About = () => {
                     <h3 className="text-xl font-bold mb-4 font-mono tracking-wider group-hover:text-white transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-white/80 leading-relaxed font-light mb-6 group-hover:text-white/90 transition-colors">
+                    <p className="text-white/80 leading-relaxed font-light mb-6 group-hover:text-white/90 transition-colors font-body">
                       {item.description}
                     </p>
                     
@@ -907,7 +907,7 @@ const About = () => {
               <span className="block text-black">WHAT</span>
               <span className="block text-outline-black">WE DO</span>
             </h2>
-            <p className="text-xl text-black/60 max-w-3xl mx-auto font-light">
+            <p className="text-xl text-black/60 max-w-3xl mx-auto font-light font-body">
               Comprehensive event management services from planning to execution
             </p>
           </motion.div>
@@ -951,7 +951,7 @@ const About = () => {
                   transition={{ duration: 0.3 }}
                 />
                 <motion.p 
-                  className="text-lg text-black/80 font-light leading-relaxed group-hover:text-black transition-colors"
+                  className="text-lg text-black/80 font-light leading-relaxed group-hover:text-black transition-colors font-body"
                   whileHover={{ 
                     x: 5,
                     transition: { duration: 0.2 }
@@ -981,7 +981,7 @@ const About = () => {
               <span className="text-outline">OUR</span>
               <span className="block text-white">IMPACT</span>
             </h2>
-            <p className="text-xl text-white/60 font-light">
+            <p className="text-xl text-white/60 font-light font-body">
               Numbers that speak to our commitment to excellence
             </p>
           </motion.div>

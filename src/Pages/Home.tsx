@@ -619,7 +619,7 @@ const Home = () => {
               </motion.h3>
               
               <motion.p
-                className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base"
+                className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base font-body"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 3.4, duration: 0.8 }}
@@ -797,7 +797,7 @@ const Home = () => {
               transition={{ delay: 4.2, duration: 0.8 }}
             >
               <motion.p
-                className="text-gray-400 text-sm sm:text-base mb-6"
+                className="text-gray-400 text-sm sm:text-base mb-6 font-body"
                 whileHover={{ scale: 1.05 }}
               >
                 Ready to create your own unforgettable moment?
@@ -840,7 +840,7 @@ const Home = () => {
                     <Calendar className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-3 font-mono tracking-wider">EVENT MANAGEMENT</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">From concept to execution, we create tailored experiences that align with your brand identity and goals.</p>
+                  <p className="text-white/70 text-sm leading-relaxed font-body">From concept to execution, we create tailored experiences that align with your brand identity and goals.</p>
                 </div>
               </motion.div>
 
@@ -856,7 +856,7 @@ const Home = () => {
                     <Target className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-3 font-mono tracking-wider">DIGITAL MARKETING</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">Enhance your brand visibility with social media management, SEO, and strategic digital campaigns.</p>
+                  <p className="text-white/70 text-sm leading-relaxed font-body">Enhance your brand visibility with social media management, SEO, and strategic digital campaigns.</p>
                 </div>
               </motion.div>
 
@@ -872,7 +872,7 @@ const Home = () => {
                     <Eye className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-3 font-mono tracking-wider">BRANDING & DESIGN</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">Create cohesive and visually appealing brands that communicate your unique identity effectively.</p>
+                  <p className="text-white/70 text-sm leading-relaxed font-body">Create cohesive and visually appealing brands that communicate your unique identity effectively.</p>
                 </div>
               </motion.div>
 
@@ -888,7 +888,7 @@ const Home = () => {
                     <Play className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-3 font-mono tracking-wider">CONTENT CREATION</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">Produce compelling written, visual, and multimedia content that resonates with your audience.</p>
+                  <p className="text-white/70 text-sm leading-relaxed font-body">Produce compelling written, visual, and multimedia content that resonates with your audience.</p>
                 </div>
               </motion.div>
             </div>
@@ -944,7 +944,7 @@ const Home = () => {
                     ))}
                   </div>
                   
-                  <p className="text-white/90 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg font-light">
+                  <p className="text-white/90 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg font-light font-body">
                     "{review.text}"
                   </p>
                   
@@ -1311,7 +1311,7 @@ const Home = () => {
                       </motion.h3>
 
                       <motion.p
-                        className="text-white/80 leading-relaxed font-light text-lg"
+                        className="text-white/80 leading-relaxed font-light text-lg font-body"
                         whileHover={{
                           color: "#fff",
                           x: step.position === 'left' ? -25 : 25,
@@ -1472,7 +1472,7 @@ const Home = () => {
               <span className="block text-outline-black">CREATE MAGIC?</span>
             </h2>
             
-            <p className="text-base sm:text-xl text-black/70 mb-8 sm:mb-12 max-w-2xl mx-auto font-light">
+            <p className="text-base sm:text-xl text-black/70 mb-8 sm:mb-12 max-w-2xl mx-auto font-light font-body">
               Let's transform your vision into an extraordinary experience that will be remembered forever.
             </p>
             

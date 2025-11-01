@@ -462,7 +462,7 @@ const Services = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-xl text-white/80 max-w-3xl mx-auto font-light"
+              className="text-xl text-white/80 max-w-3xl mx-auto font-light font-body"
               initial={{ 
                 opacity: 0, 
                 y: -50, 
@@ -471,7 +471,7 @@ const Services = () => {
               }}
               animate={{ 
                 opacity: 1, 
-                y: 0, 
+                y: 0,
                 scale: 1,
                 rotateX: 0
               }}
@@ -615,7 +615,7 @@ const Services = () => {
                     </motion.div>
                     
                     <motion.p 
-                      className="text-xl text-black/70 leading-relaxed font-light"
+                      className="text-xl text-black/70 leading-relaxed font-light font-body"
                       whileHover={{ color: "#000" }}
                       transition={{ duration: 0.2 }}
                     >
@@ -765,7 +765,7 @@ const Services = () => {
                     <div className="space-y-4">
                       <div className="text-6xl mb-4">{step.icon}</div>
                       <h3 className="text-2xl font-bold font-mono tracking-wider">{step.title}</h3>
-                      <p className="text-white/80 leading-relaxed font-light">{step.description}</p>
+                      <p className="text-white/80 leading-relaxed font-light font-body">{step.description}</p>
                     </div>
                   </div>
                   
@@ -797,7 +797,7 @@ const Services = () => {
               <span className="block text-black">PREMIUM</span>
               <span className="block text-outline-black">ADD-ONS</span>
             </h2>
-            <p className="text-xl text-black/60 max-w-2xl mx-auto font-light">
+            <p className="text-xl text-black/60 max-w-2xl mx-auto font-light font-body">
               Enhance your event with our specialized services and cutting-edge solutions
             </p>
           </motion.div>
@@ -844,7 +844,7 @@ const Services = () => {
               <span className="block text-outline">START?</span>
             </h2>
             
-            <p className="text-xl text-white/70 mb-12 max-w-2xl mx-auto font-light">
+            <p className="text-xl text-white/70 mb-12 max-w-2xl mx-auto font-light font-body">
               Let's discuss your vision and create an extraordinary experience together.
             </p>
             
