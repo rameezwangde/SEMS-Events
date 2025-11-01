@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { Megaphone, Search, FileText, Share2, MousePointer, Users, TrendingUp, Globe, BarChart3, Smartphone, Video, Target, ArrowRight, CheckCircle, Star, Zap, Eye, DollarSign, MessageCircle } from 'lucide-react';
+import { Megaphone, Search, FileText, Share2, MousePointer, Users, TrendingUp, Globe, BarChart3, Smartphone, Video, Target, ArrowRight, ArrowLeft, CheckCircle, Star, Zap, Eye, DollarSign, MessageCircle } from 'lucide-react';
 
 // Simple image component with lazy loading
 const LazyImage = ({ src, alt, className, priority }: any) => (
@@ -197,6 +197,24 @@ const DigitalMarketing = () => {
         />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center perspective-3d">
+          {/* Back Button */}
+          <motion.div
+            className="flex justify-start mb-6 sm:mb-8"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <motion.button
+              onClick={() => navigate('/services')}
+              className="flex items-center space-x-2 px-3 sm:px-4 py-2.5 sm:py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white transition-all duration-300 group min-h-[44px] sm:min-h-0"
+              whileHover={{ scale: 1.05, x: -5 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ArrowLeft className="w-4 h-4 sm:w-4 sm:h-4 group-hover:-translate-x-1 transition-transform flex-shrink-0" />
+              <span className="font-mono text-xs sm:text-sm tracking-wider whitespace-nowrap">BACK TO SERVICES</span>
+            </motion.button>
+          </motion.div>
+          
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}

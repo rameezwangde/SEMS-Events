@@ -708,7 +708,7 @@ const Services = () => {
                         }
                       }}
                     >
-                      <span>GET QUOTE</span>
+                      <span>INQUIRE NOW</span>
                       <motion.div
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
