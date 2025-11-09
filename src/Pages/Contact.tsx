@@ -479,10 +479,11 @@ const Contact = () => {
             </motion.div>
             
             <motion.h1 
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-6 sm:mb-8 leading-tight px-2"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 sm:mb-8 leading-tight px-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 1.2 }}
+              style={{ fontFamily: "'Space Grotesk', 'Outfit', sans-serif", fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase' }}
             >
               <motion.span 
                 className="block text-white"
@@ -514,7 +515,7 @@ const Contact = () => {
                 LET'S
               </motion.span>
               <motion.span 
-                className="block text-outline glitch-text"
+                className="block text-white glitch-text"
                 initial={{ 
                   opacity: 0, 
                   y: -120, 
