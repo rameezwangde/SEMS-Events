@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin, Zap } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Zap } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -22,7 +22,7 @@ const Footer = () => {
               We specialize in 15 different event categories with global reach and expertise.
             </p>
             <div className="flex space-x-3 sm:space-x-4">
-              {[Facebook, Instagram, Twitter, Linkedin].map((Icon, index) => (
+              {[Facebook, Instagram, Linkedin].map((Icon, index) => (
                 <a
                   key={index}
                   href="#"

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Star, ArrowRight, Users, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { ArrowRight, Users, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook } from 'lucide-react';
 
 // Lazy loading wrapper component
 const LazySection = ({ children, className = "" }: any) => {
@@ -35,32 +35,22 @@ const LazySection = ({ children, className = "" }: any) => {
 
 const Home = () => {
   const containerRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<number | null>(null);
 
-  const reviews = [
-    {
-      name: 'ALEXANDRA CHEN',
-      role: 'CEO, TECH INNOVATIONS',
-      rating: 5,
-      text: 'SEMS transformed our product launch into an unforgettable experience. The attention to detail was extraordinary.',
-      image: 'https://images.pexels.com/photos/3760137/pexels-photo-3760137.jpeg?auto=compress&cs=tinysrgb&w=150'
-    },
-    {
-      name: 'MARCUS RODRIGUEZ',
-      role: 'WEDDING CLIENT',
-      rating: 5,
-      text: 'Our wedding was pure magic. Every moment was perfectly orchestrated. SEMS exceeded every expectation.',
-      image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=150'
-    },
-    {
-      name: 'SOPHIA WILLIAMS',
-      role: 'CORPORATE DIRECTOR',
-      rating: 5,
-      text: 'The most professional event team we\'ve worked with. Flawless execution from concept to completion.',
-      image: 'https://images.pexels.com/photos/3760736/pexels-photo-3760736.jpeg?auto=compress&cs=tinysrgb&w=150'
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.volume = 0.5; // Set volume to 50%
+      // Optimize video quality settings
+      videoRef.current.setAttribute('playsinline', '');
+      videoRef.current.setAttribute('webkit-playsinline', '');
+      // Ensure high quality playback
+      if ('playbackQuality' in videoRef.current) {
+        (videoRef.current as any).playbackQuality = 'high';
+      }
     }
-  ];
+  }, []);
 
 
   return (
@@ -717,15 +707,16 @@ const Home = () => {
 
                 {/* Video */}
                 <video
-                  className="w-full h-auto max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] object-contain relative z-0"
+                  ref={videoRef}
+                  className="w-full h-auto max-h-[500px] sm:max-h-[600px] lg:max-h-[700px] xl:max-h-[800px] object-contain relative z-0"
                   autoPlay
                   loop
-                  muted
                   playsInline
                   preload="auto"
                   style={{
                     WebkitTransform: 'translateZ(0)',
                     transform: 'translateZ(0)',
+                    imageRendering: 'high-quality',
                   }}
                 >
                   <source src="/promo-video.mp4" type="video/mp4" />
@@ -895,83 +886,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
-      {/* Revolutionary Google Reviews */}
-      <LazySection className="py-20 bg-black text-white relative">
-        <div className="absolute inset-0 noise-bg"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center justify-center space-x-2 sm:space-x-4 mb-6 sm:mb-8">
-              <div className="w-8 sm:w-16 h-1 bg-white"></div>
-              <span className="font-mono text-xs sm:text-sm tracking-[0.3em] text-white/60">GOOGLE REVIEWS</span>
-              <div className="w-8 sm:w-16 h-1 bg-white"></div>
-            </div>
-            
-            <h2 className="text-3xl sm:text-5xl lg:text-7xl font-bold mb-6 sm:mb-8">
-              <span className="block text-white">CLIENT</span>
-              <span className="block text-outline">TESTIMONIALS</span>
-            </h2>
-            
-            <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-4 sm:mb-6">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 sm:w-8 sm:h-8 text-white fill-current" />
-              ))}
-              <span className="text-2xl sm:text-3xl font-bold ml-3 sm:ml-4">4.9</span>
-            </div>
-            <p className="text-base sm:text-xl text-white/60 font-mono">BASED ON 300+ GOOGLE REVIEWS</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-            {reviews.map((review, index) => (
-              <motion.div
-                key={index}
-                className="relative group"
-                initial={{ opacity: 0, y: 50, rotateX: -30 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-8 h-full hover:bg-white/10 transition-all duration-500 group-hover:border-white/30">
-                  <div className="flex items-center space-x-1 mb-4 sm:mb-6">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-white fill-current" />
-                    ))}
-                  </div>
-                  
-                  <p className="text-white/90 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg font-light font-body">
-                    "{review.text}"
-                  </p>
-                  
-                  <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="relative">
-                      <img
-                        src={review.image}
-                        alt={review.name}
-                        className="w-12 h-12 sm:w-16 sm:h-16 object-cover clip-hexagon"
-                      />
-                      <div className="absolute inset-0 border-2 border-white/30 clip-hexagon"></div>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white font-mono tracking-wider text-sm sm:text-base">{review.name}</h4>
-                      <p className="text-xs sm:text-sm text-white/60 font-mono">{review.role}</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Decorative Elements */}
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </LazySection>
 
       {/* Interactive Process Section */}
       <section className="py-20 bg-black text-white relative overflow-hidden">
