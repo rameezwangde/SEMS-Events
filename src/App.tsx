@@ -15,9 +15,9 @@ import PrivacyPolicy from './Pages/PrivacyPolicy';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white text-black">
+      <div className="min-h-screen bg-white text-black overflow-x-hidden">
         <PerformanceMonitor />
-        <main role="main">
+        <main role="main" className="overflow-x-hidden">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

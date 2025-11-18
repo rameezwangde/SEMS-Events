@@ -3,34 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowRight, Users, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook, Volume2, VolumeX, Loader2 } from 'lucide-react';
 
-// Lazy loading wrapper component
-const LazySection = ({ children, className = "" }: any) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '50px' }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className={className}>
-      {isVisible ? children : <div className="h-96 bg-gray-900/20 animate-pulse rounded-lg" />}
-    </div>
-  );
+type VideoWithAdvancedFeatures = HTMLVideoElement & {
+  audioTracks?: {
+    length: number;
+  };
+  playbackQuality?: string;
 };
 
 const Home = () => {
@@ -43,16 +20,14 @@ const Home = () => {
 
   useEffect(() => {
     if (videoRef.current) {
-      const video = videoRef.current;
+      const video = videoRef.current as VideoWithAdvancedFeatures;
       
       // Set video attributes for better compatibility
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
       
       // Ensure high quality playback
-      if ('playbackQuality' in video) {
-        (video as any).playbackQuality = 'high';
-      }
+      video.playbackQuality = 'high';
       
       // Handle video loading
       const handleCanPlay = async () => {
@@ -62,8 +37,9 @@ const Home = () => {
           await video.play();
           
           // Log video info for debugging
+          const audioTrackCount = video.audioTracks?.length ?? null;
           console.log('Video loaded:', {
-            hasAudio: video.audioTracks ? video.audioTracks.length > 0 : 'unknown',
+            hasAudio: audioTrackCount !== null ? audioTrackCount > 0 : 'unknown',
             duration: video.duration,
             volume: video.volume,
             muted: video.muted
@@ -117,10 +93,11 @@ const Home = () => {
   // Handle video click to toggle mute/unmute (user interaction required)
   const handleVideoClick = async () => {
     if (videoRef.current) {
-      const video = videoRef.current;
+      const video = videoRef.current as VideoWithAdvancedFeatures;
       
       // Check if video has audio tracks
-      if (video.audioTracks && video.audioTracks.length === 0) {
+      const audioTrackCount = video.audioTracks?.length;
+      if (typeof audioTrackCount === 'number' && audioTrackCount === 0) {
         console.warn('Video has no audio tracks');
         return;
       }
@@ -839,7 +816,7 @@ const Home = () => {
                   style={{
                     WebkitTransform: 'translateZ(0)',
                     transform: 'translateZ(0)',
-                    imageRendering: 'high-quality',
+                    imageRendering: 'auto',
                   }}
                 >
                   <source src="/promo-video.mp4" type="video/mp4" />
@@ -942,7 +919,7 @@ const Home = () => {
 
             {/* Call-to-Action Caption */}
             <motion.div
-              className="text-center mt-8 sm:mt-12"
+              className="text-center mt-8 sm:mt-12 mb-12 sm:mb-16 lg:mb-20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 4.2, duration: 0.8 }}
