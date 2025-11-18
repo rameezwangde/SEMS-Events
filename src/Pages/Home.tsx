@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowRight, Users, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { ArrowRight, Users, Calendar, Zap, Eye, Target, MapPin, Play, MessageCircle, Instagram, Facebook, Volume2, VolumeX, Loader2 } from 'lucide-react';
 
 // Lazy loading wrapper component
 const LazySection = ({ children, className = "" }: any) => {
@@ -38,6 +38,8 @@ const Home = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<number | null>(null);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -52,36 +54,50 @@ const Home = () => {
         (video as any).playbackQuality = 'high';
       }
       
-      // Handle video loading and playing
+      // Handle video loading
       const handleCanPlay = async () => {
         try {
+          setIsVideoLoading(false);
           // Try to play the video (it's already muted for autoplay compatibility)
           await video.play();
-          // Once playing, unmute and set volume
-          video.muted = false;
-          video.volume = 0.5; // Set volume to 50%
+          
+          // Log video info for debugging
+          console.log('Video loaded:', {
+            hasAudio: video.audioTracks ? video.audioTracks.length > 0 : 'unknown',
+            duration: video.duration,
+            volume: video.volume,
+            muted: video.muted
+          });
         } catch (error) {
           console.warn('Video autoplay failed:', error);
-          // Keep it muted if autoplay fails (user interaction required)
         }
       };
       
-      const handlePlaying = () => {
-        // Ensure volume is set when video starts playing
-        if (video.muted) {
-          video.muted = false;
-        }
-        video.volume = 0.5;
+      // Listen for volume changes
+      const handleVolumeChange = () => {
+        console.log('Volume changed:', {
+          volume: video.volume,
+          muted: video.muted
+        });
+      };
+      
+      const handleLoadedData = () => {
+        setIsVideoLoading(false);
       };
       
       const handleError = (e: Event) => {
         console.error('Video error:', e);
+        setIsVideoLoading(false);
       };
       
       // Add event listeners
       video.addEventListener('canplay', handleCanPlay);
-      video.addEventListener('playing', handlePlaying);
+      video.addEventListener('loadeddata', handleLoadedData);
       video.addEventListener('error', handleError);
+      video.addEventListener('volumechange', handleVolumeChange);
+      
+      // Set initial volume (even when muted, so it's ready when unmuted)
+      video.volume = 0.5;
       
       // Try to play immediately if video is already loaded
       if (video.readyState >= 3) { // HAVE_FUTURE_DATA
@@ -91,11 +107,53 @@ const Home = () => {
       // Cleanup
       return () => {
         video.removeEventListener('canplay', handleCanPlay);
-        video.removeEventListener('playing', handlePlaying);
+        video.removeEventListener('loadeddata', handleLoadedData);
         video.removeEventListener('error', handleError);
+        video.removeEventListener('volumechange', handleVolumeChange);
       };
     }
   }, []);
+
+  // Handle video click to toggle mute/unmute (user interaction required)
+  const handleVideoClick = async () => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      
+      // Check if video has audio tracks
+      if (video.audioTracks && video.audioTracks.length === 0) {
+        console.warn('Video has no audio tracks');
+        return;
+      }
+      
+      // Toggle mute state
+      const newMutedState = !video.muted;
+      video.muted = newMutedState;
+      
+      if (!newMutedState) {
+        // Unmuting - ensure volume is set and try to play
+        video.volume = 0.5;
+        
+        // Force play to ensure audio starts
+        try {
+          await video.play();
+          console.log('Video playing with sound, volume:', video.volume);
+        } catch (error) {
+          console.error('Error playing video after unmute:', error);
+        }
+      }
+      
+      setIsVideoMuted(newMutedState);
+      
+      // Log audio state for debugging
+      console.log('Video audio state:', {
+        muted: video.muted,
+        volume: video.volume,
+        readyState: video.readyState,
+        paused: video.paused,
+        currentTime: video.currentTime
+      });
+    }
+  };
 
 
   return (
@@ -750,15 +808,34 @@ const Home = () => {
                 {/* Inner Border */}
                 <div className="absolute inset-0 rounded-2xl border-2 border-white/20 pointer-events-none z-10"></div>
 
+                {/* Loading Indicator */}
+                {isVideoLoading && (
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-2xl z-20"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <motion.div
+                      className="flex flex-col items-center space-y-4"
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <Loader2 className="w-12 h-12 text-white animate-spin" />
+                      <p className="text-white/80 font-mono text-sm">Loading video...</p>
+                    </motion.div>
+                  </motion.div>
+                )}
+
                 {/* Video */}
                 <video
                   ref={videoRef}
-                  className="w-full h-auto max-h-[500px] sm:max-h-[600px] lg:max-h-[700px] xl:max-h-[800px] object-contain relative z-0"
+                  className="w-full h-auto max-h-[500px] sm:max-h-[600px] lg:max-h-[700px] xl:max-h-[800px] object-contain relative z-0 cursor-pointer"
                   autoPlay
                   loop
                   playsInline
                   muted
                   preload="auto"
+                  onClick={handleVideoClick}
                   style={{
                     WebkitTransform: 'translateZ(0)',
                     transform: 'translateZ(0)',
@@ -768,6 +845,43 @@ const Home = () => {
                   <source src="/promo-video.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+
+                {/* Mute/Unmute Button Overlay */}
+                {!isVideoLoading && (
+                  <motion.button
+                    className="absolute bottom-4 right-4 bg-black/60 hover:bg-black/80 backdrop-blur-sm rounded-full p-3 z-30 transition-all cursor-pointer"
+                    onClick={handleVideoClick}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
+                  >
+                    {isVideoMuted ? (
+                      <VolumeX className="w-5 h-5 text-white" />
+                    ) : (
+                      <Volume2 className="w-5 h-5 text-white" />
+                    )}
+                  </motion.button>
+                )}
+
+                {/* Click to Unmute Hint */}
+                {isVideoMuted && !isVideoLoading && (
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <div className="bg-black/70 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20">
+                      <p className="text-white text-sm font-mono flex items-center space-x-2">
+                        <VolumeX className="w-4 h-4" />
+                        <span>Click to unmute</span>
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
                 
                 {/* Enhanced Decorative corners */}
                 <motion.div
