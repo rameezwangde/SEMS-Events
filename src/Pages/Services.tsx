@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Calendar, Megaphone, Shield, Camera, ArrowRight, Zap, Star, Users, CheckCircle, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import HeroNavigation from '../components/HeroNavigation';
 
 // Simple image component with lazy loading
 const LazyImage = ({ src, alt, className, priority }: any) => (
@@ -93,6 +94,7 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <HeroNavigation active="SERVICES" />
       {/* Navigation Section */}
       <section className="relative pt-0 pb-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
         <div className="absolute inset-0 grid-dots opacity-20"></div>
@@ -101,7 +103,7 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           {/* Navigation Section */}
           <motion.div
-            className="bg-gradient-to-br from-white/10 via-white/5 to-white/5 backdrop-blur-md border border-white/20 rounded-3xl lg:rounded-full shadow-2xl mb-8 sm:mb-12 mt-2 sm:mt-4 relative overflow-hidden"
+            className="hidden bg-gradient-to-br from-white/10 via-white/5 to-white/5 backdrop-blur-md border border-white/20 rounded-3xl lg:rounded-full shadow-2xl mb-8 sm:mb-12 mt-2 sm:mt-4 relative overflow-hidden"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8 }}
@@ -128,42 +130,6 @@ const Services = () => {
                   </div>
                 </Link>
                 
-                {/* Social Media Icons */}
-                <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
-                  <motion.a
-                    href="https://wa.me/971508194875"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 hover:bg-green-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 transition-all duration-300 shadow-lg"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="WhatsApp"
-                  >
-                    <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </motion.a>
-                  <motion.a
-                    href="https://instagram.com/semsmanaging"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 hover:bg-pink-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 transition-all duration-300 shadow-lg"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="Instagram"
-                  >
-                    <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </motion.a>
-                  <motion.a
-                    href="https://www.facebook.com/sems.live"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 hover:bg-blue-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 transition-all duration-300 shadow-lg"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                  </motion.a>
-                </div>
               </div>
               
               {/* Navigation Links - Clean Horizontal Style */}
