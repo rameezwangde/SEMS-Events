@@ -121,7 +121,7 @@ const Header = () => {
                   <Instagram className="w-4 h-4 text-white" />
                 </motion.a>
                 <motion.a
-                  href="https://facebook.com/semsmanaging"
+                  href="https://www.facebook.com/sems.live"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
@@ -254,7 +254,7 @@ const Header = () => {
                     <Instagram className="w-6 h-6 text-white" />
                   </motion.a>
                   <motion.a
-                    href="https://facebook.com/semsmanaging"
+                    href="https://www.facebook.com/sems.live"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"

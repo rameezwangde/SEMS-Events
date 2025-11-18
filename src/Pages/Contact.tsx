@@ -240,7 +240,7 @@ const Contact = () => {
                     <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </motion.a>
                   <motion.a
-                    href="https://facebook.com/semsmanaging"
+                    href="https://www.facebook.com/sems.live"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 hover:bg-blue-500/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 transition-all duration-300 shadow-lg"
@@ -350,7 +350,7 @@ const Contact = () => {
                   <Instagram className="w-4 h-4 text-white" />
                 </motion.a>
                 <motion.a
-                  href="https://facebook.com/semsmanaging"
+                  href="https://www.facebook.com/sems.live"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
