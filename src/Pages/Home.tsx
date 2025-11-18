@@ -41,14 +41,59 @@ const Home = () => {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.volume = 0.5; // Set volume to 50%
-      // Optimize video quality settings
-      videoRef.current.setAttribute('playsinline', '');
-      videoRef.current.setAttribute('webkit-playsinline', '');
+      const video = videoRef.current;
+      
+      // Set video attributes for better compatibility
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      
       // Ensure high quality playback
-      if ('playbackQuality' in videoRef.current) {
-        (videoRef.current as any).playbackQuality = 'high';
+      if ('playbackQuality' in video) {
+        (video as any).playbackQuality = 'high';
       }
+      
+      // Handle video loading and playing
+      const handleCanPlay = async () => {
+        try {
+          // Try to play the video (it's already muted for autoplay compatibility)
+          await video.play();
+          // Once playing, unmute and set volume
+          video.muted = false;
+          video.volume = 0.5; // Set volume to 50%
+        } catch (error) {
+          console.warn('Video autoplay failed:', error);
+          // Keep it muted if autoplay fails (user interaction required)
+        }
+      };
+      
+      const handlePlaying = () => {
+        // Ensure volume is set when video starts playing
+        if (video.muted) {
+          video.muted = false;
+        }
+        video.volume = 0.5;
+      };
+      
+      const handleError = (e: Event) => {
+        console.error('Video error:', e);
+      };
+      
+      // Add event listeners
+      video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('playing', handlePlaying);
+      video.addEventListener('error', handleError);
+      
+      // Try to play immediately if video is already loaded
+      if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+        handleCanPlay();
+      }
+      
+      // Cleanup
+      return () => {
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('playing', handlePlaying);
+        video.removeEventListener('error', handleError);
+      };
     }
   }, []);
 
@@ -712,6 +757,7 @@ const Home = () => {
                   autoPlay
                   loop
                   playsInline
+                  muted
                   preload="auto"
                   style={{
                     WebkitTransform: 'translateZ(0)',

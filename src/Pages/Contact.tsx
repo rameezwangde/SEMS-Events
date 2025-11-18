@@ -19,6 +19,7 @@ const Contact = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set());
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+
   const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   // Handle service parameter from URL
@@ -988,7 +989,7 @@ const Contact = () => {
                           MESSAGE SENT SUCCESSFULLY!
                         </motion.p>
                         <motion.p 
-                          className="text-white/90 text-sm sm:text-base font-mono"
+                          className="text-white/90 text-sm sm:text-base font-mono mb-4"
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.4 }}

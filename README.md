@@ -1,5 +1,5 @@
 # SEMS Events - Premium Event Management Website
-
+ npm run dev:all
 A modern, responsive website for SEMS Events, a premium event management company. Built with React, TypeScript, Tailwind CSS, and Framer Motion.
 
 ## Features
